@@ -1,6 +1,6 @@
 # tooltip-audit
 
-Can a language model catch ability tooltips that disagree with the game data behind them, before players see them? This project tests that on League of Legends, against a plain script as the baseline and against tooltip bugs Riot has already fixed as the answer key.
+Can a language model catch ability tooltips that disagree with the game data behind them, before players see them? This project tests that on League of Legends, against a plain script, on errors planted in the tooltips, with tooltip bugs Riot has already fixed as a case study.
 
 Status: planning. No results yet. The plan is in [PLAN.md](PLAN.md).
 
