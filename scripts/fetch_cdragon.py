@@ -4,7 +4,9 @@
 For each live patch this saves, under <out>/<patch>/ with the remote path kept:
   - content-metadata.json, which names the CommunityDragon build the files came from
   - the string table (tooltip text) for each requested locale
-  - champion-summary.json (the champion list)
+  - champion-summary.json (the champion list). Two folders, 11.7 and 13.3, have no plugins/
+    folder and so no champion list; there the list comes from a neighboring patch (see
+    PatchRun.champion_list) and manifest.json records which one
   - every playable champion's game data, game/data/characters/<id>/<id>.bin.json, and for
     patches before 11.1 also the binary game/data/characters/<id>/<id>.bin, because the JSON
     exports of those patches leave out the class names that the resolver needs
@@ -365,8 +367,9 @@ def discover_locales(f, patch):
 
 
 class PatchRun:
-    def __init__(self, f, patch, out_root, refresh=False):
+    def __init__(self, f, patch, out_root, refresh=False, available=None):
         self.f = f
+        self.available = available  # live patch names, for the champion list fallback
         self.patch = patch
         self.dir = out_root / patch
         self.refresh = refresh
@@ -435,15 +438,102 @@ class PatchRun:
                 return layout, path
             if any(x["path"] == path for x in self.failures):
                 return None, None
-        self.failures.append({"path": f"string table for {locale}", "error": "not found at " + ", ".join(tried)})
+        # Say which languages the patch does have, since the set changes over the years
+        # (id_id first appears between 14.15 and 15.14, for example).
+        have = locales_from_listings(self.listing("game"), self.listing("game/data/menu"))
+        self.failures.append({"path": f"string table for {locale}",
+                              "error": "not found at " + ", ".join(tried)
+                                       + ". This patch has: " + (", ".join(have) or "no languages listed")})
         return None, None
 
+    def reference_summary(self, patch):
+        """(champion list, build) of another patch's champion-summary.json, or None if it
+        has none. Raises on a network failure or a bad file, so the fallback never quietly
+        skips a patch that does have a list."""
+        body = self.f.get(f"{BASE}/{patch}/{CHAMPION_SUMMARY}")
+        if body is None:
+            return None
+        problem = check_body(CHAMPION_SUMMARY, body)
+        if problem:
+            raise RuntimeError(f"{patch} {CHAMPION_SUMMARY}: {problem}")
+        meta = self.f.get(f"{BASE}/{patch}/{CONTENT_METADATA}")
+        problem = "not found" if meta is None else check_body(CONTENT_METADATA, meta)
+        if problem:
+            raise RuntimeError(f"{patch} {CONTENT_METADATA}: {problem}")
+        return json.loads(body), json.loads(meta)["version"]
+
+    def champion_list(self):
+        """(summary, source, release_unknown), or None if no champion list was found.
+
+        summary is this patch's champion-summary.json if it has one. A folder without one
+        (11.7 and 13.3 have no plugins/ folder at all, checked on 2026-10-05) takes the list
+        of the nearest earlier patch that has one. Champions have never been taken out of
+        the game, so everyone on that list is playable here too, as long as this patch has
+        their character folder. The folder listing alone can't say who is playable: it also
+        holds minions, pets, TFT units and champions whose files shipped before release.
+        A champion released in the patches between would be missed, so the nearest later
+        list is read too, and any champion only on it whose folder is here is returned in
+        release_unknown, not saved, and recorded as a failure. With no earlier list, the
+        later one is used and that is a failure too, since it can name champions released
+        after this patch.
+        """
+        if self.save(CHAMPION_SUMMARY):
+            summary = json.loads((self.dir / CHAMPION_SUMMARY).read_text(encoding="utf-8"))
+            return summary, {"file": CHAMPION_SUMMARY}, []
+        if any(x["path"] == CHAMPION_SUMMARY for x in self.failures):
+            return None  # a download error, not a missing file: don't swap in another list
+        available = self.available if self.available is not None else discover_patches(self.f)
+        here = patch_key(self.patch)
+        earlier = sorted((p for p in available if patch_key(p) < here), key=patch_key, reverse=True)
+        later = sorted((p for p in available if patch_key(p) > here), key=patch_key)
+        found = {}
+        for side, patches in (("earlier", earlier), ("later", later)):
+            for p in patches:
+                ref = self.reference_summary(p)
+                if ref:
+                    found[side] = (p, *ref)
+                    break
+        if not found:
+            return None
+        side = "earlier" if "earlier" in found else "later"
+        patch, summary, build = found[side]
+        # file is the list's path inside from_patch (under BASE, or under the output root if
+        # that patch was fetched too), since nothing is saved under this patch's folder.
+        source = {"file": CHAMPION_SUMMARY, "saved_in_this_folder": False,
+                  "from_patch": patch, "from_cdragon_version": build,
+                  "reason": f"this folder has no {CHAMPION_SUMMARY}; nearest {side} patch with one"}
+        release_unknown = []
+        if side == "later":
+            self.failures.append({
+                "path": "champion list",
+                "error": f"no patch before {self.patch} has a champion list, so {patch}'s list was used. "
+                         f"It can name champions released after {self.patch}; check the saved ones by hand"})
+        elif "later" in found:
+            source["checked_against_patch"] = found["later"][0]
+            have = {c["alias"].lower() for c in summary}
+            folders = self.listing("game/data/characters") or {}
+            release_unknown = sorted(
+                c["alias"] for c in found["later"][1]
+                if 0 < c["id"] < MAX_CHAMPION_ID and c["alias"].lower() not in have
+                and c["alias"].lower() in folders)
+            for alias in release_unknown:
+                self.failures.append({
+                    "path": f"champion {alias}",
+                    "error": f"has a character folder here and is on {found['later'][0]}'s list but not on "
+                             f"{patch}'s, so it may have been released in between; not saved"})
+        return summary, source, release_unknown
+
     def champions(self):
-        if not self.save(CHAMPION_SUMMARY):
+        try:
+            listed = self.champion_list()
+        except Exception as e:  # noqa: BLE001 (record and keep going)
+            self.failures.append({"path": "champion list from a neighboring patch", "error": str(e)})
+            return {}
+        if listed is None:
             if not any(x["path"] == CHAMPION_SUMMARY for x in self.failures):
                 self.failures.append({"path": CHAMPION_SUMMARY, "error": "champion list not found"})
             return {}
-        summary = json.loads((self.dir / CHAMPION_SUMMARY).read_text(encoding="utf-8"))
+        summary, source, release_unknown = listed
         playable = [c for c in summary if 0 < c["id"] < MAX_CHAMPION_ID]
         excluded = sorted(c["alias"] for c in summary if not 0 < c["id"] < MAX_CHAMPION_ID)
 
@@ -472,11 +562,14 @@ class PatchRun:
         for alias in unmapped:
             self.failures.append({"path": f"champion {alias}", "error": "no matching character folder"})
         result = {
+            "list_source": source,
             "playable": len(playable),
             "saved": saved,
             "unmapped": unmapped,
             "excluded_from_summary": excluded,
         }
+        if release_unknown:
+            result["release_unknown_not_saved"] = release_unknown
         if with_bin:
             result["bin_saved"] = bin_saved
         return result
@@ -582,7 +675,10 @@ def main():
     if missing:
         ap.error(f"not on CommunityDragon: {', '.join(missing)}")
 
-    locales = ["all"] if args.locales == "all" else [x.strip() for x in args.locales.split(",") if x.strip()]
+    # Case is ignored, so zh_CN works too: every CommunityDragon path uses lower case.
+    locales = [x.strip().lower() for x in args.locales.split(",") if x.strip()]
+    if "all" in locales:
+        locales = ["all"]
     bad = [x for x in locales if x != "all" and not LOCALE_RE.match(x)]
     if bad:
         ap.error(f"bad locale(s): {', '.join(bad)}")
@@ -590,7 +686,7 @@ def main():
     exit_code = 0
     for patch in wanted:
         try:
-            m = PatchRun(f, patch, args.out, refresh=args.refresh).run(locales)
+            m = PatchRun(f, patch, args.out, refresh=args.refresh, available=available).run(locales)
         except BuildMismatch as e:
             print(f"{patch}: STOPPED, {e}")
             exit_code = 1
@@ -601,6 +697,9 @@ def main():
             continue
         c, r = m["champions"], m["last_run"]
         bins = f" (binaries {c['bin_saved']})" if "bin_saved" in c else ""
+        src = c.get("list_source", {}).get("from_patch")
+        if src:
+            bins += f" (champion list from {src})"
         print(f"{patch}: build {m['cdragon_version']} ({r['mode']}), {m['file_count']} files, "
               f"{m['total_bytes'] / 1e6:.1f} MB ({r['downloaded_bytes'] / 1e6:.1f} MB new), "
               f"champions {c.get('saved', 0)}/{c.get('playable', 0)}{bins}, "

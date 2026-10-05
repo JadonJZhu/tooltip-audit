@@ -3,6 +3,7 @@
 
 Reads what fetch_cdragon.py saved under data/raw/<patch>/ and writes, per patch and language:
   data/resolved/<patch>.<locale>.jsonl          one record per (spell, tooltip text field) pair
+  data/resolved/<patch>.<locale>.spells.jsonl   the gameplay side: one line per spell (see below)
   data/resolved/<patch>.<locale>.summary.json   coverage counts and the reasons values were not resolved
 
 How a tooltip is found. Each champion SpellObject names its text through
@@ -25,14 +26,31 @@ A {{Name}} include inside a text is listed on the record but not expanded.
 Some exports store an entry under the FNV-1a hash of its path instead of the path (Senna's
 record and spells in 10.1). The champion record is then found by the hash of
 Characters/<Folder>/CharacterRecords/Root, and the spells it names by the hashes of their
-paths. A spell stored under a hash sometimes names the same text as the spell the text
-belongs to (Aurora's R missile, '{36b6a65c}' in 15.16, reuses the R tooltip); its records
-carry duplicate_of with that spell's path, so they can be dropped, and the summary counts them
-(see duplicate_targets for the rule). The summary's checked_records counts the records left
+paths. A spell sometimes names the same text as the spell the text belongs to (MalzaharWCancel
+reuses Spell_MalzaharW_Tooltip in 15.1, and Aurora's R missile, '{36b6a65c}' in 15.16, reuses
+the R tooltip); its records carry duplicate_of with that spell's path, so they can be dropped,
+and the summary counts them (see duplicate_targets for the rule). The summary's checked_records counts the records left
 once duplicate_of and passiveToolTip records are dropped, overall and per text field.
 
 Each record and summary carries the build (cdragon_version) from the fetch manifest, and the
 summary copies the manifest's list of failed downloads.
+
+The gameplay side. A record shows the text and the value behind each placeholder; the spells
+file shows what the text is checked against. It has one line per spell, keyed by key
+('<champion folder>:<spell path>'), for every spell with a record, every spell grouped with one
+in the same ability (see spell_groups), and every spell a record or a calculation refers to
+(@spell.EliseSpiderE:Effect6Amount@, or a part reading another spell's data value). A line
+gives the spell's data values and effect amounts per rank, its coefficient fields (mCoefficient,
+mCoefficient2), cooldown and cost, every calculation as written with its value per rank (with
+the name of each data value it gives only as a hash, where a known name has that hash), its
+level-up list with each row's label text, its value and that value times the row's multiplier
+(the number the game shows), and the keys of its group's other spells (group) and of the
+spells its calculations read (refers_to). Each record names its line in
+spell_context, and the spells its own placeholders read in referenced_spells. A record of
+extended text (keyTooltipExtended or keyTooltipExtendedBelowLine) whose spell sets
+EnableExtendedTooltip false carries extended_text_hidden_in_game, since the game does not show
+that text (39 spells in 16.19 set it, 4 of them with extended text); such records still count
+as checked.
 
 Where the text lives. The text file has five forms over the years, listed with their patches
 in scripts/README.md, and this script reads all five. The oldest, fontconfig_<locale>.txt, is
@@ -80,7 +98,8 @@ one the tooltip uses.
 
 Stat codes. mStat numbers changed several times: before 11.11 the codes from 4 up sat one
 lower; up to 10.20 health and current health sat one lower again; codes from 11 or 12 up
-moved from patch to patch until 11.11; and between 15.1 and 15.16 three stats were inserted. That gives four layouts, D (oldest), C, A and B. The script tells them
+moved from patch to patch until 11.11; and three stats were inserted, one in 15.7 and two in
+15.16. That gives five layouts: D (oldest), C, A, E (15.7 to 15.15) and B. The script tells them
 apart from eight anchor calculations and labels stats only when one layout fits every anchor
 that names a stat. Otherwise the layout is 'unknown' and stats are labeled 'stat #N'. In
 layouts C and D only the codes whose meaning held steady are named. The summary counts stat
@@ -172,22 +191,31 @@ STATS_C = {code: STATS_A[code if code <= 3 else code + 1] for code in (0, 1, 2, 
 # around it. Codes from 11 up are left unnamed, as in layout C.
 STATS_D = {code: STATS_C[code] for code in range(9)}
 STATS_D.update({9: "health", 10: "current health"})
-STAT_TABLES = {"A": STATS_A, "B": STATS_B, "C": STATS_C, "D": STATS_D}
+# The layout from 15.7 to 15.15, between A and B: one of B's three new stats came in 15.7 and the
+# other two in 15.16. Pairing identical stat parts in 15.6 and 15.7 (1,442 parts) gives 0-2
+# unchanged and every code from 3 up one higher than layout A; pairing 15.15 and 15.16 (1,486
+# parts) gives 0-12 unchanged, 13 to 14 and 14 and later two higher, which is layout B. Code 3 is
+# new and unnamed, as in layout B.
+STATS_E = {0: "AP", 1: "armor", 2: "AD", 3: None}
+STATS_E.update({code + 1: name for code, name in STATS_A.items() if code >= 3})
+STAT_TABLES = {"A": STATS_A, "B": STATS_B, "C": STATS_C, "D": STATS_D, "E": STATS_E}
 
 # (champion folder, spell script name, calculation, {layout: stat codes in that layout}).
 # Spells are found by script name because older files put them in a different folder
 # (Characters/Braum/Spells/BraumW before Characters/Braum/Spells/BraumWAbility/BraumW).
+# Layouts B and E agree below 13, so only Zac, Pyke and Urgot tell them apart.
 STAT_ANCHORS = [
-    ("akshan", "AkshanPassive", "ASModdedMS", {"A": [{3}], "B": [{4}]}),
-    ("braum", "BraumW", "GrantedAllyMR", {"A": [{5}], "B": [{6}], "C": [{4}], "D": [{4}]}),
-    ("alistar", "AlistarPassive", "BaseHeal", {"A": [{11}], "B": [{12}]}),
-    ("zac", "ZacQ", "HealthCostTooltip", {"A": [{11, 12}], "B": [{12, 14}], "C": [{10, 11}], "D": [{9, 10}]}),
+    ("akshan", "AkshanPassive", "ASModdedMS", {"A": [{3}], "B": [{4}], "E": [{4}]}),
+    ("braum", "BraumW", "GrantedAllyMR", {"A": [{5}], "B": [{6}], "C": [{4}], "D": [{4}], "E": [{6}]}),
+    ("alistar", "AlistarPassive", "BaseHeal", {"A": [{11}], "B": [{12}], "E": [{12}]}),
+    ("zac", "ZacQ", "HealthCostTooltip", {"A": [{11, 12}], "B": [{12, 14}], "C": [{10, 11}], "D": [{9, 10}],
+                                          "E": [{12, 13}]}),
     ("pyke", "PykeR", "RDamage", {"A": [{2, 26}], "B": [{2, 29}], "C": [{2, n} for n in range(19, 26)],
-                                  "D": [{2, n} for n in range(19, 26)]}),
-    ("urgot", "UrgotPassive", "CastRange", {"A": [{28}], "B": [{31}]}),
+                                  "D": [{2, n} for n in range(19, 26)], "E": [{2, 27}]}),
+    ("urgot", "UrgotPassive", "CastRange", {"A": [{28}], "B": [{31}], "E": [{29}]}),
     # Both are present, under these calculation names or their hashes, in every patch from 10.1.
-    ("chogath", "Feast", "RDamage", {"A": [{11}], "B": [{12}], "C": [{10}], "D": [{9}]}),
-    ("garen", "GarenW", "TotalShield", {"A": [{11}], "B": [{12}], "C": [{10}], "D": [{9}]}),
+    ("chogath", "Feast", "RDamage", {"A": [{11}], "B": [{12}], "C": [{10}], "D": [{9}], "E": [{12}]}),
+    ("garen", "GarenW", "TotalShield", {"A": [{11}], "B": [{12}], "C": [{10}], "D": [{9}], "E": [{12}]}),
 ]
 STAT_FORMULA = {0: "", 1: "base ", 2: "bonus "}
 PQWER_SLOTS = ("P", "Q", "W", "E", "R")
@@ -349,17 +377,23 @@ class TextTable:
             self.entries = by_hash
             self.readable = False
         self.mask = (1 << rst_hash_bits(self.version)) - 1
-        self.found_by_hash = 0  # readable tables only: keys present only as a hash
+        # Readable tables only: keys present only as a hash. Tooltip keys count in found_by_hash,
+        # other lookups (level-up labels) in others_found_by_hash.
+        self.found_by_hash = 0
+        self.others_found_by_hash = 0
 
     def key_hash(self, key):
         return xxh64(key.lower().encode("utf-8")) & self.mask
 
-    def get(self, key):
+    def get(self, key, tooltip_key=True):
         if self.readable:
             text = self.entries.get(key.lower())
             if text is None:
                 text = self.entries.get("{%010x}" % self.key_hash(key))
-                self.found_by_hash += text is not None
+                if tooltip_key:
+                    self.found_by_hash += text is not None
+                else:
+                    self.others_found_by_hash += text is not None
             return text
         return self.entries.get(self.key_hash(key))
 
@@ -419,7 +453,7 @@ mSubpart mAbilityResource mBuffName buffName Coefficient mStartValue mEndValue
 mScaleByStatProgressionMultiplier mScalePastDefaultMaxLevel mBreakpoints mLevel
 mAdditionalBonusAtThisLevel mBonusPerLevelAtAndAfter mLevel1Value mInitialBonusPerLevel
 mSpellCalculationKey SourceObject DataValue StartDataValue EndDataValue level mFormula mBaseP
-mObjectName mFormat
+mObjectName mFormat Elements type typeIndex nameOverride multiplier Style EnableExtendedTooltip
 """.split()
 KNOWN_CLASSES = """
 SpellObject CharacterRecord AbilityObject SpellDataResource SpellDataValue SpellEffectAmount
@@ -1082,21 +1116,28 @@ class Context:
         return term_label(key, coef, percent_calc, self.stat_names)
 
 
+def stat_words(code, formula, stat_names):
+    """(reader's name of a stat code and formula, whether the game stores it as a fraction)."""
+    name = stat_names.get(code) if stat_names is not None else None
+    stat = name if name else f"stat #{code}"
+    fraction = stat in FRACTION_STATS or (stat == "attack speed" and formula == 2)
+    if stat == "health" and formula == 0:
+        stat = "max health"
+    return STAT_FORMULA.get(formula, f"formula{formula} ") + stat, fraction
+
+
+def resource_words(res, formula):
+    return STAT_FORMULA.get(formula, "") + ("max mana" if res == 0 else f"resource #{res}")
+
+
 def term_label(key, coef, percent_calc, stat_names):
     """A reader's wording of one scaling term. This is the script's own wording, not the game's."""
     kind = key[0]
     fraction = False
     if kind == "stat":
-        _, code, formula = key
-        name = stat_names.get(code) if stat_names is not None else None
-        stat = name if name else f"stat #{code}"
-        fraction = stat in FRACTION_STATS or (stat == "attack speed" and formula == 2)
-        if stat == "health" and formula == 0:
-            stat = "max health"
-        what = STAT_FORMULA.get(formula, f"formula{formula} ") + stat
+        what, fraction = stat_words(key[1], key[2], stat_names)
     elif kind == "resource":
-        _, res, formula = key
-        what = STAT_FORMULA.get(formula, "") + ("max mana" if res == 0 else f"resource #{res}")
+        what = resource_words(key[1], key[2])
     elif kind == "buff":
         what = f"per stack of buff {key[1]}"
     else:
@@ -1308,6 +1349,13 @@ def resolve_placeholder(tok_text, champ, spell, ranks, stat_names):
     out.update({k: v for k, v in info.items()})
     decimals = tok["precision"] if tok["precision"] is not None and tok["precision"] >= 0 else \
         (precision if precision is not None else DEFAULT_DECIMALS)
+    describe_values(out, ranks, per_rank, percent, decimals, ctx)
+    return out
+
+
+def describe_values(out, ranks, per_rank, percent, decimals, ctx):
+    """Add ranks, base, level_range, scalings and display for per-rank values to out."""
+    stat_names = ctx.stat_names
     out["ranks"] = list(ranks)
     out["base"] = [clean(e.const) for e in per_rank]
     if any(e.level is not None for e in per_rank):
@@ -1338,7 +1386,6 @@ def resolve_placeholder(tok_text, champ, spell, ranks, stat_names):
             s += " (" + " ".join(ctx.term_label(k, v, percent) for k, v in e.terms.items()) + ")"
         disp.append(s)
     out["display"] = disp
-    return out
 
 
 # ---------------------------------------------------------------------------------------
@@ -1370,6 +1417,484 @@ def tokens_in(text):
     """(token matches, @ signs left unpaired). A stray @ would shift every later pairing."""
     matches = list(TOKEN_RE.finditer(text))
     return matches, text.count("@") - 2 * len(matches)
+
+
+# ---------------------------------------------------------------------------------------
+# Spell context: the gameplay side each record is checked against
+
+# Calculation fields that name another calculation of the same spell, and fields that name a
+# data value. Their values are also used to put names to calculations stored under a hash.
+CALC_REF_FIELDS = ("mModifiedGameCalculation", "mDefaultGameCalculation", "mConditionalGameCalculation",
+                   "mSpellCalculationKey")
+NAME_FIELDS = CALC_REF_FIELDS + ("mDataValue", "DataValue", "StartDataValue", "EndDataValue")
+STAT_PART_TYPES = ("StatByCoefficientCalculationPart", "StatByNamedDataValueCalculationPart",
+                   "StatBySubPartCalculationPart")
+# Part fields that name a data value, and the field the script adds beside one stored as a hash.
+DATA_VALUE_NAME_FIELDS = {"mDataValue": "data_value_name", "DataValue": "data_value_name",
+                          "StartDataValue": "start_data_value_name", "EndDataValue": "end_data_value_name"}
+SPELL_STAT_NAMES = ("Cooldown", "Cost", "AmmoRechargeTime", "MaxAmmo", "CastRange")
+EXTENDED_FIELDS = ("keyTooltipExtended", "keyTooltipExtendedBelowLine")
+
+
+def spell_key(folder, path):
+    """The id of one spell in the spells file. A path alone is not unique: a hashed path such as
+    '{36b6a65c}' could appear in two champions' files."""
+    return f"{folder}:{path}"
+
+
+def script_of(spell):
+    return (spell.script or spell.path.rsplit("/", 1)[-1]).lower()
+
+
+def spell_name(spell):
+    """A spell's script name as written, or the last part of its path."""
+    return spell.script or spell.path.rsplit("/", 1)[-1]
+
+
+def name_continues(name, seed_len):
+    """Whether name, which begins with a slot spell's name seed_len long, ends there or goes on
+    with a new word (an uppercase letter, a digit or an underscore): SionWDetonate and
+    RellR_Damage go on from SionW and RellR, but GarenRunCycleManager does not go on from GarenR."""
+    return len(name) == seed_len or name[seed_len].isupper() or name[seed_len].isdigit() or name[seed_len] == "_"
+
+
+# Basic and critical attacks name each other (AatroxBasicAttack3's mAlternateName is
+# AatroxBasicAttack2), so they take no part in linking.
+ATTACK_RE = re.compile(r"basicattack|critattack", re.I)
+# Script-name prefixes of spells that belong to a game mode, not to the champion's own kit:
+# NightmareBot (Doom Bots, NightmareBotLuxQSplit in Lux's file), Odyssey (OdysseyAugments_SonaE
+# in Sona's file) and Strawberry_ (Swarm, whose champions have folders of their own). These are
+# the prefixes shared by spells of three or more champions in the saved patches 10.11 to 16.19.
+# Such a spell joins no group by any rule and takes no part in linking; an AbilityObject that
+# names one still groups it, as the game does.
+GAME_MODE_PREFIXES = ("nightmarebot", "odyssey", "strawberry_")
+
+
+def is_game_mode(spell):
+    return spell_name(spell).lower().startswith(GAME_MODE_PREFIXES)
+LINKED = "names or is named by a spell of the group"
+
+
+def spell_links(ch, skip):
+    """{lower-case path: set of lower-case paths}: two spells are linked when a string anywhere
+    in one spell's entry names the other, by script name, path, ObjectName or the hash of its
+    path (AatroxQ2's mClientData names Characters/Aatrox/Spells/AatroxQ in a field the export
+    leaves hashed). Text keys, a spell's own name and mAlternateName are not read: mAlternateName
+    often holds a name copied from another spell rather than a link (VladimirEMissile's is
+    VladimirTransfusionHeal, his Q, in 11.7). Spells in skip take no part."""
+    by_name = {}
+    for p, sp in ch.spells_lc.items():
+        for n in (sp.script, p.rsplit("/", 1)[-1], sp.obj.get("ObjectName") or "", p, fnv1a(p)):
+            if n:
+                by_name.setdefault(n.lower(), p)
+
+    def strings(obj, key=None):
+        if isinstance(obj, dict):
+            for k, v in obj.items():
+                if k not in ("mScriptName", "mLocKeys", "mAlternateName", "__type"):
+                    yield from strings(v, k)
+        elif isinstance(obj, list):
+            for v in obj:
+                yield from strings(v, key)
+        elif isinstance(obj, str):
+            yield obj
+
+    links = {}
+    for p, sp in ch.spells_lc.items():
+        if p in skip:
+            continue
+        for v in strings(sp.obj):
+            t = by_name.get(v.lower())
+            if t and t != p and t not in skip:
+                links.setdefault(p, set()).add(t)
+                links.setdefault(t, set()).add(p)
+    return links
+
+
+def spell_groups(ch, later=None):
+    """{lower-case spell path: (group id, source, seed path, [lower-case member paths], joined_by)}.
+
+    A spell named by an AbilityObject (its mRootSpell or one of its mChildSpells) is grouped
+    with that object's other spells; this is the game's own grouping (source 'AbilityObject').
+    Champions gained AbilityObjects between 11.1 and 12.6 (Corki in 11.23, Orianna in 12.6), and
+    before that most have none (Sion in 10.12 has one for R only), so each P, Q, W, E or R spell
+    no AbilityObject names starts a group (source 'slot spell'; the seed path is that spell, and
+    None for an AbilityObject group). A spell no AbilityObject names joins one, as joined_by
+    records, in this order:
+      1. 'script-name prefix': the slot spell's script name begins its own and the next letter
+         starts a new word (uppercase, a digit or '_'), the longest such name winning.
+         SionWDetonate, SionWPassive and SionWSoundExplosion join SionW; GarenRunCycleManager
+         does not join GarenR (nor, by this rule, does AkaliEb join AkaliE).
+      2. 'AbilityObject in <patch>': later maps a lower-case script name to (the lower-case
+         script name of the root spell of the AbilityObject naming it, the patch), from the
+         first later patch whose AbilityObjects have that slot spell as a root (see
+         later_ability_groups); the spell joins the slot spell with that root's script name.
+         Corki's GGSpray is linked to GGun by nothing in 11.7, but 11.23 puts it in GGun's
+         ability, and 12.6 puts OrianaRedact in the ability of OrianaRedactCommand, her E.
+      3. LINKED: spells still in no group that are linked to each other (spell_links), taken
+         together, join the one group their links reach; a set whose links reach two groups
+         joins neither.
+    Basic and critical attacks join only by rule 1, and game-mode spells (GAME_MODE_PREFIXES)
+    by none, nor do they start a group. A spell matching none is in no group, and so is a slot
+    spell nothing joins. Groups made by AbilityObjects are never changed."""
+    members = {}
+    group_of = {}
+    joined = {}
+    for p in ch.spells_lc:
+        ab = ch.ability_of.get(p)
+        if ab:
+            members.setdefault(ab[0], ("AbilityObject", None, []))[2].append(p)
+            group_of[p] = ab[0]
+            joined[p] = "AbilityObject"
+    in_objects = set(group_of)
+    seeds = slot_seeds(ch)
+
+    def join(p, seed, how):
+        gid = f"script name {ch.spells_lc[seed].script or spell_name(ch.spells_lc[seed])}"
+        members.setdefault(gid, ("slot spell", seed, []))[2].append(p)
+        group_of[p] = gid
+        joined[p] = how
+
+    game_mode = {p for p, sp in ch.spells_lc.items() if p not in in_objects and is_game_mode(sp)}
+    seeds = [(n, seed) for n, seed in seeds if seed not in game_mode]
+    for _, seed in seeds:
+        if seed not in group_of:
+            join(seed, seed, "slot spell")
+    for p, sp in ch.spells_lc.items():
+        if p in group_of or p in game_mode:
+            continue
+        name = spell_name(sp)
+        for seed_name, seed in seeds:
+            if seed_name and name.lower().startswith(seed_name.lower()) and name_continues(name, len(seed_name)):
+                join(p, seed, "script-name prefix")
+                break
+    if later:
+        seed_by_name = {}
+        for seed_name, seed in seeds:
+            seed_by_name.setdefault(seed_name.lower(), seed)
+        for p, sp in ch.spells_lc.items():
+            root, where = later.get(spell_name(sp).lower(), (None, None))
+            if (p not in group_of and p not in game_mode and root in seed_by_name
+                    and not ATTACK_RE.search(spell_name(sp))):
+                join(p, seed_by_name[root], f"AbilityObject in {where}")
+    skip = in_objects | game_mode | {p for p, sp in ch.spells_lc.items() if ATTACK_RE.search(spell_name(sp))}
+    links = spell_links(ch, skip)
+    # Spells in no group, linked to each other, form a set; the set joins the one group its
+    # members' links reach. Grouped spells end a set, so two groups never merge through one.
+    seen = set()
+    for start in links:
+        if start in seen or start in group_of:
+            continue
+        comp, todo, gids = [], [start], set()
+        seen.add(start)
+        while todo:
+            p = todo.pop()
+            comp.append(p)
+            for q in links.get(p, ()):
+                if q in group_of:
+                    gids.add(group_of[q])
+                elif q not in seen:
+                    seen.add(q)
+                    todo.append(q)
+        if len(gids) == 1:
+            seed = members[gids.pop()][1]
+            for p in sorted(comp):
+                join(p, seed, LINKED)
+    return {p: (gid, members[gid][0], members[gid][1], members[gid][2], joined[p])
+            for p, gid in group_of.items() if len(members[gid][2]) > 1}
+
+
+def patch_key(name):
+    return tuple(int(x) for x in re.findall(r"\d+", name))
+
+
+_ABILITY_MAPS = {}
+_PATCH_LISTS = {}
+
+
+def ability_map(raw_root, patch, folder):
+    """(complete, {lower-case root script name: [lower-case member script names]}) for one
+    champion's AbilityObjects in one patch; complete when every P, Q, W, E and R spell is in one.
+    Files with no AbilityObject (all exports before 11.1 name no classes) are not parsed.
+    Cached for the run."""
+    key = (str(raw_root), patch, folder)
+    if key not in _ABILITY_MAPS:
+        result = (False, {})
+        f = raw_root / patch / "game/data/characters" / folder / f"{folder}.bin.json"
+        if f.exists():
+            text = f.read_text(encoding="utf-8")
+            if '"AbilityObject"' in text or fnv1a("AbilityObject") in text:
+                data = load_champion_data(f)[0]
+                ch = Champion(folder, data) if data is not None else None
+                if ch is not None and ch.ability_of:
+                    roots = {}
+                    for path, (_, root) in ch.ability_of.items():
+                        sp, rs = ch.spells_lc.get(path), ch.spells_lc.get(root) if root else None
+                        if sp is not None and rs is not None:
+                            roots.setdefault(spell_name(rs).lower(), []).append(spell_name(sp).lower())
+                    complete = all(p in ch.ability_of for p, slot in ch.slots.items()
+                                   if slot in PQWER_SLOTS and p in ch.spells_lc)
+                    result = (complete, roots)
+        _ABILITY_MAPS[key] = result
+    return _ABILITY_MAPS[key]
+
+
+def later_ability_groups(raw_root, patch, folder, seed_names):
+    """{lower-case script name: (lower-case root script name, patch)}, for spell_groups' rule 2.
+    For each slot spell name in seed_names, the first later patch under raw_root in which an
+    AbilityObject has a root spell of that script name gives that object's members. The search
+    stops at the first patch in which every slot spell of the champion is in an AbilityObject
+    (11.23 for Corki, 12.6 for Orianna), since a name not found by then is not coming back."""
+    root = str(raw_root)
+    if root not in _PATCH_LISTS:
+        _PATCH_LISTS[root] = sorted((p.name for p in raw_root.iterdir() if (p / "manifest.json").exists()),
+                                    key=patch_key) if raw_root.is_dir() else []
+    out = {}
+    todo = {n.lower() for n in seed_names}
+    for later in _PATCH_LISTS[root]:
+        if not todo:
+            break
+        if patch_key(later) <= patch_key(patch):
+            continue
+        complete, roots = ability_map(raw_root, later, folder)
+        for name in sorted(todo & set(roots)):
+            for member in roots[name]:
+                out.setdefault(member, (name, later))
+            todo.discard(name)
+        if complete:
+            break
+    return out
+
+
+def slot_seeds(ch):
+    """[(script name, lower-case path)] of the P, Q, W, E and R spells no AbilityObject names,
+    longest name first."""
+    return sorted(((spell_name(ch.spells_lc[p]), p) for p, slot in ch.slots.items()
+                   if slot in PQWER_SLOTS and p in ch.spells_lc and p not in ch.ability_of),
+                  key=lambda x: -len(x[0]))
+
+
+def raw_entry(obj):
+    """A bin object as written, floats rounded, so a reader sees the game's own field names."""
+    if isinstance(obj, dict):
+        return {k: raw_entry(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [raw_entry(v) for v in obj]
+    return clean(obj)
+
+
+def part_entry(p, stat_names, dv_name=None):
+    """One calculation part as written, plus 'stat' (the stat it reads, with the class defaults
+    the export leaves out filled in), 'effect' (the EffectNAmount it reads) and, where a data
+    value is named only by its hash ({"mDataValue": "{03da00f9}"} in 10.20), the name whose hash
+    it is, in 'data_value_name' (or 'start_data_value_name' and 'end_data_value_name'). dv_name
+    gives that name for (hash, part), or None when no name the script knows has that hash; the
+    field is then left out."""
+    if not isinstance(p, dict):
+        return raw_entry(p)
+    out = {}
+    for k, v in p.items():
+        if isinstance(v, dict) and "__type" in v:
+            out[k] = part_entry(v, stat_names, dv_name)
+        elif isinstance(v, list) and any(isinstance(x, dict) and "__type" in x for x in v):
+            out[k] = [part_entry(x, stat_names, dv_name) for x in v]
+        else:
+            out[k] = raw_entry(v)
+        if (k in DATA_VALUE_NAME_FIELDS and dv_name is not None and isinstance(v, str)
+                and v.startswith("{") and (name := dv_name(v, p)) is not None):
+            out[DATA_VALUE_NAME_FIELDS[k]] = name
+    t = p.get("__type")
+    if t in STAT_PART_TYPES:
+        out["stat"] = stat_words(int(p.get("mStat", 0)), int(p.get("mStatFormula", 0)), stat_names)[0]
+    elif t == "AbilityResourceByCoefficientCalculationPart":
+        out["stat"] = resource_words(int(p.get("mAbilityResource", 0)), int(p.get("mStatFormula", 0)))
+    elif t == "EffectValueCalculationPart":
+        out["effect"] = f"Effect{int(p.get('mEffectIndex', 0))}Amount"
+    return out
+
+
+def names_in(obj, out):
+    """Collect the strings obj gives in NAME_FIELDS (calculation and data value names)."""
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if k in NAME_FIELDS and isinstance(v, str):
+                out.add(v)
+            else:
+                names_in(v, out)
+    elif isinstance(obj, list):
+        for v in obj:
+            names_in(v, out)
+    return out
+
+
+def calc_refs(ch, spell, name, depth=DEPTH):
+    """Lower-case paths of the other spells a calculation reads (SourceObject), following the
+    calculations it names."""
+    found = set()
+
+    def walk(obj, depth):
+        if depth <= 0:
+            return
+        if isinstance(obj, dict):
+            for k, v in obj.items():
+                if k == "SourceObject" and isinstance(v, str):
+                    found.add(ch.entry_path(v))
+                elif k in CALC_REF_FIELDS and isinstance(v, str):
+                    walk(spell.lookup(spell.calcs, v), depth - 1)
+                else:
+                    walk(v, depth)
+        elif isinstance(obj, list):
+            for v in obj:
+                walk(v, depth)
+
+    walk(spell.lookup(spell.calcs, name), depth)
+    found.discard(spell.path.lower())
+    return found
+
+
+def readable_dv_names(sp):
+    """{hash: name} for the data values a spell declares under a readable name."""
+    return {fnv1a(n): n for v in g(sp.m, "DataValues", "mDataValues", default=[]) or []
+            if isinstance(n := g(v, "name", "mName"), str) and not n.startswith("{")}
+
+
+def data_value_namer(ch, sp, known):
+    """dv_name for part_entry: the name whose hash a part's data value is, looked up first among
+    the data values of the spell the part reads (its SourceObject, else sp), then in known (every
+    other name the script has seen in this champion and then in the patch)."""
+    own = readable_dv_names(sp)
+
+    def name(h, part):
+        h = h.lower()
+        src = part.get("SourceObject")
+        if isinstance(src, str) and (other := ch.spells_lc.get(ch.entry_path(src))) is not None:
+            found = readable_dv_names(other).get(h)
+            if found:
+                return found
+        return own.get(h) or known.get(h)
+    return name
+
+
+def calc_result(ctx, name, ranks):
+    """A calculation's value per rank, worked out as for a placeholder naming it."""
+    per_rank = []
+    percent, precision = False, None
+    try:
+        for rank in ranks:
+            e, percent, precision, _ = ctx.calc_value(name, rank, DEPTH)
+            if percent:
+                e = Expr(e.const * 100, e.terms, None if e.level is None else [v * 100 for v in e.level])
+            per_rank.append(e)
+    except Unresolved as u:
+        out = {"status": "unresolved", "reason": u.reason}
+        if u.detail:
+            out["detail"] = u.detail
+        return out
+    out = {"status": "resolved"}
+    describe_values(out, ranks, per_rank, percent, precision if precision is not None else DEFAULT_DECIMALS, ctx)
+    return out
+
+
+def context_ranks(ch, path, sp, group):
+    """(ranks, rank_source) for the spells file. As for records, except that a spell with no
+    rank count of its own in a slot spell's group (see spell_groups) takes that spell's LevelUp count,
+    so SionWDetonate's values in 10.12 are shown for SionW's 5 ranks, and a spell still left with
+    one rank whose data varies is shown at indices 1 to 5 (Sona E in 10.22 has a LevelUp list
+    with no levelCount, and its Effect4Amount is 10% to 14% over those indices). Records keep
+    their own ranks."""
+    ranks, source, _ = rank_info(ch, path, sp)
+    one_rank = ("none (one rank)", "one rank, but data varies across indices 1 to 5")
+    if group and group[2] and source in one_rank:
+        n = level_count(ch.spells_lc[group[2]])
+        if n is not None:
+            return list(range(1, n + 1)), "slot spell's LevelUp list (its group)"
+    if source == one_rank[1]:
+        return [1, 2, 3, 4, 5], "no rank count, but data varies, so indices 1 to 5 are shown"
+    return ranks, source
+
+
+def values_by_rank(values, ranks):
+    if not isinstance(values, list) or not values:
+        return None
+    return [None if (v := ranked(values, r)) is None else clean(v) for r in ranks]
+
+
+def spell_context(ch, path, sp, keys, groups, stat_names, table, hash_names):
+    """The gameplay side of one spell, one line of the spells file. Names are as in the bin;
+    fields the script adds next to the game's own are lower-case words ('stat', 'effect',
+    'data_value_name', 'known_name', 'reads', 'label', 'value', 'value_times_multiplier',
+    'result', 'joined_by'). hash_names is {hash: name} for every name the script knows."""
+    low = path.lower()
+    group = groups.get(low)
+    ranks, rank_source = context_ranks(ch, path, sp, group)
+    ctx = Context(ch, sp, stat_names)
+    m = sp.m
+    out = {"key": keys[low], "spell_path": path, "script_name": sp.script or None, "slot": ch.slot(path),
+           "ranks": ranks, "rank_source": rank_source}
+    out["coefficients"] = {k: clean(v) for k, v in m.items()
+                           if "coefficient" in k.lower() and isinstance(v, (int, float)) and not isinstance(v, bool)}
+    # A data value declared with no numbers is null here; placeholders read it as 0.
+    dvs = {}
+    for v in g(m, "DataValues", "mDataValues", default=[]) or []:
+        name = g(v, "name", "mName")
+        if name is not None:
+            dvs[name] = values_by_rank(g(v, "values", "mValues") or [], ranks)
+    out["data_values"] = dvs
+    out["effect_amounts"] = {f"Effect{i}Amount": vals for i, eff in enumerate(m.get("mEffectAmount") or [], 1)
+                             if (vals := values_by_rank((eff or {}).get("value"), ranks)) is not None}
+    stats = {}
+    for name in SPELL_STAT_NAMES:
+        try:
+            stats[name] = [clean(spell_stat(sp, name.lower(), r)) for r in ranks]
+        except Unresolved:
+            pass
+    out["spell_stats"] = stats
+    calcs = {}
+    refs = set()
+    namer = data_value_namer(ch, sp, hash_names)
+    for name, c in (m.get("mSpellCalculations") or {}).items():
+        entry = {}
+        if name.startswith("{") and name in hash_names:
+            entry["known_name"] = hash_names[name]
+        entry.update(part_entry(c, stat_names, namer) if isinstance(c, dict) else {"value": raw_entry(c)})
+        entry["result"] = calc_result(ctx, name, ranks)
+        calcs[name] = entry
+        refs |= calc_refs(ch, sp, name)
+    out["calculations"] = calcs
+    td = (m.get("mClientData") or {}).get("mTooltipData") or {}
+    lu = (td.get("mLists") or {}).get("LevelUp") or {}
+    rows = []
+    for el in g(lu, "Elements", "elements", default=[]) or []:
+        if not isinstance(el, dict):
+            continue
+        row = {k: raw_entry(v) for k, v in el.items() if k != "__type"}
+        t = el.get("type")
+        if isinstance(t, str):
+            reads = t.replace("%d", str(int(el.get("typeIndex", 0)))) if "%d" in t else t
+            row["reads"] = reads
+            res = resolve_placeholder(reads, ch, sp, ranks, stat_names)
+            row["value"] = ({"display": res["display"]} if res["status"] == "resolved"
+                            else {"status": res["status"], "reason": res.get("reason")})
+            # 'value' is the raw number the row reads. The game shows it times the row's
+            # multiplier (Sona E's movement speed 0.1 times 100 shows as 10).
+            mult = el.get("multiplier")
+            if res["status"] == "resolved" and isinstance(mult, (int, float)) and not isinstance(mult, bool):
+                shown = resolve_placeholder(f"{reads}*{float(mult)!r}", ch, sp, ranks, stat_names)
+                if shown["status"] == "resolved":
+                    row["value_times_multiplier"] = {"display": shown["display"]}
+        label = table.get(el["nameOverride"], tooltip_key=False) if isinstance(el.get("nameOverride"), str) else None
+        if label is not None:
+            row["label"] = label
+        rows.append(row)
+    out["level_up"] = {"levelCount": lu.get("levelCount"), "rows": rows} if lu else None
+    if "EnableExtendedTooltip" in td:
+        out["EnableExtendedTooltip"] = td["EnableExtendedTooltip"]
+    out["group"] = None
+    if group:
+        out["group"] = {"id": group[0], "source": group[1], "joined_by": group[4],
+                        "spells": [keys[p] for p in group[3] if p != low and p in keys]}
+    out["refers_to"] = sorted(keys[p] for p in refs if p in keys)
+    return out
 
 
 # ---------------------------------------------------------------------------------------
@@ -1443,22 +1968,27 @@ def output_paths(out_root, patch, locale):
     return out_root / f"{patch}.{locale}.jsonl", out_root / f"{patch}.{locale}.summary.json"
 
 
+def spells_path(out_root, patch, locale):
+    return out_root / f"{patch}.{locale}.spells.jsonl"
+
+
 class PatchFailed(Exception):
     """A patch that cannot be resolved at all (no manifest, or no readable text file)."""
 
 
 def duplicate_targets(jobs):
-    """{(hashed spell path, lower-case text key): spell path it duplicates} for one champion.
+    """{(spell path, lower-case text key): spell path it duplicates} for one champion.
 
-    A spell whose entry key the export left as a hash sometimes names the same text as another
-    spell (Aurora's AuroraRMissile, '{36b6a65c}' in 15.16, reuses Spell_AuroraR_Tooltip). The
-    text belongs to the only spell naming it in slot P, Q, W, E or R (also when every spell
-    naming it is stored under a hash, as for Samira in 10.20 and Rell in 10.25), or failing that
-    to the only spell whose script name the key carries (Spell_<Script>_Tooltip...). The other
-    hashed spells are marked as its duplicates. A key with no such owner is left unmarked.
-    The key-name rule at work: in 12.8 ZedW2 ('{e0c2427d}', W-form) and ZedR2 (R-form) share
-    Spell_ZedW2_Tooltip, and ZedW2 owns it by its script name, so ZedW2 is not marked. Spells
-    under readable paths are never marked."""
+    Two or more spells of a champion sometimes name the same text: MalzaharW and MalzaharWCancel
+    share Spell_MalzaharW_Tooltip in 15.1, YorickE and NightmareBotYorickE share
+    Spell_YorickE_Tooltip in 11.22, and Aurora's AuroraRMissile ('{36b6a65c}' in 15.16, stored
+    under a hash) reuses Spell_AuroraR_Tooltip. The text belongs to the only spell naming it in
+    slot P, Q, W, E or R (also when every spell naming it is stored under a hash, as for Samira
+    in 10.20 and Rell in 10.25), or failing that to the only spell whose script name the key
+    carries (Spell_<Script>_Tooltip...). Every other spell naming it is marked as its duplicate,
+    so the text is checked once. A key with no such owner is left unmarked. The key-name rule
+    at work: in 12.8 ZedW2 ('{e0c2427d}', W-form) and ZedR2 (R-form) share Spell_ZedW2_Tooltip,
+    ZedW2 owns it by its script name, and ZedR2 is marked."""
     owners = {}
     for path, sp, slot, fields in jobs:
         script = (getattr(sp, "script", "") or "").lower()
@@ -1479,7 +2009,7 @@ def duplicate_targets(jobs):
         else:
             continue
         for p, _, _ in users:
-            if p.startswith("{") and p != owner:
+            if p != owner:
                 out[(p, key)] = owner
     return out
 
@@ -1517,10 +2047,19 @@ def run_patch(patch, raw_root, out_root, locale):
         sources[source] += 1
         champs[folder] = Champion(folder, data)
     layout, stat_names, votes = detect_stat_layout(champs)
+    # Every readable data value and calculation name in the patch, by hash: the last place a
+    # hashed name in the spells file is looked up.
+    patch_names = {}
+    for ch in champs.values():
+        for sp in ch.spells.values():
+            patch_names.update(readable_dv_names(sp))
+            patch_names.update({fnv1a(n): n for n in (sp.m.get("mSpellCalculations") or {}) if not n.startswith("{")})
 
     out_root.mkdir(parents=True, exist_ok=True)
     out_path, summary_path = output_paths(out_root, patch, locale)
     tmp = out_path.with_suffix(".jsonl.tmp")
+    sp_path = spells_path(out_root, patch, locale)
+    sp_tmp = sp_path.with_suffix(".jsonl.tmp")
 
     c = Counter()
     by_field = {}
@@ -1535,15 +2074,31 @@ def run_patch(patch, raw_root, out_root, locale):
     unpaired = []
     one_rank_varying = []
     examples = {}
-    with tmp.open("w", encoding="utf-8") as fh:
+    joined_by = Counter()
+    with tmp.open("w", encoding="utf-8") as fh, sp_tmp.open("w", encoding="utf-8") as sfh:
         for folder, ch in champs.items():
             jobs = text_jobs(ch)
             dup_of = duplicate_targets(jobs)
+            seed_names = [n for n, _ in slot_seeds(ch)]
+            groups = spell_groups(ch, later_ability_groups(raw_root, patch, folder, seed_names) if seed_names else None)
+            keys = {p: spell_key(folder, s.path) for p, s in ch.spells_lc.items()}
+            spells_by_low = dict(ch.spells_lc)
+            for path, sp, _, _ in jobs:  # a passive with no spell gets a key of its own
+                keys.setdefault(path.lower(), spell_key(folder, path))
+                spells_by_low.setdefault(path.lower(), sp)
+            context_of = []  # lower-case paths whose context is written, text spells first
+            names = set()
             for path, sp, slot, keyed_fields in jobs:
                 c["spells_with_tooltip_key"] += 1
                 pqwer = slot in PQWER_SLOTS
                 ranks, rank_source, varying = rank_info(ch, path, sp)
                 spell_counted = False
+                low = path.lower()
+                context_of.append(low)
+                group = groups.get(low)
+                context_of += group[3] if group else []
+                tooltip_data = (sp.m.get("mClientData") or {}).get("mTooltipData") or {}
+                extended_hidden = tooltip_data.get("EnableExtendedTooltip") is False
                 for field, key in keyed_fields:
                     if not isinstance(key, str) or not key:
                         continue
@@ -1576,10 +2131,18 @@ def run_patch(patch, raw_root, out_root, locale):
                         c["records_with_unpaired_at"] += 1
                         unpaired.append(f"{path} {field}: {stray} unpaired @")
                     phs = []
+                    referenced = set()
                     for m in matches:
                         r = resolve_placeholder(m.group(1), ch, sp, ranks, stat_names)
                         r["start"], r["end"] = m.start(), m.end()
                         phs.append(r)
+                        if r.get("name"):
+                            names.add(r["name"])
+                        target = ch.by_script.get(r["owner_spell"].lower()) if r.get("owner_spell") else sp
+                        if target is not None and target is not sp:
+                            referenced.add(target.path.lower())
+                        if target is not None and r.get("kind") == "calculation":
+                            referenced |= calc_refs(ch, target, r["name"])
                         if r["status"] == "ignored":
                             c["placeholders_ignored_ui"] += 1
                             continue
@@ -1607,6 +2170,8 @@ def run_patch(patch, raw_root, out_root, locale):
                             if pqwer:
                                 reasons_pqwer[r["reason"]] += 1
                             examples.setdefault(r["reason"], f"{path} @{r['token']}@ {r.get('detail', '')}".strip())
+                    referenced.discard(low)
+                    context_of += sorted(referenced)
                     c["tokens_found"] += len(matches)
                     nums, plain = typed_numbers(text)
                     c["typed_numbers"] += len(nums)
@@ -1637,6 +2202,13 @@ def run_patch(patch, raw_root, out_root, locale):
                     }
                     if duplicate:
                         rec["duplicate_of"] = duplicate
+                    rec["spell_context"] = keys[low]
+                    if referenced:
+                        rec["referenced_spells"] = sorted(keys[p] for p in referenced if p in keys)
+                    if extended_hidden and field in EXTENDED_FIELDS:
+                        # TooltipData's EnableExtendedTooltip is false: the game does not show this text.
+                        rec["extended_text_hidden_in_game"] = True
+                        c["records_extended_text_hidden"] += 1
                     if varying:
                         rec["varies_by_rank"] = varying
                     if includes:
@@ -1647,12 +2219,40 @@ def run_patch(patch, raw_root, out_root, locale):
                     if stray:
                         rec["unpaired_at_signs"] = stray
                     fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
+            # The spells file: each text spell, the spells grouped with it and the spells its
+            # records or calculations refer to, each written once.
+            text_spells = {path.lower() for path, _, _, _ in jobs}
+            for low in list(context_of):
+                sp = ch.spells_lc.get(low) if low in text_spells else None
+                for name in (sp.calcs if sp else {}):
+                    context_of += sorted(calc_refs(ch, sp, name))
+            for sp in ch.spells.values():
+                names_in(sp.m.get("mSpellCalculations"), names)
+            hash_names = dict(patch_names)
+            hash_names.update({fnv1a(n): n for n in names if not n.startswith("{")})
+            for sp in ch.spells.values():
+                hash_names.update(readable_dv_names(sp))
+            for low in dict.fromkeys(context_of):
+                if low not in spells_by_low:
+                    continue
+                sp = spells_by_low[low]
+                line = {"patch": patch, "locale": locale, "cdragon_version": build, "champion_folder": folder,
+                        "has_text": low in text_spells,
+                        **spell_context(ch, sp.path, sp, keys, groups, stat_names, table, hash_names)}
+                c["spell_contexts"] += 1
+                c["spell_contexts_without_text"] += low not in text_spells
+                if line["group"]:
+                    c["spell_contexts_in_ability_object_group" if line["group"]["source"] == "AbilityObject"
+                      else "spell_contexts_in_slot_spell_group"] += 1
+                    joined_by[line["group"]["joined_by"]] += 1
+                sfh.write(json.dumps(line, ensure_ascii=False) + "\n")
             # count part types used by calculations of every spell, for the summary
             for sp in ch.spells.values():
                 for calc in (sp.m.get("mSpellCalculations") or {}).values():
                     for t in re.findall(r'"__type": "([^"]+)"', json.dumps(calc)):
                         part_types[t] += 1
     tmp.replace(out_path)
+    sp_tmp.replace(sp_path)
 
     readable = table.readable_keys()
     if readable is not None:
@@ -1676,6 +2276,7 @@ def run_patch(patch, raw_root, out_root, locale):
         "locale": locale,
         "cdragon_version": build,
         "manifest_failures": manifest.get("failures") or [],
+        "spells_file": sp_path.name,
         "string_table": str(st_path.relative_to(raw)),
         "string_table_layout": st_layout,
         "stat_layout": layout,
@@ -1686,6 +2287,7 @@ def run_patch(patch, raw_root, out_root, locale):
         **st_stats,
         "unique_linked_keys": len(linked_keys),
         "keys_found_only_by_hash": table.found_by_hash if table.readable else None,
+        "level_up_labels_found_only_by_hash": table.others_found_by_hash if table.readable else None,
         "counts": dict(c),
         # The records a checker reads: no duplicate_of and not passiveToolTip summary text.
         "checked_records": {"all": c["checked_records"],
@@ -1699,6 +2301,8 @@ def run_patch(patch, raw_root, out_root, locale):
         "by_text_field": {f: {**dict(fc), "coverage": ratio(fc["placeholders_resolved"], fc["placeholders"])}
                           for f, fc in by_field.items()},
         "rank_sources": dict(rank_sources),
+        # How each spell line's spell joined its group (see spell_groups).
+        "spell_contexts_joined_by": dict(joined_by.most_common()),
         "one_rank_but_data_varies": one_rank_varying,
         "token_check": {"tokens_found": c["tokens_found"],
                         "records_with_unpaired_at": c["records_with_unpaired_at"],
@@ -1722,7 +2326,8 @@ def main():
     ap.add_argument("--patches", nargs="*", help="patch folders under data/raw (default: all)")
     ap.add_argument("--raw-dir", type=Path, default=DEFAULT_RAW)
     ap.add_argument("--out-dir", type=Path, default=DEFAULT_OUT)
-    ap.add_argument("--locale", default="en_us")
+    # Lower-cased as fetch_cdragon.py does, so zh_CN finds the zh_cn folder fetch saved.
+    ap.add_argument("--locale", default="en_us", type=str.lower)
     args = ap.parse_args()
     patches = args.patches or sorted(p.name for p in args.raw_dir.iterdir() if (p / "manifest.json").exists())
     failed = []
@@ -1751,7 +2356,7 @@ def main():
         if s["manifest_failures"]:
             print(f"  the fetch manifest lists {len(s['manifest_failures'])} failed downloads; see the summary")
         if cnt.get("records_marked_duplicate"):
-            print(f"  {cnt['records_marked_duplicate']} texts under hashed spell paths are marked duplicate_of another spell")
+            print(f"  {cnt['records_marked_duplicate']} texts are marked duplicate_of another spell that names the same text")
         print(f"  wrote {path}")
     if failed:
         sys.exit(f"{len(failed)} of {len(patches)} patches failed: {' '.join(failed)}")

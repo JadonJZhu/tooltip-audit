@@ -288,6 +288,9 @@ class FakeFetcher:
                 return body, "Mon"
         return None, None
 
+    def get(self, url):
+        return self.fetch(url)[0]
+
     def listing(self, path):
         raise AssertionError("not used")
 
@@ -367,7 +370,8 @@ class ChampionsTest(unittest.TestCase):
     def test_before_11_1_saves_the_binary(self):
         r = stub_run(self.root, "10.1", self.bodies(), {CHARS: {"ahri": {"type": "directory"}}})
         c = r.champions()
-        self.assertEqual(c, {"playable": 1, "saved": 1, "bin_saved": 1, "unmapped": [],
+        self.assertEqual(c, {"list_source": {"file": fc.CHAMPION_SUMMARY},
+                             "playable": 1, "saved": 1, "bin_saved": 1, "unmapped": [],
                              "excluded_from_summary": ["Jade_Ahri", "None"]})
         self.assertEqual((self.root / "10.1" / AHRI_BIN).read_bytes(), BIN_BODY)
         self.assertTrue((self.root / "10.1" / AHRI).exists())
@@ -424,7 +428,7 @@ class MainKeepsGoingTest(unittest.TestCase):
         ran = []
 
         class FakeRun:
-            def __init__(self, f, patch, out, refresh=False):
+            def __init__(self, f, patch, out, refresh=False, available=None):
                 self.patch = patch
 
             def run(self, locales):
@@ -462,6 +466,153 @@ class LocalesTest(unittest.TestCase):
                 "fontconfig_ja_jp.txt": {}, "fontconfig_ko_kr.txt.json": {}, "minimapicons": {}}
         self.assertEqual(fc.locales_from_listings(game, menu), ["de_de", "en_us", "ja_jp", "ko_kr"])
         self.assertEqual(fc.locales_from_listings(None, None), [])
+
+
+GWEN = "game/data/characters/gwen/gwen.bin.json"
+GWEN_BODY = b'{"Characters/Gwen/CharacterRecords/Root": {"x": 1}}'
+LATER_SUMMARY_BODY = json.dumps([{"id": -1, "alias": "None"}, {"id": 103, "alias": "Ahri"},
+                                 {"id": 887, "alias": "Gwen"}]).encode()
+
+
+class ChampionListFallbackTest(unittest.TestCase):
+    """Folders like 11.7 and 13.3 have no champion-summary.json of their own."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def run_for(self, bodies, folders, available=("11.5", "11.6", "11.7", "11.8")):
+        bodies = {AHRI: AHRI_BODY, GWEN: GWEN_BODY, **bodies}
+        r = stub_run(self.root, "11.7", bodies, {CHARS: {n: {"type": "directory"} for n in folders}})
+        r.available = list(available)
+        return r, r.champions()
+
+    def neighbors(self):
+        return {"11.6/" + fc.CHAMPION_SUMMARY: SUMMARY_BODY, "11.6/" + fc.CONTENT_METADATA: b'{"version": "11.6.1"}',
+                "11.8/" + fc.CHAMPION_SUMMARY: LATER_SUMMARY_BODY, "11.8/" + fc.CONTENT_METADATA: b'{"version": "11.8.1"}'}
+
+    def test_uses_nearest_earlier_list(self):
+        r, c = self.run_for(self.neighbors(), ["ahri", "minion"])
+        self.assertEqual(c["list_source"], {
+            "file": fc.CHAMPION_SUMMARY, "saved_in_this_folder": False,
+            "from_patch": "11.6", "from_cdragon_version": "11.6.1",
+            "reason": f"this folder has no {fc.CHAMPION_SUMMARY}; nearest earlier patch with one",
+            "checked_against_patch": "11.8"})
+        self.assertEqual((c["playable"], c["saved"], c["excluded_from_summary"]), (1, 1, ["Jade_Ahri", "None"]))
+        self.assertNotIn("release_unknown_not_saved", c)
+        self.assertEqual(r.failures, [])
+        # The neighbor's list is not saved under this patch's paths.
+        self.assertFalse((self.root / "11.7" / fc.CHAMPION_SUMMARY).exists())
+
+    def test_champion_only_on_later_list_is_reported_not_saved(self):
+        r, c = self.run_for(self.neighbors(), ["ahri", "gwen"])
+        self.assertEqual(c["release_unknown_not_saved"], ["Gwen"])
+        self.assertEqual(c["saved"], 1)
+        self.assertFalse((self.root / "11.7" / GWEN).exists())
+        # A failure, so the run prints it and exits 1.
+        self.assertEqual([x["path"] for x in r.failures], ["champion Gwen"])
+        self.assertIn("11.8", r.failures[0]["error"])
+        self.assertIn("11.6", r.failures[0]["error"])
+
+    def test_skips_earlier_patches_without_a_list(self):
+        bodies = self.neighbors()
+        del bodies["11.6/" + fc.CHAMPION_SUMMARY]
+        bodies["11.5/" + fc.CHAMPION_SUMMARY] = SUMMARY_BODY
+        bodies["11.5/" + fc.CONTENT_METADATA] = b'{"version": "11.5.1"}'
+        _, c = self.run_for(bodies, ["ahri"])
+        self.assertEqual(c["list_source"]["from_patch"], "11.5")
+
+    def test_later_list_when_no_earlier_one(self):
+        bodies = self.neighbors()
+        del bodies["11.6/" + fc.CHAMPION_SUMMARY]
+        r, c = self.run_for(bodies, ["ahri", "gwen"])
+        self.assertEqual(c["list_source"]["from_patch"], "11.8")
+        self.assertEqual(c["list_source"]["file"], fc.CHAMPION_SUMMARY)
+        self.assertIn("nearest later", c["list_source"]["reason"])
+        self.assertNotIn("checked_against_patch", c["list_source"])
+        # Still saves what it can, but a later list is not trusted silently.
+        self.assertEqual((c["playable"], c["saved"]), (2, 2))
+        self.assertEqual([x["path"] for x in r.failures], ["champion list"])
+        self.assertIn("11.8", r.failures[0]["error"])
+        self.assertIn("11.7", r.failures[0]["error"])
+
+    def test_no_list_anywhere(self):
+        r, c = self.run_for({}, ["ahri"])
+        self.assertEqual(c, {})
+        self.assertEqual(r.failures, [{"path": fc.CHAMPION_SUMMARY, "error": "champion list not found"}])
+
+    def test_download_error_does_not_switch_lists(self):
+        bodies = {**self.neighbors(), "11.7/" + fc.CHAMPION_SUMMARY: RuntimeError("simulated outage")}
+        r, c = self.run_for(bodies, ["ahri"])
+        self.assertEqual(c, {})
+        self.assertEqual(r.failures, [{"path": fc.CHAMPION_SUMMARY, "error": "simulated outage"}])
+
+    def test_neighbor_error_is_recorded(self):
+        bodies = {**self.neighbors(), "11.6/" + fc.CHAMPION_SUMMARY: b"<html>"}
+        r, c = self.run_for(bodies, ["ahri"])
+        self.assertEqual(c, {})
+        self.assertEqual(len(r.failures), 1)
+        self.assertIn("11.6", r.failures[0]["error"])
+
+
+class StringtableTest(unittest.TestCase):
+    def test_any_locale_on_any_layout(self):
+        cases = [
+            ("15.14", "game/zh_cn/data/menu/en_us", "lol.stringtable.json", "lol"),
+            ("13.3", "game/data/menu", "main_zh_cn.stringtable.json", "main_locale"),
+            ("11.7", "game/data/menu", "fontconfig_zh_cn.txt.json", "fontconfig"),
+            ("10.20", "game/data/menu", "fontconfig_zh_cn.txt", "fontconfig"),
+        ]
+        for patch, folder, name, layout in cases:
+            with self.subTest(patch=patch), tempfile.TemporaryDirectory() as d:
+                body = b"RST\x02rest" if name.endswith(".txt") else b'{"entries": {"k": "v"}}'
+                # Every other layout's folder lists nothing.
+                empty = {t.format(loc="zh_cn").rsplit("/", 1)[0]: {} for _, t in fc.STRINGTABLE_LAYOUTS}
+                r = stub_run(Path(d), patch, {f"{patch}/{folder}/{name}": body},
+                             {**empty, folder: {name: {"size": len(body)}}})
+                self.assertEqual(r.stringtable("zh_cn"), (layout, f"{folder}/{name}"))
+                self.assertEqual(r.failures, [])
+
+    def test_missing_locale_names_the_ones_there(self):
+        with tempfile.TemporaryDirectory() as d:
+            empty = {t.format(loc="id_id").rsplit("/", 1)[0]: {} for _, t in fc.STRINGTABLE_LAYOUTS}
+            r = stub_run(Path(d), "14.15", {}, {**empty, "game/data/menu": {},
+                                                "game": {"en_us": {"type": "directory"}, "zh_cn": {"type": "directory"}}})
+            self.assertEqual(r.stringtable("id_id"), (None, None))
+            self.assertIn("This patch has: en_us, zh_cn", r.failures[0]["error"])
+
+
+class MainLocalesTest(unittest.TestCase):
+    def locales_for(self, arg):
+        got = []
+
+        class FakeRun:
+            def __init__(self, f, patch, out, refresh=False, available=None):
+                pass
+
+            def run(self, locales):
+                got.append(locales)
+                return {"champions": {}, "last_run": {"mode": "first", "downloaded_bytes": 0, "seconds": 0},
+                        "cdragon_version": "v", "file_count": 0, "total_bytes": 0,
+                        "stringtable_layout": {}, "failures": []}
+
+        saved = (fc.PatchRun, fc.Fetcher, fc.discover_patches, sys.argv)
+        fc.PatchRun, fc.Fetcher = FakeRun, lambda delay: None
+        fc.discover_patches = lambda f: ["15.14"]
+        sys.argv = ["fetch_cdragon.py", "--patches", "15.14", "--locales", arg]
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                fc.main()
+        finally:
+            fc.PatchRun, fc.Fetcher, fc.discover_patches, sys.argv = saved
+        return got[0]
+
+    def test_case_is_ignored(self):
+        self.assertEqual(self.locales_for("zh_CN, en_us"), ["zh_cn", "en_us"])
+        self.assertEqual(self.locales_for("ALL"), ["all"])
 
 
 if __name__ == "__main__":

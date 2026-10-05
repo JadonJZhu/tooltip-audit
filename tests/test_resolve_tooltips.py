@@ -10,6 +10,7 @@ import struct
 import sys
 import tempfile
 import unittest
+import unittest.mock
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
@@ -430,16 +431,26 @@ class HashedEntryPaths(unittest.TestCase):
 
     def test_spell_named_in_the_key_owns_it(self):
         # Zed in 12.8: ZedW2 (hashed, W-form) and ZedR2 (readable, R-form) share ZedW2's text.
-        # Neither is in slot P to R, so the key's script name decides, and ZedW2 is not marked.
+        # Neither is in slot P to R, so the key's script name decides: ZedW2 keeps the record and
+        # ZedR2 is marked, as is a third spell sharing the key.
         w2 = r.Spell("{e0c2427d}", {"mScriptName": "ZedW2"})
         r2 = r.Spell("Characters/Zed/Spells/ZedRAbility/ZedR2", {"mScriptName": "ZedR2"})
         stray = r.Spell("{00000003}", {"mScriptName": "ZedShadowDash"})
         jobs = [(r2.path, r2, "R-form", [("keyTooltip", "Spell_ZedW2_Tooltip")]),
-                (w2.path, w2, "W-form", [("keyTooltip", "Spell_ZedW2_Tooltip")])]
-        self.assertEqual(r.duplicate_targets(jobs), {})
-        # A third hashed spell sharing the key is marked as a duplicate of ZedW2.
-        jobs.append((stray.path, stray, "other", [("keyTooltip", "Spell_ZedW2_Tooltip")]))
-        self.assertEqual(r.duplicate_targets(jobs), {("{00000003}", "spell_zedw2_tooltip"): "{e0c2427d}"})
+                (w2.path, w2, "W-form", [("keyTooltip", "Spell_ZedW2_Tooltip")]),
+                (stray.path, stray, "other", [("keyTooltip", "Spell_ZedW2_Tooltip")])]
+        self.assertEqual(r.duplicate_targets(jobs), {(r2.path, "spell_zedw2_tooltip"): "{e0c2427d}",
+                                                     ("{00000003}", "spell_zedw2_tooltip"): "{e0c2427d}"})
+
+    def test_readable_spell_sharing_the_slot_spells_key_is_a_duplicate(self):
+        # Malzahar in 15.1: MalzaharWCancel names MalzaharW's tooltip; the W spell keeps it.
+        jobs = [("Characters/Malzahar/Spells/MalzaharWAbility/MalzaharW", None, "W",
+                 [("keyTooltip", "Spell_MalzaharW_Tooltip")]),
+                ("Characters/Malzahar/Spells/MalzaharWAbility/MalzaharWCancel", None, "W-form",
+                 [("keyTooltip", "Spell_MalzaharW_Tooltip")])]
+        self.assertEqual(r.duplicate_targets(jobs), {
+            ("Characters/Malzahar/Spells/MalzaharWAbility/MalzaharWCancel", "spell_malzaharw_tooltip"):
+                "Characters/Malzahar/Spells/MalzaharWAbility/MalzaharW"})
 
     def test_key_with_no_owner_is_left_unmarked(self):
         a = r.Spell("Characters/Test/Spells/TestA", {"mScriptName": "TestA"})
@@ -470,6 +481,15 @@ class StatLayouts(unittest.TestCase):
     def test_layout_c_and_a(self):
         self.assertEqual(r.detect_stat_layout(self.champs(10, [10, 11]))[0], "C")
         self.assertEqual(r.detect_stat_layout(self.champs(11, [11, 12]))[0], "A")
+
+    def test_layout_e_between_a_and_b(self):
+        # 15.7 to 15.15: Cho'Gath's health is 12 as in layout B, but Zac's current health is 13.
+        layout, names, votes = r.detect_stat_layout(self.champs(12, [12, 13]))
+        self.assertEqual((layout, votes), ("E", ["E", "B/E"]))
+        self.assertEqual((names[4], names[12], names[13], names[27]),
+                         ("attack speed", "health", "current health", "lethality"))
+        self.assertIsNone(names[3])
+        self.assertEqual(r.detect_stat_layout(self.champs(12, [12, 14]))[0], "B")
 
     def test_disagreeing_anchors_give_unknown(self):
         layout, names, votes = r.detect_stat_layout(self.champs(9, [10, 11]))
@@ -532,6 +552,360 @@ class WholePatch(unittest.TestCase):
             self.assertEqual(summary["jade_keys_skipped"], 1)
             self.assertEqual(summary["jade_folders_skipped"], 1)
             self.assertNotIn("records_fully_resolved", summary["counts"])
+
+
+class LevelUpRows(unittest.TestCase):
+    def table(self, d, entries):
+        p = Path(d) / "lol.stringtable.json"
+        p.write_text(json.dumps({"version": 5, "entries": entries}))
+        return r.TextTable(p, "lol")
+
+    def hashed(self, key):
+        return "{%010x}" % (r.xxh64(key.lower().encode()) & ((1 << 39) - 1))
+
+    def test_value_times_multiplier_is_the_number_the_game_shows(self):
+        # Sona E in 10.22: movement speed 0.1 with multiplier 100 shows as 10. A row with no
+        # multiplier has no value_times_multiplier.
+        obj = spell(data_values={"MS": [0, 0.1, 0.11, 0.12, 0.13, 0.14, 0.15], "Cost": [0, 5, 6, 7, 8, 9, 10]},
+                    level_count=5)
+        obj["mSpell"]["mClientData"]["mTooltipData"]["mLists"]["LevelUp"]["elements"] = [
+            {"type": "MS", "multiplier": 100, "nameOverride": "Spell_Label_MS"}, {"type": "Cost"}]
+        _, ch, s = context(obj)
+        with tempfile.TemporaryDirectory() as d:
+            table = self.table(d, {"spell_label_ms": "Speed"})
+            out = r.spell_context(ch, s.path, s, {s.path.lower(): "test:" + s.path}, {}, r.STATS_B, table, {})
+        ms, cost = out["level_up"]["rows"]
+        self.assertEqual(ms["value"]["display"], ["0.1", "0.11", "0.12", "0.13", "0.14"])
+        self.assertEqual(ms["value_times_multiplier"]["display"], ["10", "11", "12", "13", "14"])
+        self.assertEqual(ms["label"], "Speed")
+        self.assertNotIn("value_times_multiplier", cost)
+
+    def test_labels_found_by_hash_are_counted_apart_from_tooltip_keys(self):
+        obj = spell(level_count=5)
+        obj["mSpell"]["mClientData"]["mTooltipData"]["mLists"]["LevelUp"]["elements"] = [
+            {"type": "Cooldown", "nameOverride": "Spell_Label_CD"}]
+        _, ch, s = context(obj)
+        with tempfile.TemporaryDirectory() as d:
+            table = self.table(d, {self.hashed("Spell_Label_CD"): "Cooldown",
+                                   self.hashed("Spell_TestQ_Tooltip"): "Text"})
+            out = r.spell_context(ch, s.path, s, {s.path.lower(): "test:" + s.path}, {}, r.STATS_B, table, {})
+            self.assertEqual(out["level_up"]["rows"][0]["label"], "Cooldown")
+            self.assertEqual((table.found_by_hash, table.others_found_by_hash), (0, 1))
+            self.assertEqual(table.get("Spell_TestQ_Tooltip"), "Text")
+            self.assertEqual((table.found_by_hash, table.others_found_by_hash), (1, 1))
+
+
+class CommandLine(unittest.TestCase):
+    def test_locale_is_lower_cased(self):
+        # zh_CN must find the zh_cn folder fetch_cdragon.py saved.
+        seen = []
+
+        def run_patch(patch, raw, out, locale):
+            seen.append(locale)
+            raise RuntimeError("stop")
+
+        with tempfile.TemporaryDirectory() as d:
+            argv = ["resolve_tooltips.py", "--patches", "15.14", "--raw-dir", d, "--out-dir", d, "--locale", "zh_CN"]
+            with unittest.mock.patch.object(sys, "argv", argv), \
+                    unittest.mock.patch.object(r, "run_patch", run_patch), \
+                    contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
+                r.main()
+        self.assertEqual(seen, ["zh_cn"])
+
+
+def named_spell(script, **kwargs):
+    obj = spell(**kwargs)
+    obj["mScriptName"] = script
+    return obj
+
+
+class SpellGroups(unittest.TestCase):
+    def test_ability_object_groups_its_spells(self):
+        data = {
+            "Characters/Test/CharacterRecords/Root": {
+                "__type": "CharacterRecord", "spells": ["Characters/Test/Spells/TestQAbility/TestQ"],
+                "mAbilities": ["Characters/Test/Spells/TestQAbility"]},
+            "Characters/Test/Spells/TestQAbility": {
+                "__type": "AbilityObject", "mRootSpell": "Characters/Test/Spells/TestQAbility/TestQ",
+                "mChildSpells": ["Characters/Test/Spells/TestQAbility/TestQ", "Characters/Test/Spells/TestQMis"]},
+            "Characters/Test/Spells/TestQAbility/TestQ": named_spell("TestQ"),
+            "Characters/Test/Spells/TestQMis": named_spell("TestQMis"),
+            # Named like Q, but no AbilityObject names it and Q has one, so it is in no group.
+            "Characters/Test/Spells/TestQStray": named_spell("TestQStray"),
+        }
+        groups = r.spell_groups(r.Champion("test", data))
+        gid, source, seed, members, joined_by = groups["characters/test/spells/testqability/testq"]
+        self.assertEqual((gid, source, seed, joined_by),
+                         ("Characters/Test/Spells/TestQAbility", "AbilityObject", None, "AbilityObject"))
+        self.assertEqual(sorted(members), ["characters/test/spells/testqability/testq",
+                                           "characters/test/spells/testqmis"])
+        self.assertNotIn("characters/test/spells/testqstray", groups)
+
+    def test_script_name_prefix_without_ability_objects(self):
+        # Sion in 10.12: SionWDetonate joins SionW. TestWW is a slot spell of its own and wins
+        # for TestWWBuff because its name is longer.
+        data = {
+            "Characters/Test/CharacterRecords/Root": {
+                "__type": "CharacterRecord", "spellNames": ["TestQ", "TestW", "TestE", "TestWW"]},
+            "Characters/Test/Spells/TestW": named_spell("TestW"),
+            "Characters/Test/Spells/TestWDetonate": named_spell("TestWDetonate"),
+            "Characters/Test/Spells/TestWW": named_spell("TestWW"),
+            "Characters/Test/Spells/TestWWBuff": named_spell("TestWWBuff"),
+            "Characters/Test/Spells/OtherThing": named_spell("OtherThing"),
+        }
+        groups = r.spell_groups(r.Champion("test", data))
+        gid, source, seed, members, joined_by = groups["characters/test/spells/testwdetonate"]
+        self.assertEqual((gid, source, seed, joined_by),
+                         ("script name TestW", "slot spell", "characters/test/spells/testw", "script-name prefix"))
+        self.assertEqual(members, ["characters/test/spells/testw", "characters/test/spells/testwdetonate"])
+        self.assertEqual(groups["characters/test/spells/testw"][4], "slot spell")
+        self.assertEqual(groups["characters/test/spells/testwwbuff"][0], "script name TestWW")
+        self.assertNotIn("characters/test/spells/otherthing", groups)
+        # TestQ and TestE have no other spell, so they are in no group.
+        self.assertNotIn("characters/test/spells/teste", groups)
+
+    def test_script_name_prefix_needs_a_new_word(self):
+        # 10.25: GarenRunCycleManager does not join GarenR, but SionWDetonate, a digit (ZoeEb2's
+        # kin TestR2) and an underscore (RellR_Damage) start a new word.
+        data = {
+            "Characters/Test/CharacterRecords/Root": {
+                "__type": "CharacterRecord", "spellNames": ["TestQ", "TestW", "TestE", "TestR"]},
+            "Characters/Test/Spells/TestR": named_spell("TestR"),
+            "Characters/Test/Spells/TestRunCycleManager": named_spell("TestRunCycleManager"),
+            "Characters/Test/Spells/TestRMissile": named_spell("TestRMissile"),
+            "Characters/Test/Spells/TestR2": named_spell("TestR2"),
+            "Characters/Test/Spells/TestR_Damage": named_spell("TestR_Damage"),
+        }
+        groups = r.spell_groups(r.Champion("test", data))
+        self.assertNotIn("characters/test/spells/testruncyclemanager", groups)
+        self.assertEqual(sorted(groups["characters/test/spells/testr"][3]), [
+            "characters/test/spells/testr", "characters/test/spells/testr2", "characters/test/spells/testr_damage",
+            "characters/test/spells/testrmissile"])
+
+    def linked_champion(self):
+        # Redact names the E by a hashed path (as AatroxQ2 names AatroxQ in a field the export
+        # leaves hashed), and RedactShield is named only by Redact. Basic attacks name each other
+        # and the E, but take no part. Bridge names both the Q and the E, so it and its link join
+        # neither. Copied names the E only in mAlternateName, which is not a link (VladimirEMissile's
+        # is VladimirTransfusionHeal, his Q, in 11.7). NightmareBotTestE, a Doom Bots spell, names
+        # the E, but game-mode spells join no group.
+        alt = named_spell("TestEMis")
+        alt["mScriptName"] = "Redact"
+        alt["mSpell"]["{5f9c39d6}"] = r.fnv1a("Characters/Test/Spells/TestE")
+        alt["mSpell"]["mBuffName"] = "RedactShield"
+        copied = named_spell("Copied")
+        copied["mSpell"]["mAlternateName"] = "TestE"
+        doom = named_spell("NightmareBotTestE")
+        doom["mSpell"]["mBuffName"] = "TestE"
+        attack = named_spell("TestBasicAttack")
+        attack["mSpell"]["mAlternateName"] = "TestE"
+        bridge = named_spell("Bridge")
+        bridge["mSpell"]["mLinked"] = ["Characters/Test/Spells/TestQ", r.fnv1a("Characters/Test/Spells/TestE")]
+        loose = named_spell("Loose")
+        loose["mSpell"]["mAlternateName"] = "Bridge"
+        return r.Champion("test", {
+            "Characters/Test/CharacterRecords/Root": {
+                "__type": "CharacterRecord", "spellNames": ["TestQ", "TestW", "TestE", "TestR"]},
+            "Characters/Test/Spells/TestQ": named_spell("TestQ"),
+            "Characters/Test/Spells/TestE": named_spell("TestE"),
+            "Characters/Test/Spells/Redact": alt,
+            "Characters/Test/Spells/RedactShield": named_spell("RedactShield"),
+            "Characters/Test/Spells/TestBasicAttack": attack,
+            "Characters/Test/Spells/Bridge": bridge,
+            "Characters/Test/Spells/Loose": loose,
+            "Characters/Test/Spells/Copied": copied,
+            "Characters/Test/Spells/NightmareBotTestE": doom,
+        })
+
+    def test_spells_naming_each_other_join_the_one_group_they_touch(self):
+        groups = r.spell_groups(self.linked_champion())
+        e = groups["characters/test/spells/teste"]
+        self.assertEqual(sorted(e[3]), ["characters/test/spells/redact", "characters/test/spells/redactshield",
+                                        "characters/test/spells/teste"])
+        self.assertEqual(groups["characters/test/spells/redactshield"][4], r.LINKED)
+        for p in ("testbasicattack", "bridge", "loose", "testq", "copied", "nightmarebotteste"):
+            self.assertNotIn("characters/test/spells/" + p, groups)
+
+    def test_a_later_patchs_ability_object_places_a_spell(self):
+        # Corki in 11.7: nothing links GGSpray to GGun, but a later patch's AbilityObject does.
+        ch = self.linked_champion()
+        later = {"loose": ("testq", "12.1"), "bridge": ("testq", "12.1"), "testbasicattack": ("testq", "12.1"),
+                 "nightmarebotteste": ("testq", "12.1")}
+        groups = r.spell_groups(ch, later)
+        self.assertNotIn("characters/test/spells/nightmarebotteste", groups)
+        self.assertEqual(groups["characters/test/spells/loose"][:1] + groups["characters/test/spells/loose"][4:],
+                         ("script name TestQ", "AbilityObject in 12.1"))
+        self.assertEqual(groups["characters/test/spells/bridge"][4], "AbilityObject in 12.1")
+        self.assertNotIn("characters/test/spells/testbasicattack", groups)
+
+    def test_game_mode_spells_join_no_group_by_any_rule(self):
+        # A game-mode spell named after a slot spell does not join it by the prefix rule either,
+        # and a game-mode slot spell starts no group.
+        data = {
+            "Characters/Test/CharacterRecords/Root": {
+                "__type": "CharacterRecord", "spellNames": ["OdysseyAugments_TestQ", "TestW", "TestE", "TestR"]},
+            "Characters/Test/Spells/OdysseyAugments_TestQ": named_spell("OdysseyAugments_TestQ"),
+            "Characters/Test/Spells/OdysseyAugments_TestQMissile": named_spell("OdysseyAugments_TestQMissile"),
+            "Characters/Test/Spells/TestW": named_spell("TestW"),
+            "Characters/Test/Spells/TestWMissile": named_spell("TestWMissile"),
+        }
+        groups = r.spell_groups(r.Champion("test", data))
+        self.assertEqual(sorted(groups), ["characters/test/spells/testw", "characters/test/spells/testwmissile"])
+
+    def test_later_ability_groups_reads_the_first_later_patch_with_the_root(self):
+        with tempfile.TemporaryDirectory() as d:
+            raw = Path(d)
+            for patch, members in (("11.6", None), ("11.7", None), ("11.10", ["TestQMis"]), ("12.1", ["TestQOther"])):
+                folder = raw / patch / "game/data/characters/test"
+                folder.mkdir(parents=True)
+                (raw / patch / "manifest.json").write_text("{}")
+                data = {"Characters/Test/CharacterRecords/Root": {
+                    "__type": "CharacterRecord", "spellNames": ["TestQ", "TestW", "TestE", "TestR"]},
+                    "Characters/Test/Spells/TestQ": named_spell("TestQ")}
+                if members:
+                    data["Characters/Test/CharacterRecords/Root"]["mAbilities"] = ["Characters/Test/Spells/TestQAbility"]
+                    data["Characters/Test/Spells/TestQAbility"] = {
+                        "__type": "AbilityObject", "mRootSpell": "Characters/Test/Spells/TestQ",
+                        "mChildSpells": ["Characters/Test/Spells/" + m for m in members]}
+                    for m in members:
+                        data["Characters/Test/Spells/" + m] = named_spell(m)
+                (folder / "test.bin.json").write_text(json.dumps(data))
+            got = r.later_ability_groups(raw, "11.6", "test", ["TestQ", "TestW"])
+            self.assertEqual(got, {"testq": ("testq", "11.10"), "testqmis": ("testq", "11.10")})
+            self.assertEqual(r.later_ability_groups(raw, "12.1", "test", ["TestQ"]), {})
+
+
+class SpellContext(unittest.TestCase):
+    def test_parts_name_the_stat_and_effect_they_read(self):
+        # The export leaves out mStat 0 (AP), so the part names it.
+        part = {"__type": "StatByCoefficientCalculationPart", "mCoefficient": 1.5}
+        self.assertEqual(r.part_entry(part, r.STATS_C)["stat"], "AP")
+        bonus = {"__type": "StatByNamedDataValueCalculationPart", "mStat": 2, "mStatFormula": 2, "mDataValue": "R"}
+        self.assertEqual(r.part_entry(bonus, r.STATS_C)["stat"], "bonus AD")
+        self.assertEqual(r.part_entry({"__type": "EffectValueCalculationPart", "mEffectIndex": 4}, r.STATS_C)["effect"],
+                         "Effect4Amount")
+
+    def test_hashed_data_value_gets_its_name(self):
+        # Lucian R in 11.17: DamagePerBullet reads {"mDataValue": "{1cbbed54}"}, the hash of
+        # DamageADRatio. A part reading another spell's data value looks there first.
+        own = r.Spell("Characters/Test/Spells/TestR", spell(data_values={"DamageADRatio": [0.25] * 7}))
+        src = spell(data_values={"OtherValue": [1] * 7})
+        ch = r.Champion("test", {own.path: own.obj, "Characters/Test/Spells/Src": src})
+        namer = r.data_value_namer(ch, own, {r.fnv1a("KnownElsewhere"): "KnownElsewhere"})
+        part = {"__type": "SumOfSubPartsCalculationPart", "mSubparts": [
+            {"__type": "StatByNamedDataValueCalculationPart", "mDataValue": r.fnv1a("DamageADRatio"), "mStat": 2},
+            {"__type": "{9e9e2e5c}", "DataValue": r.fnv1a("OtherValue"), "SourceObject": "Characters/Test/Spells/Src"},
+            {"__type": "NamedDataValueCalculationPart", "mDataValue": r.fnv1a("KnownElsewhere")},
+            {"__type": "NamedDataValueCalculationPart", "mDataValue": "{00000000}"},
+            {"__type": "NamedDataValueCalculationPart", "mDataValue": "DamageADRatio"}]}
+        subs = r.part_entry(part, r.STATS_C, namer)["mSubparts"]
+        self.assertEqual([x.get("data_value_name") for x in subs],
+                         ["DamageADRatio", "OtherValue", "KnownElsewhere", None, None])
+        self.assertEqual(subs[0]["mDataValue"], r.fnv1a("DamageADRatio"))
+
+    def test_one_rank_spell_with_varying_data_is_shown_at_five_indices(self):
+        # Sona E in 10.22: a LevelUp list with no levelCount, and Effect4Amount 10% to 14%.
+        _, ch, s = context(spell(effects=[[0.1, 0.1, 0.11, 0.12, 0.13, 0.14, 0.14]]))
+        self.assertEqual(r.context_ranks(ch, s.path, s, None)[0], [1, 2, 3, 4, 5])
+        self.assertEqual(r.rank_info(ch, s.path, s)[0], [1])
+
+
+class SpellsFile(unittest.TestCase):
+    """A whole patch with the shape of the real bugs: Nami W's tooltip calculation (1.5 AP) next to
+    the spell's own mCoefficient (0.5), and Sion W's recast reading its own effect amounts while
+    its sibling holds the values the passive uses."""
+
+    def run_fixture(self):
+        d = tempfile.TemporaryDirectory()
+        self.addCleanup(d.cleanup)
+        raw = Path(d.name) / "raw"
+        out = Path(d.name) / "out"
+        patch = raw / "10.12"
+        menu = patch / "game/data/menu"
+        menu.mkdir(parents=True)
+        (patch / "manifest.json").write_text(json.dumps({"cdragon_version": "10.12.1+test"}))
+        (menu / "fontconfig_en_us.txt.json").write_text(json.dumps({"version": 5, "entries": {
+            "spell_testw_tooltip": "Gains @Effect5Amount@ health. Deals @TotalDamageTooltip@ damage.",
+            "spell_testw_tooltipextended": "Also @spell.TestE:Effect1Amount@ while held.",
+            "spell_testwdetonate_tooltip": "Gains @Effect5Amount@ health.",
+            "spell_listtype_damage": "Damage",
+        }}))
+        calc_name = r.fnv1a("TotalDamageTooltip")  # stored under its hash, as in 10.x
+        w = named_spell("TestW", effects=[[0, 70, 110, 150, 190, 230, 270], [], [], [], [4] * 7],
+                        level_count=5, calcs={calc_name: {
+                            "__type": "GameCalculation", "tooltipOnly": True, "mFormulaParts": [
+                                {"__type": "EffectValueCalculationPart", "mEffectIndex": 1},
+                                {"__type": "StatByCoefficientCalculationPart", "mCoefficient": 1.5}]}},
+                        loc_keys={"keyTooltip": "Spell_TestW_Tooltip",
+                                  "keyTooltipExtended": "Spell_TestW_TooltipExtended"})
+        w["mSpell"]["mCoefficient"] = 0.5
+        td = w["mSpell"]["mClientData"]["mTooltipData"]
+        td["EnableExtendedTooltip"] = False
+        td["mLists"]["LevelUp"]["elements"] = [{"__type": "TooltipInstanceListElement", "type": "Effect%dAmount",
+                                                "typeIndex": 1, "nameOverride": "Spell_ListType_Damage"}]
+        det = named_spell("TestWDetonate", effects=[[], [], [], [], [3] * 7],
+                          loc_keys={"keyTooltip": "Spell_TestWDetonate_Tooltip"})
+        e = named_spell("TestE", effects=[[0, 1, 2, 3, 4, 5, 6]], level_count=5)
+        champ = patch / "game/data/characters/test"
+        champ.mkdir(parents=True)
+        (champ / "test.bin.json").write_text(json.dumps({
+            "Characters/Test/CharacterRecords/Root": {"__type": "CharacterRecord",
+                                                      "spellNames": ["TestQ", "TestW", "TestE", "TestR"]},
+            "Characters/Test/Spells/TestW": w, "Characters/Test/Spells/TestWDetonate": det,
+            "Characters/Test/Spells/TestE": e, "Characters/Test/Spells/Unrelated": named_spell("Unrelated")}))
+        summary, path = r.run_patch("10.12", raw, out, "en_us")
+        recs = [json.loads(line) for line in path.read_text().splitlines()]
+        spells = {x["key"]: x for x in map(json.loads, (out / "10.12.en_us.spells.jsonl").read_text().splitlines())}
+        return summary, recs, spells
+
+    def test_records_point_at_their_spell_and_the_spell_shows_both_sides(self):
+        summary, recs, spells = self.run_fixture()
+        main = recs[0]
+        self.assertEqual(main["spell_context"], "test:Characters/Test/Spells/TestW")
+        w = spells[main["spell_context"]]
+        self.assertEqual(w["coefficients"], {"mCoefficient": 0.5})
+        self.assertEqual(w["effect_amounts"]["Effect1Amount"], [70, 110, 150, 190, 230])
+        calc = w["calculations"][r.fnv1a("TotalDamageTooltip")]
+        self.assertEqual(calc["known_name"], "TotalDamageTooltip")
+        self.assertIs(calc["tooltipOnly"], True)
+        # No anchor champion is in the fixture, so the stat layout is unknown and stats go unnamed,
+        # in the spells file as in the records.
+        self.assertEqual(calc["mFormulaParts"][1]["stat"], "stat #0")
+        self.assertEqual(calc["result"]["display"][0], "70 (+150% stat #0)")
+        self.assertEqual(main["placeholders"][1]["display"], calc["result"]["display"])
+        row = w["level_up"]["rows"][0]
+        self.assertEqual((row["nameOverride"], row["label"], row["reads"]), ("Spell_ListType_Damage", "Damage",
+                                                                             "Effect1Amount"))
+        self.assertEqual(row["value"]["display"], ["70", "110", "150", "190", "230"])
+        self.assertIs(w["EnableExtendedTooltip"], False)
+        self.assertNotIn("test:Characters/Test/Spells/Unrelated", spells)
+        self.assertEqual(summary["spells_file"], "10.12.en_us.spells.jsonl")
+        self.assertEqual(summary["counts"]["spell_contexts"], len(spells))
+
+    def test_group_siblings_and_referenced_spells(self):
+        _, recs, spells = self.run_fixture()
+        det_rec = next(x for x in recs if x["spell_path"].endswith("TestWDetonate"))
+        det = spells[det_rec["spell_context"]]
+        self.assertEqual(det["group"], {"id": "script name TestW", "source": "slot spell",
+                                        "joined_by": "script-name prefix",
+                                        "spells": ["test:Characters/Test/Spells/TestW"]})
+        # The recast has no rank count of its own and takes TestW's five ranks; its record keeps one.
+        self.assertEqual(det["ranks"], [1, 2, 3, 4, 5])
+        self.assertEqual(det_rec["ranks"], [1])
+        sibling = spells[det["group"]["spells"][0]]
+        self.assertEqual((det["effect_amounts"]["Effect5Amount"][0], sibling["effect_amounts"]["Effect5Amount"][0]),
+                         (3, 4))
+        ext = next(x for x in recs if x["text_field"] == "keyTooltipExtended")
+        self.assertEqual(ext["referenced_spells"], ["test:Characters/Test/Spells/TestE"])
+        self.assertIn("test:Characters/Test/Spells/TestE", spells)
+        self.assertFalse(spells["test:Characters/Test/Spells/TestE"]["has_text"])
+
+    def test_hidden_extended_text_is_marked_but_still_checked(self):
+        summary, recs, _ = self.run_fixture()
+        marked = [(x["text_field"], x.get("extended_text_hidden_in_game")) for x in recs]
+        self.assertEqual(marked, [("keyTooltip", None), ("keyTooltipExtended", True), ("keyTooltip", None)])
+        self.assertEqual(summary["checked_records"], {"all": 3, "keyTooltip": 2})
+        self.assertEqual(summary["counts"]["records_extended_text_hidden"], 1)
 
 
 class FailedPatch(unittest.TestCase):
