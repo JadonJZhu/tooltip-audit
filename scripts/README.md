@@ -1,6 +1,6 @@
 # Scripts
 
-Run everything from the project root. Every script takes `--help`. Downloads and outputs go under `data/`, which is not committed. The usual order is: mine the patch notes, fetch the patches they point to, then resolve those patches.
+Run everything from the project root. Every script takes `--help`. Downloads and outputs go under `data/`, which is not committed. The usual order is: mine the patch notes, fetch the patches they point to, resolve those patches, build the checkers' inputs from them, plant errors, and run the baseline script.
 
 ## fetch_cdragon.py
 
@@ -26,7 +26,7 @@ The text file has been kept in the places below, and the script looks in the rig
 | 14.4 to 14.14 | `game/<locale>/data/menu/en_us/main.stringtable.json` |
 | 14.15 and later | `game/<locale>/data/menu/en_us/lol.stringtable.json` |
 
-`manifest.json` in each patch folder records the build, which text file was saved for each language (`stringtable_layout`, `stringtable_path`), the champion counts (`champions`, with `bin_saved` for patches before 11.1, and `list_source`, which says where the champion list came from: for a borrowed list, `from_patch`, the list's path in that patch as `file`, and `saved_in_this_folder: false`. Manifests written before `list_source` was added don't have it, and older ones that have it may lack `saved_in_this_folder` or give `file` with the patch in front, as in `11.6/plugins/...`), every file with its size, any failures, and how long the first download took.
+`manifest.json` in each patch folder records the build, which text file was saved for each language (`stringtable_layout`, `stringtable_path`), the champion counts (`champions`, with `bin_saved` for patches before 11.1, and `list_source`, which says where the champion list came from: for a borrowed list, `from_patch`, the list's path in that patch as `file`, and `saved_in_this_folder: false`. Manifests written before `list_source` was added don't have it, and older ones that have it may lack `saved_in_this_folder`), every file with its size, any failures, and how long the first download took.
 
 CommunityDragon sometimes replaces a patch folder with a later build. Each run first compares the server's build with the one on disk. If they match, files already on disk are checked and reused. If they differ, the script stops for that patch rather than mix two builds; `--refresh` deletes the folder and downloads it again. The script exits with code 1 if any patch stopped or any file failed.
 
@@ -52,7 +52,7 @@ The spells file has one line for every spell that has a record, is grouped with 
 
 `refers_to` lists other spells its calculations read, and a record's `referenced_spells` lists the spells its text and its placeholders' calculations read.
 
-The summary counts how many spells-file lines are in a slot-spell group and in an ability-object group (`spell_contexts_in_slot_spell_group` and `spell_contexts_in_ability_object_group`, under `counts`), and how many joined by each rule (`spell_contexts_joined_by`). For a readable text file it also counts the tooltip keys found only under their hash rather than their name (`keys_found_only_by_hash`) and the level-up labels found that way (`level_up_labels_found_only_by_hash`). Both are null for a binary table, which holds only hashes.
+The summary counts how many spells-file lines are in a slot-spell group and in an ability-object group (`spell_contexts_in_slot_spell_group` and `spell_contexts_in_ability_object_group`, under `counts`; either is left out when no line is in that kind of group, so 16.19, where every group comes from an ability object, has no `spell_contexts_in_slot_spell_group`), and how many joined by each rule (`spell_contexts_joined_by`). For a readable text file it also counts the tooltip keys found only under their hash rather than their name (`keys_found_only_by_hash`) and the level-up labels found that way (`level_up_labels_found_only_by_hash`). Both are null for a binary table, which holds only hashes.
 
 A record of the text shown while Shift is held has `extended_text_hidden_in_game: true` when its spell turns that text off (`EnableExtendedTooltip` false), so players never see it. It is still a checked record.
 
@@ -62,6 +62,54 @@ Two kinds of record are not tooltips to check, and are dropped when building the
 
 - A record with `duplicate_of` set holds a text that another spell of the same champion shares with the spell the text belongs to, and `duplicate_of` gives that spell's path. When two or more spells of a champion name the same text, it belongs to the only one of them in slot P, Q, W, E or R. If none or several are, it belongs to the only one whose script name the text key carries (`Spell_<Script>_Tooltip`). The owner may itself be stored under a hashed path. Every other spell of the champion that names the text gets `duplicate_of`, under a hashed or a readable path (`MalzaharWCancel` in 15.1 is marked as a duplicate of `MalzaharW`). If neither rule finds a single owner, no record is marked.
 - A record whose `text_field` is `passiveToolTip` is the champion's short summary text (the passive description shown in champion select), not an in-game tooltip. It is read only when no passive spell names a `keyTooltip`: either the passive spell has none, or no passive spell is found at all. These records have been seen in early patches such as 10.1 and 10.20.
+
+## inputs.py
+
+Builds what each checker reads: one input per checked record of a resolved patch and language, the same set as the summary's `checked_records`. The baseline script, the planting code and the model checker all read these inputs.
+
+```
+python3 scripts/inputs.py --patch 16.19
+python3 scripts/inputs.py --patch 16.18 --locale fr_fr      # needs 16.18 resolved in en_us too
+```
+
+It writes `data/inputs/<patch>.<locale>.jsonl`, one input per line, and prints the count, the total size in characters, an estimate of the tokens (characters divided by 3.0, from the tokenizer count below) and the median and largest input. An input holds:
+
+- `id`: `<patch>:<locale>:<champion_folder>:<spell_path>:<text_field>`, and the champion, slot, text field and the record's ranks.
+- `text`, the text with its `@placeholders@`, and `filled`, the same text with each placeholder replaced by the value it shows. An unresolved placeholder stays as written.
+- `typed_numbers`: each number typed into the text, with its `start` and `end` in `text`.
+- `placeholders`: for each placeholder, the value it shows (one per rank, joined by `/`, as in `35/60/85 (+50% AP)`), and for a calculation the formula it comes from, with its own worked-out value: each part with its data value name, coefficient and stat, any multiplier, and `tooltip_only` where the game marks it so. A calculation's `damage_type` is written as a word (`physical`, `magic` or `true`; the evidence for each is in a comment above `DAMAGE_TYPES`). Where a field that names another calculation holds only a hash and the input shows that calculation under a readable name, the field gives the name. `of` names the other spell a `@spell.X:Name@` placeholder reads.
+- `spell`: the record's own spell, with its own `ranks` and `rank_source`, its `EnableExtendedTooltip` flag, its data values, effect amounts, coefficients, cooldown, cost and other per-rank stats, the calculations no placeholder shows, and its level-up list as rows of label, value read and value shown.
+- `ability`: the other spells of the same ability in the same form, each with the rule that grouped it (`joined_by`) when the group did not come from the game's ability object. `referenced`: any other spell the record's placeholders or its spell's calculations read. `spells_not_in_file` lists any of these spells, the record's own included, whose line was not handed in.
+- `extended_text_hidden_in_game`, `rank_source` (when it is not the level-up list), `varies_by_rank` and `includes`, copied from the record.
+- For a language other than English, `english`: the `text` and `filled` of the English input for the same `spell_path` and `text_field`, since the game data is the same in every language. `english_missing` is set when there is no English record.
+
+A value that is the same at every rank is written once; one that differs by rank is written in full. Formulas keep every part and number of the game's own, with shorter names (`{"dv": "BaseDamage"}`, `{"stat": "AP", "coef": 0.5}`), and leave out only the fields that choose an icon or layout in the tooltip.
+
+`build_input(rec, lines, english=None)` builds one input and `build_inputs(records, lines, english_records=None, english_lines=None)` builds a patch's. Both work only on what they are handed and read no file, and the input they return shares no object with it. Every worked-out value in an input (placeholder values, calculation values and the level-up list's shown values) is the one resolve_tooltips.py wrote, so the planting code resolves a changed copy again before building its input.
+
+In 16.19 the 1,501 English inputs come to 3.42 million characters, with a median input of 1,998 characters. An earlier build of 3.33 million characters came to 1,113,760 tokens with the DeepSeek-V3 tokenizer, used as a stand-in for DeepSeek-V4-Pro's, about 3.0 characters per token.
+
+## plant.py
+
+Plants tooltip-calculation errors in a resolved patch's English records by the five fixed rules in PLAN.md ("Planted errors"). Every change is made in place in the champion's data or the tooltip's text, with nothing added, removed or renamed. The champion is then resolved again with resolve_tooltips.py's own code and the input built again with inputs.py, so no worked-out value is left over from before the change. An error that fails the script's self-check is not written; it is counted and the next draw takes its place. The anchor rules, the size of each change and how records are drawn are in the script's `--help`.
+
+```
+python3 scripts/plant.py --patch 16.18 --set dev --seed 1002 --counts tooltip_calc=125
+python3 scripts/plant.py --verify data/planted/dev.manifest.json
+```
+
+It reads the patch from `data/raw` in English and writes `data/planted/<set>.jsonl`, one planted error per line with its planted input and an answer for the catch judge, and `data/planted/<set>.manifest.json` (`--manifest-out` puts it elsewhere). The manifest holds no tooltip text, only names and numbers: the seed, the patch and its CommunityDragon build, the counts requested and made, each rule's eligible records and spells, each share a rule gave to the others (`reallocated`), the draws not written and why, the project's git commit and the sha256 of plant.py, inputs.py and resolve_tooltips.py, and for each error its record, rule, change (with its anchor) and the sha256 of its planted and original inputs. `--verify` makes the set again from `data/raw` and checks every hash. The same seed gives byte-identical files.
+
+## baseline.py
+
+The baseline script (PLAN.md, "Baseline"). It reads an inputs file or a planted set and writes one flag per line to `data/baseline/<name>.flags.jsonl`: the input id, text field, language, the value or claim the flag names, the check and rule that raised it, and a short reason. It checks English text only and has two checks, typed numbers and tooltip calculations. It prints how many pairs it could not compare because one side is unresolved. Its exact rules are in its `--help`. It has no randomness, so a second run gives the same file.
+
+```
+python3 scripts/baseline.py data/inputs/16.18.en_us.jsonl
+python3 scripts/baseline.py data/planted/dev.jsonl --dev-report
+```
+
+On a planted set, `--dev-report` prints how many planted errors of each rule a flag catches: a flag on the planted record's placeholder that shows the changed calculation, the pointed-at value or a calculation that reads the changed data value. That count is for development only. Real catches are judged by the judge model (PLAN.md, "Keeping the test honest").
 
 ## mine_patch_notes.py and patches.py
 

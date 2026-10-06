@@ -1472,6 +1472,8 @@ GAME_MODE_PREFIXES = ("nightmarebot", "odyssey", "strawberry_")
 
 def is_game_mode(spell):
     return spell_name(spell).lower().startswith(GAME_MODE_PREFIXES)
+
+
 LINKED = "names or is named by a spell of the group"
 
 
@@ -2014,7 +2016,38 @@ def duplicate_targets(jobs):
     return out
 
 
-def run_patch(patch, raw_root, out_root, locale):
+class PatchSource:
+    """What one patch and language are resolved from: the fetch manifest, the text table, every
+    champion's data and the patch-wide facts the champions share (the stat layout and the names
+    known by hash). load_patch builds it from data/raw; resolve_champion reads it."""
+
+    def __init__(self, patch, raw_root, locale, manifest, table, st_path, st_layout, champs,
+                 sources=None, unreadable=None, jade_folders=None):
+        self.patch = patch
+        self.raw_root = raw_root
+        self.locale = locale
+        self.manifest = manifest
+        self.table = table
+        self.st_path = st_path
+        self.st_layout = st_layout
+        self.build = manifest.get("cdragon_version")
+        self.champs = champs
+        self.sources = sources if sources is not None else Counter()
+        self.unreadable = unreadable if unreadable is not None else {}
+        self.jade_folders = jade_folders if jade_folders is not None else []
+        self.layout, self.stat_names, self.votes = detect_stat_layout(champs)
+        # Every readable data value and calculation name in the patch, by hash: the last place a
+        # hashed name in the spells file is looked up.
+        self.patch_names = {}
+        for ch in champs.values():
+            for sp in ch.spells.values():
+                self.patch_names.update(readable_dv_names(sp))
+                self.patch_names.update({fnv1a(n): n for n in (sp.m.get("mSpellCalculations") or {})
+                                         if not n.startswith("{")})
+
+
+def load_patch(patch, raw_root, locale):
+    """The PatchSource for one patch and language under raw_root (data/raw)."""
     raw = raw_root / patch
     manifest_path = raw / "manifest.json"
     if not manifest_path.exists():
@@ -2028,7 +2061,6 @@ def run_patch(patch, raw_root, out_root, locale):
         table = TextTable(st_path, st_layout)
     except (ValueError, KeyError, struct.error) as e:  # a truncated or malformed file
         raise PatchFailed(f"Could not read {st_path.relative_to(raw)}: {type(e).__name__}: {e}") from e
-    build = manifest.get("cdragon_version")
 
     champ_files = sorted(raw.glob("game/data/characters/*/*.bin.json"))
     champs = {}
@@ -2046,14 +2078,222 @@ def run_patch(patch, raw_root, out_root, locale):
             continue
         sources[source] += 1
         champs[folder] = Champion(folder, data)
-    layout, stat_names, votes = detect_stat_layout(champs)
-    # Every readable data value and calculation name in the patch, by hash: the last place a
-    # hashed name in the spells file is looked up.
-    patch_names = {}
-    for ch in champs.values():
-        for sp in ch.spells.values():
-            patch_names.update(readable_dv_names(sp))
-            patch_names.update({fnv1a(n): n for n in (sp.m.get("mSpellCalculations") or {}) if not n.startswith("{")})
+    return PatchSource(patch, raw_root, locale, manifest, table, st_path, st_layout, champs,
+                       sources, unreadable, jade_folders)
+
+
+class Tally:
+    """The counts and lists the summary is built from, added to by resolve_champion."""
+
+    def __init__(self):
+        self.c = Counter()
+        self.by_field = {}
+        self.reasons = Counter()
+        self.reasons_pqwer = Counter()
+        self.by_kind = Counter()
+        self.part_types = Counter()
+        self.rank_sources = Counter()
+        self.linked_keys = set()
+        self.missing_keys = []
+        self.jade_keys = []
+        self.unpaired = []
+        self.one_rank_varying = []
+        self.examples = {}
+        self.joined_by = Counter()
+
+
+def resolve_champion(src, folder, ch, table=None, tally=None):
+    """(records, spell lines) for one champion of src, in the order run_patch writes them. ch is
+    a Champion, which may be built from a changed copy of the champion's data; table, when given,
+    replaces src.table (any object with TextTable's get). tally, when given, is added to."""
+    table = src.table if table is None else table
+    t = Tally() if tally is None else tally
+    c, by_field = t.c, t.by_field
+    patch, locale, build, stat_names = src.patch, src.locale, src.build, src.stat_names
+    records, lines = [], []
+    jobs = text_jobs(ch)
+    dup_of = duplicate_targets(jobs)
+    seed_names = [n for n, _ in slot_seeds(ch)]
+    groups = spell_groups(ch, later_ability_groups(src.raw_root, patch, folder, seed_names) if seed_names else None)
+    keys = {p: spell_key(folder, s.path) for p, s in ch.spells_lc.items()}
+    spells_by_low = dict(ch.spells_lc)
+    for path, sp, _, _ in jobs:  # a passive with no spell gets a key of its own
+        keys.setdefault(path.lower(), spell_key(folder, path))
+        spells_by_low.setdefault(path.lower(), sp)
+    context_of = []  # lower-case paths whose context is written, text spells first
+    names = set()
+    for path, sp, slot, keyed_fields in jobs:
+        c["spells_with_tooltip_key"] += 1
+        pqwer = slot in PQWER_SLOTS
+        ranks, rank_source, varying = rank_info(ch, path, sp)
+        spell_counted = False
+        low = path.lower()
+        context_of.append(low)
+        group = groups.get(low)
+        context_of += group[3] if group else []
+        tooltip_data = (sp.m.get("mClientData") or {}).get("mTooltipData") or {}
+        extended_hidden = tooltip_data.get("EnableExtendedTooltip") is False
+        for field, key in keyed_fields:
+            if not isinstance(key, str) or not key:
+                continue
+            fc = by_field.setdefault(field, Counter())
+            if JADE_KEY_RE.search(key):
+                t.jade_keys.append(key)
+                continue
+            text = table.get(key)
+            if text is None:
+                fc["key_missing_from_table"] += 1
+                t.missing_keys.append(f"{field}: {key}")
+                continue
+            t.linked_keys.add(key.lower())
+            duplicate = dup_of.get((path, key.lower()))
+            c["records"] += 1
+            if duplicate:
+                c["records_marked_duplicate"] += 1
+            fc["records"] += 1
+            checked = not duplicate and field != "passiveToolTip"
+            if checked:
+                c["checked_records"] += 1
+                fc["checked_records"] += 1
+            if not spell_counted:
+                spell_counted = True
+                t.rank_sources[rank_source] += 1
+                if varying:
+                    t.one_rank_varying.append(f"{path} ({', '.join(varying[:4])})")
+            matches, stray = tokens_in(text)
+            if stray:
+                c["records_with_unpaired_at"] += 1
+                t.unpaired.append(f"{path} {field}: {stray} unpaired @")
+            phs = []
+            referenced = set()
+            for m in matches:
+                r = resolve_placeholder(m.group(1), ch, sp, ranks, stat_names)
+                r["start"], r["end"] = m.start(), m.end()
+                phs.append(r)
+                if r.get("name"):
+                    names.add(r["name"])
+                target = ch.by_script.get(r["owner_spell"].lower()) if r.get("owner_spell") else sp
+                if target is not None and target is not sp:
+                    referenced.add(target.path.lower())
+                if target is not None and r.get("kind") == "calculation":
+                    referenced |= calc_refs(ch, target, r["name"])
+                if r["status"] == "ignored":
+                    c["placeholders_ignored_ui"] += 1
+                    continue
+                c["placeholders"] += 1
+                fc["placeholders"] += 1
+                if duplicate:
+                    c["placeholders_in_duplicates"] += 1
+                    c["placeholders_resolved_in_duplicates"] += r["status"] == "resolved"
+                t.by_kind[(r["kind"], r["status"])] += 1
+                if pqwer:
+                    c["placeholders_pqwer_slots"] += 1
+                if r["status"] == "resolved":
+                    c["placeholders_resolved"] += 1
+                    fc["placeholders_resolved"] += 1
+                    if pqwer:
+                        c["placeholders_resolved_pqwer_slots"] += 1
+                    if r.get("scalings") or r.get("level_range"):
+                        c["resolved_with_symbolic_part"] += 1
+                    for term in r.get("scalings") or []:
+                        if term["kind"] == "stat":
+                            c["stat_scalings"] += 1
+                            c["stat_scalings_unnamed"] += term["stat"] is None
+                else:
+                    t.reasons[r["reason"]] += 1
+                    if pqwer:
+                        t.reasons_pqwer[r["reason"]] += 1
+                    t.examples.setdefault(r["reason"], f"{path} @{r['token']}@ {r.get('detail', '')}".strip())
+            referenced.discard(low)
+            context_of += sorted(referenced)
+            c["tokens_found"] += len(matches)
+            nums, plain = typed_numbers(text)
+            c["typed_numbers"] += len(nums)
+            fc["typed_numbers"] += len(nums)
+            if nums:
+                c["records_with_typed_numbers"] += 1
+            if checked:
+                c["checked_typed_numbers"] += len(nums)
+                fc["checked_typed_numbers"] += len(nums)
+                if nums:
+                    c["checked_records_with_typed_numbers"] += 1
+                    fc["checked_records_with_typed_numbers"] += 1
+            if phs and all(p["status"] != "unresolved" for p in phs) and not stray:
+                c["records_fully_resolved"] += 1
+            if not [p for p in phs if p["status"] != "ignored"]:
+                c["records_without_placeholders"] += 1
+            includes = INCLUDE_RE.findall(text)
+            if includes:
+                c["records_with_includes"] += 1
+            rec = {
+                "patch": patch, "locale": locale, "cdragon_version": build,
+                "champion": ch.name, "champion_folder": folder,
+                "spell_path": path, "script_name": sp.script or None, "slot": slot,
+                "text_field": field, "loc_key": key,
+                "ranks": ranks, "rank_source": rank_source,
+                "raw_text": text, "plain_text": plain,
+                "placeholders": phs, "typed_numbers": nums,
+            }
+            if duplicate:
+                rec["duplicate_of"] = duplicate
+            rec["spell_context"] = keys[low]
+            if referenced:
+                rec["referenced_spells"] = sorted(keys[p] for p in referenced if p in keys)
+            if extended_hidden and field in EXTENDED_FIELDS:
+                # TooltipData's EnableExtendedTooltip is false: the game does not show this text.
+                rec["extended_text_hidden_in_game"] = True
+                c["records_extended_text_hidden"] += 1
+            if varying:
+                rec["varies_by_rank"] = varying
+            if includes:
+                rec["includes"] = includes
+            if field == "passiveToolTip":
+                rec["text_note"] = ("champion summary text from the champion record (the passive "
+                                    "description shown in champion select), not an in-game tooltip")
+            if stray:
+                rec["unpaired_at_signs"] = stray
+            records.append(rec)
+    # The spells file: each text spell, the spells grouped with it and the spells its
+    # records or calculations refer to, each written once.
+    text_spells = {path.lower() for path, _, _, _ in jobs}
+    for low in list(context_of):
+        sp = ch.spells_lc.get(low) if low in text_spells else None
+        for name in (sp.calcs if sp else {}):
+            context_of += sorted(calc_refs(ch, sp, name))
+    for sp in ch.spells.values():
+        names_in(sp.m.get("mSpellCalculations"), names)
+    hash_names = dict(src.patch_names)
+    hash_names.update({fnv1a(n): n for n in names if not n.startswith("{")})
+    for sp in ch.spells.values():
+        hash_names.update(readable_dv_names(sp))
+    for low in dict.fromkeys(context_of):
+        if low not in spells_by_low:
+            continue
+        sp = spells_by_low[low]
+        line = {"patch": patch, "locale": locale, "cdragon_version": build, "champion_folder": folder,
+                "has_text": low in text_spells,
+                **spell_context(ch, sp.path, sp, keys, groups, stat_names, table, hash_names)}
+        c["spell_contexts"] += 1
+        c["spell_contexts_without_text"] += low not in text_spells
+        if line["group"]:
+            c["spell_contexts_in_ability_object_group" if line["group"]["source"] == "AbilityObject"
+              else "spell_contexts_in_slot_spell_group"] += 1
+            t.joined_by[line["group"]["joined_by"]] += 1
+        lines.append(line)
+    # count part types used by calculations of every spell, for the summary
+    for sp in ch.spells.values():
+        for calc in (sp.m.get("mSpellCalculations") or {}).values():
+            for pt in re.findall(r'"__type": "([^"]+)"', json.dumps(calc)):
+                t.part_types[pt] += 1
+    return records, lines
+
+
+def run_patch(patch, raw_root, out_root, locale):
+    src = load_patch(patch, raw_root, locale)
+    raw = raw_root / patch
+    manifest, table, st_path, st_layout, build = src.manifest, src.table, src.st_path, src.st_layout, src.build
+    champs, sources, unreadable, jade_folders = src.champs, src.sources, src.unreadable, src.jade_folders
+    layout, votes = src.layout, src.votes
 
     out_root.mkdir(parents=True, exist_ok=True)
     out_path, summary_path = output_paths(out_root, patch, locale)
@@ -2061,196 +2301,18 @@ def run_patch(patch, raw_root, out_root, locale):
     sp_path = spells_path(out_root, patch, locale)
     sp_tmp = sp_path.with_suffix(".jsonl.tmp")
 
-    c = Counter()
-    by_field = {}
-    reasons = Counter()
-    reasons_pqwer = Counter()
-    by_kind = Counter()
-    part_types = Counter()
-    rank_sources = Counter()
-    linked_keys = set()
-    missing_keys = []
-    jade_keys = []
-    unpaired = []
-    one_rank_varying = []
-    examples = {}
-    joined_by = Counter()
+    t = Tally()
+    c, by_field, reasons, reasons_pqwer, by_kind, part_types = (t.c, t.by_field, t.reasons, t.reasons_pqwer,
+                                                                t.by_kind, t.part_types)
+    rank_sources, linked_keys, missing_keys, jade_keys = t.rank_sources, t.linked_keys, t.missing_keys, t.jade_keys
+    unpaired, one_rank_varying, examples, joined_by = t.unpaired, t.one_rank_varying, t.examples, t.joined_by
     with tmp.open("w", encoding="utf-8") as fh, sp_tmp.open("w", encoding="utf-8") as sfh:
         for folder, ch in champs.items():
-            jobs = text_jobs(ch)
-            dup_of = duplicate_targets(jobs)
-            seed_names = [n for n, _ in slot_seeds(ch)]
-            groups = spell_groups(ch, later_ability_groups(raw_root, patch, folder, seed_names) if seed_names else None)
-            keys = {p: spell_key(folder, s.path) for p, s in ch.spells_lc.items()}
-            spells_by_low = dict(ch.spells_lc)
-            for path, sp, _, _ in jobs:  # a passive with no spell gets a key of its own
-                keys.setdefault(path.lower(), spell_key(folder, path))
-                spells_by_low.setdefault(path.lower(), sp)
-            context_of = []  # lower-case paths whose context is written, text spells first
-            names = set()
-            for path, sp, slot, keyed_fields in jobs:
-                c["spells_with_tooltip_key"] += 1
-                pqwer = slot in PQWER_SLOTS
-                ranks, rank_source, varying = rank_info(ch, path, sp)
-                spell_counted = False
-                low = path.lower()
-                context_of.append(low)
-                group = groups.get(low)
-                context_of += group[3] if group else []
-                tooltip_data = (sp.m.get("mClientData") or {}).get("mTooltipData") or {}
-                extended_hidden = tooltip_data.get("EnableExtendedTooltip") is False
-                for field, key in keyed_fields:
-                    if not isinstance(key, str) or not key:
-                        continue
-                    fc = by_field.setdefault(field, Counter())
-                    if JADE_KEY_RE.search(key):
-                        jade_keys.append(key)
-                        continue
-                    text = table.get(key)
-                    if text is None:
-                        fc["key_missing_from_table"] += 1
-                        missing_keys.append(f"{field}: {key}")
-                        continue
-                    linked_keys.add(key.lower())
-                    duplicate = dup_of.get((path, key.lower()))
-                    c["records"] += 1
-                    if duplicate:
-                        c["records_marked_duplicate"] += 1
-                    fc["records"] += 1
-                    checked = not duplicate and field != "passiveToolTip"
-                    if checked:
-                        c["checked_records"] += 1
-                        fc["checked_records"] += 1
-                    if not spell_counted:
-                        spell_counted = True
-                        rank_sources[rank_source] += 1
-                        if varying:
-                            one_rank_varying.append(f"{path} ({', '.join(varying[:4])})")
-                    matches, stray = tokens_in(text)
-                    if stray:
-                        c["records_with_unpaired_at"] += 1
-                        unpaired.append(f"{path} {field}: {stray} unpaired @")
-                    phs = []
-                    referenced = set()
-                    for m in matches:
-                        r = resolve_placeholder(m.group(1), ch, sp, ranks, stat_names)
-                        r["start"], r["end"] = m.start(), m.end()
-                        phs.append(r)
-                        if r.get("name"):
-                            names.add(r["name"])
-                        target = ch.by_script.get(r["owner_spell"].lower()) if r.get("owner_spell") else sp
-                        if target is not None and target is not sp:
-                            referenced.add(target.path.lower())
-                        if target is not None and r.get("kind") == "calculation":
-                            referenced |= calc_refs(ch, target, r["name"])
-                        if r["status"] == "ignored":
-                            c["placeholders_ignored_ui"] += 1
-                            continue
-                        c["placeholders"] += 1
-                        fc["placeholders"] += 1
-                        if duplicate:
-                            c["placeholders_in_duplicates"] += 1
-                            c["placeholders_resolved_in_duplicates"] += r["status"] == "resolved"
-                        by_kind[(r["kind"], r["status"])] += 1
-                        if pqwer:
-                            c["placeholders_pqwer_slots"] += 1
-                        if r["status"] == "resolved":
-                            c["placeholders_resolved"] += 1
-                            fc["placeholders_resolved"] += 1
-                            if pqwer:
-                                c["placeholders_resolved_pqwer_slots"] += 1
-                            if r.get("scalings") or r.get("level_range"):
-                                c["resolved_with_symbolic_part"] += 1
-                            for term in r.get("scalings") or []:
-                                if term["kind"] == "stat":
-                                    c["stat_scalings"] += 1
-                                    c["stat_scalings_unnamed"] += term["stat"] is None
-                        else:
-                            reasons[r["reason"]] += 1
-                            if pqwer:
-                                reasons_pqwer[r["reason"]] += 1
-                            examples.setdefault(r["reason"], f"{path} @{r['token']}@ {r.get('detail', '')}".strip())
-                    referenced.discard(low)
-                    context_of += sorted(referenced)
-                    c["tokens_found"] += len(matches)
-                    nums, plain = typed_numbers(text)
-                    c["typed_numbers"] += len(nums)
-                    fc["typed_numbers"] += len(nums)
-                    if nums:
-                        c["records_with_typed_numbers"] += 1
-                    if checked:
-                        c["checked_typed_numbers"] += len(nums)
-                        fc["checked_typed_numbers"] += len(nums)
-                        if nums:
-                            c["checked_records_with_typed_numbers"] += 1
-                            fc["checked_records_with_typed_numbers"] += 1
-                    if phs and all(p["status"] != "unresolved" for p in phs) and not stray:
-                        c["records_fully_resolved"] += 1
-                    if not [p for p in phs if p["status"] != "ignored"]:
-                        c["records_without_placeholders"] += 1
-                    includes = INCLUDE_RE.findall(text)
-                    if includes:
-                        c["records_with_includes"] += 1
-                    rec = {
-                        "patch": patch, "locale": locale, "cdragon_version": build,
-                        "champion": ch.name, "champion_folder": folder,
-                        "spell_path": path, "script_name": sp.script or None, "slot": slot,
-                        "text_field": field, "loc_key": key,
-                        "ranks": ranks, "rank_source": rank_source,
-                        "raw_text": text, "plain_text": plain,
-                        "placeholders": phs, "typed_numbers": nums,
-                    }
-                    if duplicate:
-                        rec["duplicate_of"] = duplicate
-                    rec["spell_context"] = keys[low]
-                    if referenced:
-                        rec["referenced_spells"] = sorted(keys[p] for p in referenced if p in keys)
-                    if extended_hidden and field in EXTENDED_FIELDS:
-                        # TooltipData's EnableExtendedTooltip is false: the game does not show this text.
-                        rec["extended_text_hidden_in_game"] = True
-                        c["records_extended_text_hidden"] += 1
-                    if varying:
-                        rec["varies_by_rank"] = varying
-                    if includes:
-                        rec["includes"] = includes
-                    if field == "passiveToolTip":
-                        rec["text_note"] = ("champion summary text from the champion record (the passive "
-                                            "description shown in champion select), not an in-game tooltip")
-                    if stray:
-                        rec["unpaired_at_signs"] = stray
-                    fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
-            # The spells file: each text spell, the spells grouped with it and the spells its
-            # records or calculations refer to, each written once.
-            text_spells = {path.lower() for path, _, _, _ in jobs}
-            for low in list(context_of):
-                sp = ch.spells_lc.get(low) if low in text_spells else None
-                for name in (sp.calcs if sp else {}):
-                    context_of += sorted(calc_refs(ch, sp, name))
-            for sp in ch.spells.values():
-                names_in(sp.m.get("mSpellCalculations"), names)
-            hash_names = dict(patch_names)
-            hash_names.update({fnv1a(n): n for n in names if not n.startswith("{")})
-            for sp in ch.spells.values():
-                hash_names.update(readable_dv_names(sp))
-            for low in dict.fromkeys(context_of):
-                if low not in spells_by_low:
-                    continue
-                sp = spells_by_low[low]
-                line = {"patch": patch, "locale": locale, "cdragon_version": build, "champion_folder": folder,
-                        "has_text": low in text_spells,
-                        **spell_context(ch, sp.path, sp, keys, groups, stat_names, table, hash_names)}
-                c["spell_contexts"] += 1
-                c["spell_contexts_without_text"] += low not in text_spells
-                if line["group"]:
-                    c["spell_contexts_in_ability_object_group" if line["group"]["source"] == "AbilityObject"
-                      else "spell_contexts_in_slot_spell_group"] += 1
-                    joined_by[line["group"]["joined_by"]] += 1
+            records, lines = resolve_champion(src, folder, ch, tally=t)
+            for rec in records:
+                fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
+            for line in lines:
                 sfh.write(json.dumps(line, ensure_ascii=False) + "\n")
-            # count part types used by calculations of every spell, for the summary
-            for sp in ch.spells.values():
-                for calc in (sp.m.get("mSpellCalculations") or {}).values():
-                    for t in re.findall(r'"__type": "([^"]+)"', json.dumps(calc)):
-                        part_types[t] += 1
     tmp.replace(out_path)
     sp_tmp.replace(sp_path)
 
