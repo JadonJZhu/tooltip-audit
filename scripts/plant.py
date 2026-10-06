@@ -1,17 +1,21 @@
 #!/usr/bin/env python3
 """Plant tooltip-calculation errors in a live patch's English tooltips by fixed rules.
 
-Each planted error is made in its own copy of the champion's data or of one tooltip's text. That
-champion is then resolved again by resolve_tooltips.py's own code (resolve_champion) and the
-record's input is built again by inputs.py, so every value the input shows is worked out by the
-same code as for the real data. Records come from the checked set.
+A planted error makes a value that a placeholder of the record's text shows disagree with an
+anchor: the same value shown elsewhere in the input. The changed value is one only that text's
+shown values read. It is not always a value the game marks tooltip-only, since many shown
+calculations are also used in play. Each error is made in its own copy of the champion's data or
+of one tooltip's text. That champion is then resolved again by resolve_tooltips.py's own code
+(resolve_champion) and the record's input is built again by inputs.py, so every value the input
+shows is worked out by the same code as for the real data. Records come from the checked set.
 
-Every change is made in place: no calculation, data value or section is added, removed or
-renamed, so a planted input has the same shape as a real one. A place in a record (a site) is
-used only when both of these hold:
+No calculation, data value or section is added or renamed. drop_term removes one part of a
+calculation's formula, and other_value renames one placeholder of the text; the other rules
+only change numbers. A place in a record (a site) is used only when both of these hold:
 
   1. The field changed is read only by what the record's text shows: by a calculation a
-     placeholder of the text shows, or by a calculation read only by such calculations. No
+     placeholder of the text shows, or by a calculation read only by such calculations (through
+     its formula, or as the calculation it modifies, or its default or conditional one). No
      level-up row, other calculation or other spell reads it.
   2. In the original input the field agrees with an independent anchor elsewhere in the input,
      which the change leaves as it was, so the error shows as a disagreement, as real tooltip
@@ -21,21 +25,31 @@ used only when both of these hold:
      a number typed into the text. A value that is the same at every rank anchors only through a
      coefficient field, a value of the same name in another spell, a calculation part of a
      calculation with a related name, or (for a hit count) a typed number followed by a word such
-     as "times", since a lone constant matches too much by chance.
+     as "times", since a lone constant matches too much by chance. other_value's anchors are
+     its own, listed under its rule below.
 
 The rules (PLAN.md, "Planted errors"):
 
   stat_ratio   a stat ratio in a shown calculation, times a factor in RATIO_FACTORS: the
                coefficient itself, or the data value it reads
   base_values  the per-rank values of a data value a shown calculation or placeholder reads,
-               times a factor in BASE_FACTORS
-  other_value  one placeholder renamed to another calculation or data value of the same spell
-               (a text edit). The target shows a value within a factor of 0.25 to 4 of the
-               original at every rank, never zero, with the same percent display and the same
-               stat scalings, and has a readable name. The anchor is the original value, still
-               in the input.
-  drop_term    one term left out of a shown calculation with two or more, only where the left-out
-               value is anchored elsewhere and the result is not a base of 0 at every rank
+               times a factor in BASE_FACTORS, only a factor that keeps the list on its own step
+               in GRID_STEPS (multiples of 5 stay multiples of 5)
+  other_value  the first occurrence of one placeholder renamed to another calculation or data
+               value of the same spell (a text edit). The target shows a value within a factor of
+               0.25 to 4 of the original at every rank, never zero, with the same percent display
+               and the same kinds of stat scaling, and has a readable name. Its name holds words
+               of the same kinds of quantity (QUANTITY_WORDS) as the original's, or neither has
+               any. The anchor is where the input still shows the original value: another
+               placeholder showing it (only another occurrence of the same placeholder for a
+               value that is the same at every rank), or, when the two show the same stat
+               scalings, a value of the same name in another spell of the ability, or (for a
+               value that differs by rank) a level-up row. A coefficient field or a typed number
+               never anchors it, since it matches a constant by chance
+  drop_term    one term (a base value or a stat ratio) left out of a shown calculation with two or
+               more, only where the left-out value is anchored elsewhere and the result is not 0
+               with no scaling. The kind of term (base value or stat ratio) is drawn first,
+               uniformly among the kinds the record has, then the term
   multiplier   a multiplier in a shown calculation (its own, or a side of a product), never one
                in UNIT_MULTIPLIERS: a whole number plus a step in MULTIPLIER_STEPS, kept at 1 or
                more, any other number times a factor in MULTIPLIER_FACTORS
@@ -47,22 +61,26 @@ rank order holds.
 Each planted error passes the self-check in check() or is not written (and is counted). The
 errors are split as equally as the count allows among the rules, and a rule that runs out of
 eligible records gives the rest of its share equally to the others; the manifest records each
-such move. At most one error goes on a spell, and at most one on each tooltip text within a
-champion (spells with the same raw text). All random choices come from one random.Random(seed):
+such move. --max-share caps each rule at that share of its eligible abilities (rounded
+down), and the rest of its share moves to the others the same way. At most one error goes on an ability (a champion's ability group in the resolver's
+spells file, or the spell when it has none), and at most one on each tooltip text within a
+champion (spells with the same raw text). --exclude-manifest leaves out every ability that holds
+an error of an existing manifest, so a test set never shares an ability with the development set. All random choices come from one random.Random(seed):
 rules take turns drawing, each draw takes a record uniformly from the rule's eligible records not
 yet drawn, then a site and a change size, uniformly.
 
 Writes data/planted/<set>.jsonl, one planted error per line: id, rule, record_id,
 original_input_id, change, answer (what the tooltip now shows and the anchor it disagrees with,
-for the catch judge) and input (the planted input). Also writes a manifest (by default
+for the catch judge, naming every placeholder that now shows a different value) and input (the
+planted input). Also writes a manifest (by default
 data/planted/<set>.manifest.json; --manifest-out puts it elsewhere) that holds no tooltip text,
-only names and numbers: the seed, patch, CommunityDragon build, counts, the code it was made by
+only names and numbers: the seed, patch, CommunityDragon build, counts, share cap, the code it was made by
 (the project's git commit and the sha256 of plant.py, inputs.py and resolve_tooltips.py), and for
-each error its record, rule, change and the sha256 of its planted and original inputs (of
-inputs.dumps). --verify <manifest> makes the set again from data/raw and checks every hash.
+each error its record, ability, rule, change and the sha256 of its planted and original inputs (of
+inputs.dumps), and the abilities left out. --verify <manifest> makes the set again from data/raw and checks every hash.
 
 Examples (run from the project root):
-  python3 scripts/plant.py --patch 16.18 --set dev --seed 1002 --counts tooltip_calc=125
+  python3 scripts/plant.py --patch 16.18 --set dev --seed 1003 --counts tooltip_calc=125 --max-share 0.5
   python3 scripts/plant.py --verify data/planted/dev.manifest.json
 """
 
@@ -98,19 +116,24 @@ MULTIPLIER_FACTORS = (0.5, 1.5, 2.0)
 # Multipliers that convert units (a fraction shown as a percent, milliseconds) or do nothing.
 UNIT_MULTIPLIERS = (0, 1, 100, 0.01, 1000, 0.001, -1)
 OTHER_VALUE_RANGE = (0.25, 4.0)
+# Steps a list of base values sits on, coarsest first. base_values keeps a changed list on its
+# original's step, so multiples of 5 stay multiples of 5.
+GRID_STEPS = (5, 1, 0.5, 0.1, 0.05, 0.01, 0.005, 0.001, 0.0005, 0.0001)
 # Name pieces that mark a calculation or data value as junk or not in use.
 JUNK_WORDS = {"ignore", "unused", "deprecated", "dummy", "debug", "test", "placeholder", "temp", "old",
               "tbd", "todo", "hack", "fix", "copy", "replaced"}
 # Words too common in names to tie two values together.
 GENERIC_WORDS = {"calc", "tooltip", "total", "damage", "base", "value", "amount", "final", "bonus", "per", "max", "min"}
 # Kinds of quantity, by the words of a name. other_value points a placeholder only at a value
-# whose name says the same kind of quantity, so the slip reads as one.
+# whose name holds words of the same kinds, so the slip reads as one. "per" marks a rate.
 QUANTITY_WORDS = {
     "time": {"duration", "time", "delay", "window", "seconds", "sec", "timer", "decay", "lockout", "linger"},
-    "damage": {"damage", "dmg"}, "heal": {"heal", "healing", "regen", "restore"},
-    "shield": {"shield"}, "speed": {"speed", "ms", "as", "haste"}, "slow": {"slow"},
-    "ratio": {"ratio", "scaling", "coef", "coefficient", "ap", "ad"},
-    "count": {"count", "stacks", "stack", "charges", "ammo", "hits", "bolts", "waves", "targets", "number"},
+    "amount": {"damage", "dmg", "heal", "healing", "regen", "restore", "shield"},
+    "speed": {"speed", "ms", "as", "haste"}, "slow": {"slow"},
+    "ratio": {"ratio", "scaling", "coef", "coefficient", "ap", "ad", "percent", "pct"},
+    "count": {"count", "stacks", "stack", "charges", "ammo", "hits", "bolts", "waves", "targets", "number",
+              "tick", "ticks"},
+    "rate": {"per"},
     "distance": {"range", "radius", "distance", "width", "length"},
     "resist": {"armor", "mr", "resist", "resistance", "reduction"},
     "cooldown": {"cooldown", "cd", "refund"}, "health": {"health", "hp"}, "mana": {"mana"}, "level": {"level"},
@@ -164,6 +187,23 @@ def scaled(values, factor, places_min=0):
 
 def changeable(values, factors, places_min=0):
     return any(scaled(values, f, places_min) not in (None, values) for f in factors)
+
+
+def grid(values):
+    """The coarsest step in GRID_STEPS that every value is a multiple of (5 for 50/75/100)."""
+    nums = [num(v) for v in values if isinstance(v, (int, float))]
+    return next((g for g in GRID_STEPS if all(abs(v / g - round(v / g)) < 1e-6 for v in nums)), None)
+
+
+def base_factors(values):
+    """The BASE_FACTORS whose changed list stays on the original list's grid."""
+    g = grid(values)
+    out = []
+    for f in BASE_FACTORS:
+        new = scaled(values, f)
+        if new not in (None, values) and g is not None and all(abs(num(v) / g - round(num(v) / g)) < 1e-6 for v in new if isinstance(v, (int, float))):
+            out.append(f)
+    return out
 
 
 def close(a, b):
@@ -351,8 +391,10 @@ class Ctx:
 
     @staticmethod
     def names_read(calc):
+        """Lower-case names calc reads, its own top-level fields included (a calculation it
+        modifies, or its default and conditional calculations)."""
         out = set()
-        for part in all_parts(calc):
+        for part in [calc, *all_parts(calc)] if isinstance(calc, dict) else all_parts(calc):
             for k, v in part.items():
                 if isinstance(v, str) and (k in R.NAME_FIELDS or k.endswith("data_value_name")):
                     out.add(v.lower())
@@ -509,6 +551,9 @@ def anchor_words(a):
         return f"the calculation {a['name']} of {a['spell']}, which uses the same value ({vals})"
     if a["type"] == "typed_number":
         return f"the number {vals} typed into the text"
+    if a["type"] == "placeholder":
+        shown = a["display"][0] if len(set(a["display"])) == 1 else "/".join(a["display"])
+        return f"@{a['name']}@, which still shows {shown} in the text"
     return f"{a['name']} ({vals})"
 
 
@@ -560,8 +605,8 @@ def dv_site(cx, dvname, kind, **kw):
     if dv is None or not cx.field_ok(dvname):
         return None
     vals = at_ranks(dv_values(dv), cx.ranks)
-    if any(v is None for v in vals) or all(v == 0 for v in vals) or not changeable(
-            dv_values(dv), RATIO_FACTORS if kind == "ratio" else BASE_FACTORS, 2 if kind == "ratio" else 0):
+    if any(v is None for v in vals) or all(v == 0 for v in vals) or not (
+            changeable(dv_values(dv), RATIO_FACTORS, 2) if kind == "ratio" else base_factors(dv_values(dv))):
         return None
     found = anchors(cx, vals, kind, name=dvname, changed=changed_by(cx, dvname), **kw)
     return (vals, found) if found else None
@@ -638,6 +683,24 @@ def comparable(ph, res):
     return True
 
 
+def original_anchors(cx, ph, res):
+    """Where the input still shows the original value of placeholder ph after its first
+    occurrence is pointed at res: another placeholder showing the same value (for a value that is
+    the same at every rank, only another occurrence of ph itself); or, when the two show the same
+    stat scalings (so the base is what differs), a value of the same name in another spell of the
+    ability, or a level-up row (anchors() gives one only for a value that differs by rank). No
+    coefficient field or typed number: a coefficient is one number and a typed number matched
+    only a constant, so both matched by chance (a coefficient of 1, the 5 of "per 5 seconds")."""
+    out = [{"type": "placeholder", "name": q["name"], "values": ph["base"], "display": q["display"]}
+           for q in cx.placeholders if q["start"] != ph["start"] and q.get("display") == ph.get("display")
+           and (q["name"].lower() == ph["name"].lower() or varies(ph["base"]))][:1]
+    if [s.get("label") for s in ph.get("scalings") or []] != [s.get("label") for s in res.get("scalings") or []]:
+        return out
+    vals = ph["base"]
+    out += [a for a in anchors(cx, vals, "value", name=ph["name"]) if a["type"] in ("level_up", "same_name")]
+    return out
+
+
 def sites_other_value(cx):
     ch = cx.p.src.champs[cx.folder]
     used = {ph["name"].lower() for ph in cx.rec.get("placeholders") or [] if ph.get("name")}
@@ -650,12 +713,13 @@ def sites_other_value(cx):
         names = (list(cx.sp.m.get("mSpellCalculations") or {}) if kind == "calculation"
                  else [R.g(v, "name", "mName") for v in cx.sp.m.get("DataValues") or cx.sp.m.get("mDataValues") or []])
         for name in names:
-            if not readable(name) or name.lower() in used or not quantities(name) & quantities(ph["name"]):
+            if not readable(name) or name.lower() in used or quantities(name) != quantities(ph["name"]):
                 continue
             res = R.resolve_placeholder(name + ph["token"][len(ph["name"]):], ch, cx.sp, cx.ranks, cx.p.src.stat_names)
             if comparable(ph, res):
-                out.append({"kind": "value", "token": ph["name"], "target": name,
-                            "anchors": [{"type": "original_value", "name": ph["name"], "values": ph["base"]}]})
+                found = original_anchors(cx, ph, res)
+                if found:
+                    out.append({"kind": "value", "token": ph["name"], "target": name, "anchors": found})
     return out
 
 
@@ -666,8 +730,7 @@ def sites_drop_term(cx):
         if c.get("__type") != "GameCalculation" or len(parts) < 2:
             continue
         for i, part in enumerate(parts):
-            rest = parts[:i] + parts[i + 1:]
-            if not isinstance(part, dict) or all(isinstance(q, dict) and q.get("__type") in STAT_PARTS for q in rest):
+            if not isinstance(part, dict):
                 continue
             t = part.get("__type")
             site = {"kind": "ratio" if t in STAT_PARTS else "value", "token": ph["name"], "calc": key,
@@ -772,7 +835,7 @@ def plan_stat_ratio(cx, site, rng):
 
 
 def plan_base_values(cx, site, rng):
-    yield from plan_scaled_dv(cx, site, BASE_FACTORS, rng)
+    yield from plan_scaled_dv(cx, site, base_factors(dv_values(cx.raw_dv(site["dv"]))), rng)
 
 
 def plan_other_value(cx, site, rng):
@@ -891,15 +954,19 @@ def check(cx, site, plan, new_rec, new_lines, inp, orig):
         if any(isinstance(x, (int, float)) and x < 0 for x in nb) and not any(
                 isinstance(x, (int, float)) and x < 0 for x in ob):
             fails.append("the planted value turned negative")
-        if plan.get("dropped") and all(x == 0 for x in nb):
-            fails.append("the left-out term leaves a base of 0")
+        if plan.get("dropped") and all(x == 0 for x in nb) and not new_ph[0].get("scalings"):
+            fails.append("the left-out term leaves a value of 0")
     # The anchor is still there, as it was.
     new_cx = Ctx(cx.p, cx.folder, cx.rec, lines=new_lines)
     a = site["anchors"][0]
-    if a["type"] == "original_value":
-        dumped = I.dumps(inp)
-        if f'"{a["name"]}"' not in dumped:
-            fails.append("the original value is not in the planted input")
+    if plan.get("renamed"):
+        # The game data is unchanged (checked above), so only text anchors can be gone.
+        if a["type"] == "placeholder" and not any(q.get("display") == a["display"] for q in by_name(
+                new_rec.get("placeholders"), a["name"]) if q.get("status") == "resolved"):
+            fails.append("the anchor is gone from the planted input")
+        if a["type"] == "typed_number" and not any(close(float(t["value"]), a["values"][0])
+                                                   for t in new_rec.get("typed_numbers") or []):
+            fails.append("the anchor is gone from the planted input")
     elif not any(same_anchor(a, b) for b in anchors(new_cx, a["values"], site["kind"], name=site.get("dv"),
                                                     changed=set(), calc=site.get("calc"), stat=site.get("stat"))):
         fails.append("the anchor is gone from the planted input")
@@ -910,14 +977,22 @@ def attempt(p, rule, folder, rec, sites, rng, failures):
     """The planted error for one drawn record, or None (failures counts why)."""
     cx = Ctx(p, folder, rec)
     orig = p.original_input(folder, rec)
-    for site in rng.sample(sites, len(sites)):
+    if rule == "drop_term":
+        # The kind of term first (base value or stat ratio), uniformly among the record's kinds.
+        kinds = sorted({s["kind"] for s in sites})
+        order = [s for k in rng.sample(kinds, len(kinds)) for s in rng.sample(
+            [s for s in sites if s["kind"] == k], sum(s["kind"] == k for s in sites))]
+    else:
+        order = rng.sample(sites, len(sites))
+    for site in order:
         for plan in PLANS[rule](cx, site, rng):
             inp, new_rec, lines = plant_one(p, folder, rec, plan)
             fails = check(cx, site, plan, new_rec, lines, inp, orig)
             if fails:
                 failures[fails[0]] += 1
                 continue
-            change = {**plan["change"], "anchor": {k: v for k, v in site["anchors"][0].items() if k != "label"}}
+            change = {**plan["change"], "anchor": {k: v for k, v in site["anchors"][0].items()
+                                                   if k not in ("label", "display")}}
             return {"kind": KIND, "rule": rule, "locale": ENGLISH, "record_id": I.record_id(rec),
                     "original_input_id": orig["id"], "change": change,
                     "answer": answer(rule, cx, site, plan, new_rec, inp, orig), "input": inp,
@@ -962,21 +1037,30 @@ def answer(rule, cx, site, plan, new_rec, inp, orig):
     a = site["anchors"][0]
     name = ch.get("points_at") or site["token"]
 
+    def base_name(token):
+        return token.split("*")[0].split(".")[0]
+
     def shown(entries, nm):
-        return next((e.get("value") for t, e in (entries or {}).items()
-                     if t.split("*")[0].split(".")[0].lower() == nm.lower()), None)
+        return next((e.get("value") for t, e in (entries or {}).items() if base_name(t).lower() == nm.lower()), None)
 
     new_ph, old_ph = by_name(new_rec["placeholders"], name)[0], by_name(rec["placeholders"], site["token"])[0]
-    head = (f"In {where}, @{name}@ shows {shown(inp.get('placeholders'), name)} where the real tooltip shows "
-            f"{shown(orig.get('placeholders'), site['token'])}.")
-    catch = f" A catch names @{name}@ or the value it shows as wrong."
+    # Every placeholder of the text that now shows a different value, in text order.
+    now, before = inp.get("placeholders") or {}, orig.get("placeholders") or {}
+    changed = [t for t in now if t not in before or now[t].get("value") != before[t].get("value")]
+    names = list(dict.fromkeys(base_name(t) for t in changed)) or [name]
+    head = f"In {where}, " + "; ".join(
+        f"@{n}@ shows {shown(now, n)} where the real tooltip shows "
+        f"{shown(before, n) if shown(before, n) is not None else shown(before, site['token'])}" for n in names) + "."
+    named = " or ".join(f"@{n}@" for n in names)
+    catch = (f" A catch names {named} or the value it shows as wrong." if len(names) == 1
+             else f" A catch names {named} or a value one of them shows as wrong.")
     note = multiplier_note(cx, ch["calc"]) if ch.get("calc") and rule != "multiplier" else ""
 
     def nums(x):
         return numbers_text(x if isinstance(x, list) else [x])
     if rule == "other_value":
         return (f"{head} The placeholder names {name}, another value of the same spell, where the real text names "
-                f"{site['token']}, which is still in the input.{catch}")
+                f"{site['token']}, whose value the input still shows in {anchor_words(a)}.{catch}")
     if rule == "stat_ratio":
         field = f"the data value {ch['data_value']}" if ch.get("data_value") else f"the {ch['stat']} coefficient"
         return (f"{head} Its {ch['stat']} ratio, {field} of the calculation {ch['calc']}, was changed from "
@@ -1015,45 +1099,66 @@ def eligible(p, rule):
     return sorted(out, key=lambda x: I.record_id(x[1]))
 
 
-def draw(p, count, seed):
-    """(errors, report) for count errors split among the rules."""
+def ability_of(p, folder, rec):
+    """[champion folder, ability]: the ability group of the resolver's spells file, or the spell
+    itself when it has no group."""
+    group = (p.lines_of(folder).get(rec["spell_context"]) or {}).get("group")
+    return [folder, group["id"] if group else rec["spell_path"]]
+
+
+def manifest_abilities(path):
+    """The abilities of a manifest's errors, as tuples."""
+    return {tuple(e["ability"]) for e in json.loads(Path(path).read_text(encoding="utf-8"))["errors"]}
+
+
+def draw(p, count, seed, exclude=(), max_share=None):
+    """(errors, report) for count errors split among the rules, none on an ability in exclude, and
+    with max_share, no rule on more than that share of its eligible abilities."""
     rng = random.Random(seed)
-    pools = {r: eligible(p, r) for r in RULES}
+    exclude = {tuple(a) for a in exclude}
+    pools = {r: [x for x in eligible(p, r) if tuple(ability_of(p, x[0], x[1])) not in exclude] for r in RULES}
+    abilities = {r: len({tuple(ability_of(p, f, rec)) for f, rec, _ in pools[r]}) for r in RULES}
+    cap = {r: int(max_share * abilities[r]) if max_share is not None else count for r in RULES}
     need = dict(zip(RULES, split(count, len(RULES))))
     report = {"eligible_records": {r: len(pools[r]) for r in RULES},
               "eligible_spells": {r: len({(f, rec["spell_path"]) for f, rec, _ in pools[r]}) for r in RULES},
+              "eligible_abilities": abilities, "cap": cap,
               "requested": dict(need), "reallocated": [], "failures": {r: Counter() for r in RULES}}
     done = Counter()
-    used_spells, used_texts = set(), set()
+    used_abilities, used_texts = set(), set()
     errors = []
     while True:
         progressed = False
         for rule in RULES:
             pool = pools[rule]
-            while done[rule] < need[rule] and pool:
+            while done[rule] < min(need[rule], cap[rule]) and pool:
                 folder, rec, sites = pool.pop(rng.randrange(len(pool)))
-                if (folder, rec["spell_path"]) in used_spells or (folder, rec["raw_text"]) in used_texts:
+                ability = tuple(ability_of(p, folder, rec))
+                if ability in used_abilities or (folder, rec["raw_text"]) in used_texts:
                     continue
                 err = attempt(p, rule, folder, rec, sites, rng, report["failures"][rule])
                 if err is not None:
-                    used_spells.add((folder, rec["spell_path"]))
+                    err["_ability"] = list(ability)
+                    used_abilities.add(ability)
                     used_texts.add((folder, rec["raw_text"]))
                     errors.append(err)
                     done[rule] += 1
                     progressed = True
                     break
-        # A rule with no records left gives the rest of its share equally to the others.
+        # A rule with no records left, or at its cap, gives the rest of its share equally to the
+        # others that have records left and are below their caps.
         moved = False
         for rule in RULES:
             short = need[rule] - done[rule]
-            others = [r for r in RULES if r != rule and pools[r]]
-            if short <= 0 or pools[rule] or not others:
+            others = [r for r in RULES if r != rule and pools[r] and done[r] < cap[r]]
+            if short <= 0 or (pools[rule] and done[rule] < cap[rule]) or not others:
                 continue
             need[rule] = done[rule]
             gift = dict(zip(others, split(short, len(others))))
             for r, n in gift.items():
                 need[r] += n
-            report["reallocated"].append({"from": rule, "count": short, "to": {r: n for r, n in gift.items() if n}})
+            report["reallocated"].append({"from": rule, "count": short, "to": {r: n for r, n in gift.items() if n},
+                                          "why": "cap" if done[rule] >= cap[rule] else "no records left"})
             moved = True
         if not progressed and not moved:
             break
@@ -1072,13 +1177,16 @@ def code_info():
                                              for f in CODE_FILES}}
 
 
-def manifest_of(errors, report, p, set_name, seed, count):
-    entries = [{"id": f"{set_name}-{i:03d}", "rule": e["rule"], "record_id": e["record_id"], "change": e["change"],
-                "sha256": e["_sha"], "original_sha256": e["_orig_sha"]} for i, e in enumerate(errors, 1)]
+def manifest_of(errors, report, p, set_name, seed, count, exclude=(), max_share=None):
+    entries = [{"id": f"{set_name}-{i:03d}", "rule": e["rule"], "record_id": e["record_id"], "ability": e["_ability"],
+                "change": e["change"], "sha256": e["_sha"], "original_sha256": e["_orig_sha"]}
+               for i, e in enumerate(errors, 1)]
     return {"set": set_name, "patch": p.src.patch, "cdragon_version": p.src.build, "seed": seed, "kind": KIND,
-            "count_requested": count, "count": len(errors), "made_by": "scripts/plant.py", "code": code_info(),
+            "count_requested": count, "count": len(errors), "max_share": max_share,
+            "excluded_abilities": sorted(list(a) for a in {tuple(a) for a in exclude}), "made_by": "scripts/plant.py", "code": code_info(),
             "counts": dict(Counter(e["rule"] for e in errors)), "eligible_records": report["eligible_records"],
-            "eligible_spells": report["eligible_spells"], "reallocated": report["reallocated"],
+            "eligible_spells": report["eligible_spells"], "eligible_abilities": report["eligible_abilities"],
+            "cap": report["cap"], "reallocated": report["reallocated"],
             "not_written": {r: dict(c) for r, c in report["failures"].items() if c}, "errors": entries}
 
 
@@ -1103,8 +1211,10 @@ def verify(manifest_path, raw_dir):
     for f, h in want["code"]["sha256"].items():
         if code.get(f) != h:
             fails.append(f"{f} differs from the code the set was made by (hashes may differ)")
-    errors, report = draw(p, want["count_requested"], want["seed"])
-    got = manifest_of(errors, report, p, want["set"], want["seed"], want["count_requested"])
+    exclude = want.get("excluded_abilities") or []
+    share = want.get("max_share")
+    errors, report = draw(p, want["count_requested"], want["seed"], exclude, share)
+    got = manifest_of(errors, report, p, want["set"], want["seed"], want["count_requested"], exclude, share)
     if len(got["errors"]) != len(want["errors"]):
         fails.append(f"{len(got['errors'])} errors made again, the manifest has {len(want['errors'])}")
     for a, b in zip(want["errors"], got["errors"]):
@@ -1133,6 +1243,10 @@ def main(argv=None):
     ap.add_argument("--raw-dir", type=Path, default=DEFAULT_RAW)
     ap.add_argument("--out-dir", type=Path, default=DEFAULT_OUT)
     ap.add_argument("--manifest-out", type=Path, help="where to write the manifest (default: next to the set)")
+    ap.add_argument("--exclude-manifest", type=Path, action="append", default=[], metavar="MANIFEST",
+                    help="plant on no ability that holds an error of this manifest (may be given more than once)")
+    ap.add_argument("--max-share", type=float, metavar="SHARE",
+                    help="plant each rule on at most this share of its eligible abilities, such as 0.5")
     ap.add_argument("--verify", type=Path, metavar="MANIFEST", help="make the set again and check its hashes")
     args = ap.parse_args(argv)
     try:
@@ -1149,18 +1263,20 @@ def main(argv=None):
         p = Patch.load(args.patch, args.raw_dir)
     except R.PatchFailed as e:
         sys.exit(str(e))
-    errors, report = draw(p, args.counts, args.seed)
-    manifest = manifest_of(errors, report, p, args.set, args.seed, args.counts)
+    exclude = set().union(*(manifest_abilities(m) for m in args.exclude_manifest))
+    errors, report = draw(p, args.counts, args.seed, exclude, args.max_share)
+    manifest = manifest_of(errors, report, p, args.set, args.seed, args.counts, exclude, args.max_share)
     jsonl = args.out_dir / f"{args.set}.jsonl"
     manifest_path = args.manifest_out or args.out_dir / f"{args.set}.manifest.json"
     write(errors, manifest, jsonl, manifest_path)
     print(f"{args.patch} {args.set}: {len(errors)} planted errors (seed {args.seed})")
     for r in RULES:
         print(f"  {r}: {report['planted'][r]} of {report['target'][r]} planted, {report['eligible_records'][r]} "
-              f"eligible records ({report['eligible_spells'][r]} spells), "
+              f"eligible records ({report['eligible_spells'][r]} spells, {report['eligible_abilities'][r]} abilities, "
+              f"cap {report['cap'][r]}), "
               f"{sum(report['failures'][r].values())} changes failed the self-check")
     for move in report["reallocated"]:
-        print(f"  {move['from']} gave {move['count']} to {move['to']}")
+        print(f"  {move['from']} gave {move['count']} to {move['to']} ({move['why']})")
     print(f"  wrote {jsonl} and {manifest_path}")
 
 

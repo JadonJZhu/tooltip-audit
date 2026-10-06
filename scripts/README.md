@@ -91,14 +91,16 @@ In 16.19 the 1,501 English inputs come to 3.42 million characters, with a median
 
 ## plant.py
 
-Plants tooltip-calculation errors in a resolved patch's English records by the five fixed rules in PLAN.md ("Planted errors"). Every change is made in place in the champion's data or the tooltip's text, with nothing added, removed or renamed. The champion is then resolved again with resolve_tooltips.py's own code and the input built again with inputs.py, so no worked-out value is left over from before the change. An error that fails the script's self-check is not written; it is counted and the next draw takes its place. The anchor rules, the size of each change and how records are drawn are in the script's `--help`.
+Plants tooltip-calculation errors in a resolved patch's English records by the five fixed rules in PLAN.md ("Planted errors"). Each error makes a value that a placeholder of the text shows disagree with the same value shown elsewhere in the input. The change is made in place in the champion's data or the tooltip's text: nothing is added, one rule leaves out a part of a formula and another points a placeholder at a different value of the same spell. The champion is then resolved again with resolve_tooltips.py's own code and the input built again with inputs.py, so no worked-out value is left over from before the change. An error that fails the script's self-check is not written; it is counted and the next draw takes its place. The anchor rules, the size of each change and how records are drawn are in the script's `--help`.
 
 ```
-python3 scripts/plant.py --patch 16.18 --set dev --seed 1002 --counts tooltip_calc=125
+python3 scripts/plant.py --patch 16.18 --set dev --seed 1003 --counts tooltip_calc=125 --max-share 0.5
 python3 scripts/plant.py --verify data/planted/dev.manifest.json
 ```
 
-It reads the patch from `data/raw` in English and writes `data/planted/<set>.jsonl`, one planted error per line with its planted input and an answer for the catch judge, and `data/planted/<set>.manifest.json` (`--manifest-out` puts it elsewhere). The manifest holds no tooltip text, only names and numbers: the seed, the patch and its CommunityDragon build, the counts requested and made, each rule's eligible records and spells, each share a rule gave to the others (`reallocated`), the draws not written and why, the project's git commit and the sha256 of plant.py, inputs.py and resolve_tooltips.py, and for each error its record, rule, change (with its anchor) and the sha256 of its planted and original inputs. `--verify` makes the set again from `data/raw` and checks every hash. The same seed gives byte-identical files.
+The test set is made the same way on the final-run patch, with its own seed, no `--max-share` cap and `--exclude-manifest data/planted/dev.manifest.json`, and its manifest is written to `planted/test.manifest.json` in this repo.
+
+It reads the patch from `data/raw` in English and writes `data/planted/<set>.jsonl`, one planted error per line with its planted input and an answer for the catch judge, and `data/planted/<set>.manifest.json` (`--manifest-out` puts it elsewhere). The manifest holds no tooltip text, only names and numbers: the seed, the patch and its CommunityDragon build, the counts requested and made, the `--max-share` cap, each rule's eligible records, spells and abilities and its cap, each share a rule gave to the others and why (`reallocated`), the draws not written and why, the project's git commit and the sha256 of plant.py, inputs.py and resolve_tooltips.py, the abilities left out by `--exclude-manifest`, and for each error its record, ability, rule, change (with its anchor) and the sha256 of its planted and original inputs. `--verify` makes the set again from `data/raw` and checks every hash. The same seed gives byte-identical files.
 
 ## baseline.py
 

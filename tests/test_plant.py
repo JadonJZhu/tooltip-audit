@@ -105,7 +105,7 @@ EN = {
     "spell_testaq_tooltip": ("Testa throws a stone, dealing <magicDamage>@TotalDamage@ magic damage</magicDamage>. "
                              "It then hits 3 more times for <magicDamage>@HitDamage@ magic damage</magicDamage> "
                              "each and gains a <shield>@ShieldAmount@ shield</shield>.<br><br>Enemies hit are "
-                             "slowed by @SlowAmount*100@% for 2 seconds."),
+                             "slowed by @SlowAmount*100@% for 2 seconds (a @SlowAmount*100@% slow)."),
     "spell_testaw_tooltip": ("Testa gains @BonusAD@ bonus Attack Damage for 4 seconds. Her next attack deals "
                              "<physicalDamage>@AttackDamage@ physical damage</physicalDamage>."),
     "spell_testae_tooltip": E_TEXT,
@@ -202,6 +202,9 @@ class Helpers(unittest.TestCase):
             self.assertFalse(P.readable(name), name)
         self.assertTrue(P.quantities("CCDuration") & P.quantities("RevealDuration"))
         self.assertFalse(P.quantities("Cooldown_Reduction") & P.quantities("Damage_AD_Ratio"))
+        for a, b in (("ShieldDuration", "ShieldAPRatio"), ("MaxStacks", "PerStackDecayTimer"),
+                     ("BleedDuration", "SecondsPerTick")):
+            self.assertNotEqual(P.quantities(a), P.quantities(b), (a, b))
 
 
 class Sites(Fixture):
@@ -242,6 +245,9 @@ class Sites(Fixture):
         sites = self.sites("other_value", Q)
         # Not SlowAmount_Old (junk name), not SlowDuration (more than 4 times as large).
         self.assertEqual({(s["token"], s["target"]) for s in sites}, {("SlowAmount", "SlowAmountEmpowered")})
+        # The original 30% still shows in the second @SlowAmount@, which the rename leaves alone. A
+        # typed number never anchors other_value.
+        self.assertEqual(sites[0]["anchors"][0]["type"], "placeholder")
         inp, orig, plan, site, fails = self.plant("other_value", Q)
         self.assertEqual(fails, [])
         self.assertIn("@SlowAmountEmpowered*100@%", inp["text"])
@@ -249,8 +255,10 @@ class Sites(Fixture):
 
     def test_drop_term(self):
         sites = self.sites("drop_term", Q)
-        # Dropping BaseDamage would leave only a ratio (a base of 0), so only the ratio term goes.
-        self.assertEqual([(s["calc"], s["part"]) for s in sites], [("TotalDamage", ["mFormulaParts", 1])])
+        # A base term (anchored by the level-up rows) or the ratio term (anchored by mCoefficient) goes.
+        self.assertEqual([(s["calc"], s["part"]) for s in sites], [("TotalDamage", ["mFormulaParts", 0]),
+                                                                  ("TotalDamage", ["mFormulaParts", 1]),
+                                                                  ("ShieldAmount", ["mFormulaParts", 0])])
         inp, orig, plan, site, fails = self.plant("drop_term", Q)
         self.assertEqual(fails, [])
         self.assertEqual(len(inp["placeholders"]["TotalDamage"]["formula"]["parts"]), 1)

@@ -47,7 +47,7 @@ All 163 pages map to a folder pair. Lines in a page's Mid-Patch Updates section 
 
 ## Confirmations
 
-`confirmations.csv` holds the result of checking each candidate line by hand against the game files. It is a draft until it is frozen in the commit made before the first model run of any kind, as `PLAN.md` requires.
+`confirmations.csv` holds the result of checking each candidate line by hand against the game files. It was frozen on 2026-10-06 in the commit made before the first model run of any kind, as `PLAN.md` requires.
 
 A candidate line that could be about a champion ability became one or more units, one per champion and ability, so a line naming three champions gives three units. The other 117 lines, about items, runes, summoner spells, game-mode features or the client, have no unit (see below). Each of the 228 units from the first check was checked against the files and then rechecked by a second, independent pass. The 7 units added later, when the lines with no champion folder were read again, were each checked once, and the verifier spot-checked them. All 7 are excluded as not champion abilities.
 
