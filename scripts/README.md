@@ -113,6 +113,49 @@ python3 scripts/baseline.py data/planted/dev.jsonl --dev-report
 
 On a planted set, `--dev-report` prints how many planted errors of each rule a flag catches: a flag on the planted record's placeholder that shows the changed calculation, the pointed-at value or a calculation that reads the changed data value. That count is for development only. Real catches are judged by the judge model (PLAN.md, "Keeping the test honest").
 
+## check_model.py
+
+The model checker (PLAN.md, "The experiment", step 4). It sends each record of an inputs file, a planted set or `data/inputs/realbugs.jsonl` to a language model through OpenRouter, one record per call, and writes one line per call to the `--out` file. A line that holds its input under `input` is read by its own `id`. Each call sends the fixed instructions and then the record as compact JSON without its id, so the model never sees a planted id. Settings are fixed in `MODELS` and the request: temperature 0, reasoning off, at most 4,000 tokens in the answer, one pinned provider with fallbacks off. `--backup` uses the backup provider.
+
+```
+python3 scripts/check_model.py data/planted/dev.jsonl --model strong --run 1 --out runs/dev.strong.1.jsonl
+python3 scripts/check_model.py data/inputs/16.19.en_us.jsonl --model small --run 1 --out runs/sweep.small.1.jsonl --backup
+python3 scripts/check_model.py data/planted/dev.jsonl --model strong --run 1 --out x.jsonl --dry-run
+```
+
+A call that fails, for any reason or because its answer can't be read as flags, is retried up to 3 times with the same settings, then written with no flags and `failed` true. Running the same command again skips the records whose last line has `failed` false and calls the rest again, adding a new line for each; every reader takes the last line of each id. At the end it prints how many records failed, and warns when that is more than 5% (PLAN.md says to rerun on the backup providers).
+
+Each line holds the id, the model, the provider asked for (`pinned`) and the one that served the call, the prompt version, the run number, the time (UTC), the prompt, completion and cached tokens and OpenRouter's cost (each added up over every attempt that returned them), the flags, `failed`, the number of attempts and, for a failed call, the last error. `PRICES` gives each provider's price per million tokens, which evaluate.py uses for the cost of run 1. The key is read from `OPEN_ROUTER_API_KEY`, or from the `.env` file of the parent folder.
+
+## evaluate.py
+
+Scores the runs (PLAN.md, "Keeping the test honest", "Tests", "False alarms") in three steps. Each method is named as `NAME=file[,file...]`, one file per run in run order; the script's file is baseline.py's output and its method is named `baseline`.
+
+```
+python3 scripts/evaluate.py judge data/planted/test.jsonl --run strong=r1,r2,r3 --run small=r1,r2,r3 --run baseline=flags.jsonl --out data/eval/judged.test.json
+python3 scripts/evaluate.py judge answer_key/confirmations.csv --run strong=r1,r2,r3 --run small=r1,r2,r3 --run baseline=realbugs.flags.jsonl --out data/eval/judged.real.json
+python3 scripts/evaluate.py label data/inputs/16.19.en_us.jsonl --run strong=r1,r2,r3 --run small=r1,r2,r3 --run baseline=flags.jsonl --out data/eval/labels.json
+python3 scripts/evaluate.py report --judged data/eval/judged.test.json --judged data/eval/judged.real.json --labels data/eval/labels.json --out data/eval/report.json
+```
+
+`judge` takes each planted error, found by its planted id, or each confirmed real bug, found by its record's id (the id of its line in `data/inputs/realbugs.jsonl`). It reduces every method's flags on that record to a common form, then pools, shuffles and sends them to the judge model, which says whether each flag names the error. A method catches an error on a run if any of its flags does, and a model catches it if it does so on 2 of its 3 runs. `label` draws up to 200 flags per method from run 1 of the false-alarm sweep, pools and shuffles them, and the judge labels each one from the record alone: real mismatch, not a mismatch, or can't tell. A model run is read as the last line of each id.
+
+A flag's common form keeps the record, the text field and what it names: its `@Placeholder@` tokens, or else a few of its quoted words with any HTML tags taken out. A script flag on a typed number keeps the number with up to two whole words of the same sentence on each side, so it reads like a short quote (`"Cooldown by 50%"`).
+
+`report` gives the McNemar tests, recall by rule and by kind with their intervals, precision and flags per 1,000 records, the failed calls on every planted, real-bug and sweep run, and the cost of the strong model's run 1 of the sweep. That cost is worked out from the logged tokens at the pinned provider's prices, with cached prompt tokens at the cache-read price (success criterion 3), and OpenRouter's billed cost is given beside it. Given both a planted set's judgments and the labels, the first report writes `data/eval/spot_check.csv` with 10 catch judgments from the planted set and 10 labels; fill in its `author` column and run report again to score them. Without both, it skips the spot checks and says so.
+
+Judgments are cached in `--cache`, so a stopped run picks up where it left off and an identical pair is judged once. The judge thinks at medium effort with at most 16,000 tokens. `--dry-run` prints the number of calls still to make and the first request, and makes no call.
+
+## realbug_inputs.py
+
+Builds the checkers' inputs for the real bugs (PLAN.md, "Real bugs"). For each confirmed bug in `answer_key/confirmations.csv`, it builds, in the patch the bug was checked in, the input of every checked record of the bug's ability: the bug's own spell, the spells in its group and the records in its slot. A translation bug's inputs are in its language, each with the English text of the same record beside it. The resolved files must come from the CommunityDragon build the answer key names; otherwise the script stops and says which patch to resolve.
+
+```
+python3 scripts/realbug_inputs.py
+```
+
+It writes `data/inputs/realbugs.jsonl`, one line per input: `{"id", "kind": "real", "bug", "own_record", "input"}`, where `id` is the input's own id and `own_record` marks the bug's own record, the only one where a flag can count as a catch. baseline.py and check_model.py both read the file like a planted set, so their lines carry the record's id, which evaluate.py uses to find the bug.
+
 ## mine_patch_notes.py and patches.py
 
 `mine_patch_notes.py` reads Riot's English patch notes from 2020 on and lists every line that reports a tooltip or text correction in `answer_key/candidates.csv`, for checking by hand. `answer_key/README.md` explains the columns and how lines are rated.
