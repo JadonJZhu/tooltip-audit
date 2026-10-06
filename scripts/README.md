@@ -156,6 +156,31 @@ python3 scripts/realbug_inputs.py
 
 It writes `data/inputs/realbugs.jsonl`, one line per input: `{"id", "kind": "real", "bug", "own_record", "input"}`, where `id` is the input's own id and `own_record` marks the bug's own record, the only one where a flag can count as a catch. baseline.py and check_model.py both read the file like a planted set, so their lines carry the record's id, which evaluate.py uses to find the bug.
 
+## Final session
+
+The order of the final session (PLAN.md, "Keeping the test honest"). `P` is the final-run patch, the latest live patch on the day, newer than 16.19. Model runs and judgments go in `runs/final/`, which is committed.
+
+```
+python3 scripts/fetch_cdragon.py --patches P
+python3 scripts/resolve_tooltips.py --patches P
+python3 scripts/inputs.py --patch P
+python3 scripts/plant.py --patch P --set test --seed 2001 --counts tooltip_calc=250 --exclude-manifest data/planted/dev.manifest.json --manifest-out planted/test.manifest.json
+# commit planted/test.manifest.json and P before any model call on P
+python3 scripts/baseline.py data/planted/test.jsonl --out runs/final/test.baseline.jsonl
+python3 scripts/baseline.py data/inputs/P.en_us.jsonl --out runs/final/sweep.baseline.jsonl
+python3 scripts/baseline.py data/inputs/realbugs.jsonl --out runs/final/real.baseline.jsonl
+# for M in strong small, N in 1 2 3:
+python3 scripts/check_model.py data/planted/test.jsonl --model M --run N --out runs/final/test.M.N.jsonl
+python3 scripts/check_model.py data/inputs/P.en_us.jsonl --model M --run N --out runs/final/sweep.M.N.jsonl
+python3 scripts/check_model.py data/inputs/realbugs.jsonl --model M --run N --out runs/final/real.M.N.jsonl
+python3 scripts/evaluate.py judge data/planted/test.jsonl --run strong=runs/final/test.strong.1.jsonl,runs/final/test.strong.2.jsonl,runs/final/test.strong.3.jsonl --run small=... --run baseline=runs/final/test.baseline.jsonl --out runs/final/judged.test.json --cache runs/final/judge_cache.jsonl
+python3 scripts/evaluate.py judge answer_key/confirmations.csv --run strong=... --run small=... --run baseline=runs/final/real.baseline.jsonl --out runs/final/judged.real.json --cache runs/final/judge_cache.jsonl
+python3 scripts/evaluate.py label data/inputs/P.en_us.jsonl --run strong=... --run small=... --run baseline=runs/final/sweep.baseline.jsonl --out runs/final/labels.json --cache runs/final/judge_cache.jsonl
+python3 scripts/evaluate.py report --judged runs/final/judged.test.json --judged runs/final/judged.real.json --labels runs/final/labels.json --out runs/final/report.json
+```
+
+If more than 5% of a run's calls still fail, the whole session is rerun with `--backup` into a new folder, and the first session's files are kept and not scored. Sweep run 1 is not resumed, since its cost would then leave out the failed first attempts.
+
 ## mine_patch_notes.py and patches.py
 
 `mine_patch_notes.py` reads Riot's English patch notes from 2020 on and lists every line that reports a tooltip or text correction in `answer_key/candidates.csv`, for checking by hand. `answer_key/README.md` explains the columns and how lines are rated.
