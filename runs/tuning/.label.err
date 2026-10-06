@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/dev/riot-projects/projects/tooltip-audit/scripts/evaluate.py", line 676, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/dev/riot-projects/projects/tooltip-audit/scripts/evaluate.py", line 648, in main
+    methods = parse_methods(a.run)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dev/riot-projects/projects/tooltip-audit/scripts/evaluate.py", line 248, in parse_methods
+    runs = [read_jsonl(f) for f in files.split(",")]
+            ^^^^^^^^^^^^^
+  File "/home/dev/riot-projects/projects/tooltip-audit/scripts/evaluate.py", line 217, in read_jsonl
+    with open(path, encoding="utf-8") as fh:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'runs/tuning/.slice.strong.1.jsonl'

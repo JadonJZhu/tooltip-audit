@@ -98,7 +98,7 @@ python3 scripts/plant.py --patch 16.18 --set dev --seed 1003 --counts tooltip_ca
 python3 scripts/plant.py --verify data/planted/dev.manifest.json
 ```
 
-The test set is made the same way on the final-run patch, with its own seed, no `--max-share` cap and `--exclude-manifest data/planted/dev.manifest.json`, and its manifest is written to `planted/test.manifest.json` in this repo.
+The test set is made the same way on the final-run patch, with seed 2001, `--counts tooltip_calc=250`, no `--max-share` cap and `--exclude-manifest data/planted/dev.manifest.json`, and its manifest is written to `planted/test.manifest.json` in this repo.
 
 It reads the patch from `data/raw` in English and writes `data/planted/<set>.jsonl`, one planted error per line with its planted input and an answer for the catch judge, and `data/planted/<set>.manifest.json` (`--manifest-out` puts it elsewhere). The manifest holds no tooltip text, only names and numbers: the seed, the patch and its CommunityDragon build, the counts requested and made, the `--max-share` cap, each rule's eligible records, spells and abilities and its cap, each share a rule gave to the others and why (`reallocated`), the draws not written and why, the project's git commit and the sha256 of plant.py, inputs.py and resolve_tooltips.py, the abilities left out by `--exclude-manifest`, and for each error its record, ability, rule, change (with its anchor) and the sha256 of its planted and original inputs. `--verify` makes the set again from `data/raw` and checks every hash. The same seed gives byte-identical files.
 
