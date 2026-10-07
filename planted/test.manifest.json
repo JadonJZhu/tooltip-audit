@@ -1,0 +1,8180 @@
+{
+ "set": "test",
+ "patch": "16.19",
+ "cdragon_version": "16.19.8230722+branch.releases-16-19.content.release",
+ "seed": 2001,
+ "kind": "tooltip_calc",
+ "count_requested": 250,
+ "count": 250,
+ "max_share": null,
+ "excluded_abilities": [
+  [
+   "akali",
+   "Characters/Akali/Spells/AkaliRAbility"
+  ],
+  [
+   "ambessa",
+   "Characters/Ambessa/Spells/AmbessaRAbility"
+  ],
+  [
+   "amumu",
+   "Characters/Amumu/Spells/BandageTossAbility"
+  ],
+  [
+   "annie",
+   "Characters/Annie/Spells/AnnieQAbility/AnnieQ"
+  ],
+  [
+   "ashe",
+   "Characters/Ashe/Spells/VolleyAbility"
+  ],
+  [
+   "aurora",
+   "Characters/Aurora/Spells/AuroraRAbility"
+  ],
+  [
+   "azir",
+   "Characters/Azir/Spells/AzirRAbility"
+  ],
+  [
+   "braum",
+   "Characters/Braum/Spells/BraumQAbility"
+  ],
+  [
+   "briar",
+   "Characters/Briar/Spells/BriarWAbility"
+  ],
+  [
+   "caitlyn",
+   "Characters/Caitlyn/Spells/CaitlynQAbility"
+  ],
+  [
+   "camille",
+   "Characters/Camille/Spells/CamilleEAbility"
+  ],
+  [
+   "camille",
+   "Characters/Camille/Spells/CamilleWAbility"
+  ],
+  [
+   "cassiopeia",
+   "Characters/Cassiopeia/Spells/CassiopeiaQAbility"
+  ],
+  [
+   "cassiopeia",
+   "Characters/Cassiopeia/Spells/CassiopeiaWAbility"
+  ],
+  [
+   "chogath",
+   "Characters/Chogath/Spells/FeastAbility"
+  ],
+  [
+   "chogath",
+   "Characters/Chogath/Spells/FeralScreamAbility/FeralScream"
+  ],
+  [
+   "chogath",
+   "Characters/Chogath/Spells/RuptureAbility/Rupture"
+  ],
+  [
+   "diana",
+   "Characters/Diana/Spells/DianaOrbsAbility"
+  ],
+  [
+   "draven",
+   "Characters/Draven/Spells/DravenDoubleShotAbility"
+  ],
+  [
+   "ekko",
+   "Characters/Ekko/Spells/EkkoWAbility"
+  ],
+  [
+   "elise",
+   "Characters/Elise/Spells/EliseHumanQAbility/EliseHumanQ"
+  ],
+  [
+   "ezreal",
+   "Characters/Ezreal/Spells/EzrealRAbility/EzrealR"
+  ],
+  [
+   "ezreal",
+   "Characters/Ezreal/Spells/EzrealWAbility"
+  ],
+  [
+   "fiora",
+   "Characters/Fiora/Spells/FioraWAbility"
+  ],
+  [
+   "gragas",
+   "Characters/Gragas/Spells/GragasRAbility"
+  ],
+  [
+   "graves",
+   "Characters/Graves/Spells/GravesChargeShotAbility"
+  ],
+  [
+   "gwen",
+   "Characters/Gwen/Spells/GwenRAbility"
+  ],
+  [
+   "hecarim",
+   "Characters/Hecarim/Spells/HecarimRampAbility"
+  ],
+  [
+   "hecarim",
+   "Characters/Hecarim/Spells/HecarimUltAbility"
+  ],
+  [
+   "hecarim",
+   "Characters/Hecarim/Spells/HecarimWAbility"
+  ],
+  [
+   "heimerdinger",
+   "Characters/Heimerdinger/Spells/HeimerdingerRAbility"
+  ],
+  [
+   "heimerdinger",
+   "Characters/Heimerdinger/Spells/HeimerdingerWAbility"
+  ],
+  [
+   "hwei",
+   "Characters/Hwei/Spells/HweiWAbility"
+  ],
+  [
+   "jax",
+   "Characters/Jax/Spells/JaxQAbility/JaxQ"
+  ],
+  [
+   "jhin",
+   "Characters/Jhin/Spells/JhinEAbility"
+  ],
+  [
+   "jhin",
+   "Characters/Jhin/Spells/JhinQAbility"
+  ],
+  [
+   "jhin",
+   "Characters/Jhin/Spells/JhinWAbility/JhinW"
+  ],
+  [
+   "kaisa",
+   "Characters/Kaisa/Spells/KaisaWAbility"
+  ],
+  [
+   "kalista",
+   "Characters/Kalista/Spells/KalistaMysticShotAbility"
+  ],
+  [
+   "kassadin",
+   "Characters/Kassadin/Spells/NetherBladeAbility"
+  ],
+  [
+   "kayle",
+   "Characters/Kayle/Spells/KayleEAbility"
+  ],
+  [
+   "kayle",
+   "Characters/Kayle/Spells/KayleQAbility"
+  ],
+  [
+   "kennen",
+   "Characters/Kennen/Spells/KennenLightningRushAbility"
+  ],
+  [
+   "kennen",
+   "Characters/Kennen/Spells/KennenShurikenHurlMissile1Ability"
+  ],
+  [
+   "kindred",
+   "Characters/Kindred/Spells/KindredQAbility"
+  ],
+  [
+   "kindred",
+   "Characters/Kindred/Spells/KindredWAbility"
+  ],
+  [
+   "kled",
+   "Characters/Kled/Spells/KledEAbility"
+  ],
+  [
+   "ksante",
+   "Characters/KSante/Spells/KSanteRAbility"
+  ],
+  [
+   "ksante",
+   "Characters/KSante/Spells/KSanteWAbility/KSanteW"
+  ],
+  [
+   "leblanc",
+   "Characters/Leblanc/Spells/LeblancRAbility/LeblancR"
+  ],
+  [
+   "leesin",
+   "Characters/LeeSin/Spells/LeeSinEOneAbility"
+  ],
+  [
+   "leesin",
+   "Characters/LeeSin/Spells/LeeSinQOneAbility"
+  ],
+  [
+   "leesin",
+   "Characters/LeeSin/Spells/LeeSinRAbility/LeeSinR"
+  ],
+  [
+   "leona",
+   "Characters/Leona/Spells/LeonaShieldOfDaybreakAbility"
+  ],
+  [
+   "lissandra",
+   "Characters/Lissandra/Spells/LissandraQAbility"
+  ],
+  [
+   "lulu",
+   "Characters/Lulu/Spells/LuluRAbility"
+  ],
+  [
+   "lux",
+   "Characters/Lux/Spells/LuxRAbility"
+  ],
+  [
+   "malzahar",
+   "Characters/Malzahar/Spells/MalzaharEAbility/MalzaharE"
+  ],
+  [
+   "malzahar",
+   "Characters/Malzahar/Spells/MalzaharQAbility"
+  ],
+  [
+   "malzahar",
+   "Characters/Malzahar/Spells/MalzaharWAbility"
+  ],
+  [
+   "masteryi",
+   "Characters/MasterYi/Spells/AlphaStrikeAbility"
+  ],
+  [
+   "masteryi",
+   "Characters/MasterYi/Spells/WujuStyleAbility"
+  ],
+  [
+   "mel",
+   "Characters/Mel/Spells/MelQAbility"
+  ],
+  [
+   "milio",
+   "Characters/Milio/Spells/MilioWAbility"
+  ],
+  [
+   "missfortune",
+   "Characters/MissFortune/Spells/MissFortuneScattershotAbility"
+  ],
+  [
+   "mordekaiser",
+   "Characters/Mordekaiser/Spells/MordekaiserEAbility"
+  ],
+  [
+   "morgana",
+   "Characters/Morgana/Spells/MorganaQAbility/MorganaQ"
+  ],
+  [
+   "nami",
+   "Characters/Nami/Spells/NamiEAbility"
+  ],
+  [
+   "nami",
+   "Characters/Nami/Spells/NamiQAbility"
+  ],
+  [
+   "nasus",
+   "Characters/Nasus/Spells/NasusEAbility/NasusE"
+  ],
+  [
+   "nasus",
+   "Characters/Nasus/Spells/NasusQAbility"
+  ],
+  [
+   "nidalee",
+   "Characters/Nidalee/Spells/JavelinTossAbility/JavelinToss"
+  ],
+  [
+   "nilah",
+   "Characters/Nilah/Spells/NilahRAbility/NilahR"
+  ],
+  [
+   "nocturne",
+   "Characters/Nocturne/Spells/NocturneDuskbringerAbility"
+  ],
+  [
+   "olaf",
+   "Characters/Olaf/Spells/OlafAxeThrowCastAbility"
+  ],
+  [
+   "ornn",
+   "Characters/Ornn/Spells/OrnnQAbility/OrnnQ"
+  ],
+  [
+   "pantheon",
+   "Characters/Pantheon/Spells/PantheonEAbility"
+  ],
+  [
+   "poppy",
+   "Characters/Poppy/Spells/PoppyEAbility/PoppyE"
+  ],
+  [
+   "poppy",
+   "Characters/Poppy/Spells/PoppyWAbility"
+  ],
+  [
+   "pyke",
+   "Characters/Pyke/Spells/PykeEAbility"
+  ],
+  [
+   "qiyana",
+   "Characters/Qiyana/Spells/QiyanaEAbility/QiyanaE"
+  ],
+  [
+   "qiyana",
+   "Characters/Qiyana/Spells/QiyanaQAbility"
+  ],
+  [
+   "quinn",
+   "Characters/Quinn/Spells/QuinnEAbility"
+  ],
+  [
+   "rakan",
+   "Characters/Rakan/Spells/RakanEAbility"
+  ],
+  [
+   "renekton",
+   "Characters/Renekton/Spells/RenektonCleaveAbility"
+  ],
+  [
+   "renekton",
+   "Characters/Renekton/Spells/RenektonReignOfTheTyrantAbility/RenektonReignOfTheTyrant"
+  ],
+  [
+   "renekton",
+   "Characters/Renekton/Spells/RenektonSliceAndDiceAbility"
+  ],
+  [
+   "rengar",
+   "Characters/Rengar/Spells/RengarEAbility"
+  ],
+  [
+   "riven",
+   "Characters/Riven/Spells/RivenFeintAbility/RivenFeint"
+  ],
+  [
+   "rumble",
+   "Characters/Rumble/Spells/RumbleShieldAbility"
+  ],
+  [
+   "samira",
+   "Characters/Samira/Spells/SamiraWAbility/SamiraW"
+  ],
+  [
+   "shaco",
+   "Characters/Shaco/Spells/HallucinateFullAbility"
+  ],
+  [
+   "shen",
+   "Characters/Shen/Spells/ShenQAbility"
+  ],
+  [
+   "shyvana",
+   "Characters/Shyvana/Spells/ShyvanaEAbility"
+  ],
+  [
+   "sion",
+   "Characters/Sion/Spells/SionEAbility"
+  ],
+  [
+   "sion",
+   "Characters/Sion/Spells/SionWAbility"
+  ],
+  [
+   "skarner",
+   "Characters/Skarner/Spells/SkarnerQAbility"
+  ],
+  [
+   "skarner",
+   "Characters/Skarner/Spells/SkarnerWAbility"
+  ],
+  [
+   "soraka",
+   "Characters/Soraka/Spells/SorakaWAbility/SorakaW"
+  ],
+  [
+   "swain",
+   "Characters/Swain/Spells/SwainEAbility"
+  ],
+  [
+   "sylas",
+   "Characters/Sylas/Spells/SylasQAbility/SylasQ"
+  ],
+  [
+   "taric",
+   "Characters/Taric/Spells/TaricEAbility"
+  ],
+  [
+   "thresh",
+   "Characters/Thresh/Spells/ThreshQAbility"
+  ],
+  [
+   "thresh",
+   "Characters/Thresh/Spells/ThreshRPentaAbility/ThreshRPenta"
+  ],
+  [
+   "udyr",
+   "Characters/Udyr/Spells/UdyrWAbility"
+  ],
+  [
+   "varus",
+   "Characters/Varus/Spells/VarusPassiveAbility/VarusPassive"
+  ],
+  [
+   "velkoz",
+   "Characters/Velkoz/Spells/VelkozWAbility"
+  ],
+  [
+   "vex",
+   "Characters/Vex/Spells/VexEAbility/VexE"
+  ],
+  [
+   "vi",
+   "Characters/Vi/Spells/ViEAbility/ViE"
+  ],
+  [
+   "viego",
+   "Characters/Viego/Spells/ViegoQAbility"
+  ],
+  [
+   "volibear",
+   "Characters/Volibear/Spells/VolibearEAbility/VolibearE"
+  ],
+  [
+   "volibear",
+   "Characters/Volibear/Spells/VolibearQAbility"
+  ],
+  [
+   "xerath",
+   "Characters/Xerath/Spells/XerathArcaneBarrage2Ability/XerathArcaneBarrage2"
+  ],
+  [
+   "xerath",
+   "Characters/Xerath/Spells/XerathArcanopulseChargeUpAbility/XerathArcanopulseChargeUp"
+  ],
+  [
+   "xerath",
+   "Characters/Xerath/Spells/XerathLocusOfPower2Ability"
+  ],
+  [
+   "xerath",
+   "Characters/Xerath/Spells/XerathMageSpearAbility"
+  ],
+  [
+   "xinzhao",
+   "Characters/XinZhao/Spells/XinZhaoWAbility"
+  ],
+  [
+   "yone",
+   "Characters/Yone/Spells/YoneRAbility/YoneR"
+  ],
+  [
+   "yorick",
+   "Characters/Yorick/Spells/YorickQAbility"
+  ],
+  [
+   "yuumi",
+   "Characters/Yuumi/Spells/YuumiQAbility"
+  ],
+  [
+   "zac",
+   "Characters/Zac/Spells/ZacQAbility"
+  ],
+  [
+   "zilean",
+   "Characters/Zilean/Spells/ZileanQAbility"
+  ],
+  [
+   "zoe",
+   "Characters/Zoe/Spells/ZoeQAbility"
+  ],
+  [
+   "zoe",
+   "Characters/Zoe/Spells/ZoeWAbility"
+  ],
+  [
+   "zyra",
+   "Characters/Zyra/Spells/ZyraRAbility"
+  ]
+ ],
+ "made_by": "scripts/plant.py",
+ "code": {
+  "git_commit": "aa0936eeac6e0ec33d829a15c995241d6064dd7a",
+  "sha256": {
+   "scripts/plant.py": "0a5c38ab2fde18584579d87b5afd32e814aa17e06027dd86f6b0356dd8508f7e",
+   "scripts/inputs.py": "8b0c39f1eaa261c473dc5064739b4d9fc0dfc84f267444e8b61b8c7e36efda5b",
+   "scripts/resolve_tooltips.py": "0370c2f304c735e15d342aee7b4127274078d7538b45c0017c6a824425424be8"
+  }
+ },
+ "counts": {
+  "drop_term": 146,
+  "other_value": 13,
+  "stat_ratio": 86,
+  "base_values": 3,
+  "multiplier": 2
+ },
+ "eligible_records": {
+  "stat_ratio": 103,
+  "base_values": 3,
+  "other_value": 13,
+  "drop_term": 406,
+  "multiplier": 3
+ },
+ "eligible_spells": {
+  "stat_ratio": 100,
+  "base_values": 3,
+  "other_value": 13,
+  "drop_term": 391,
+  "multiplier": 3
+ },
+ "eligible_abilities": {
+  "stat_ratio": 100,
+  "base_values": 3,
+  "other_value": 13,
+  "drop_term": 391,
+  "multiplier": 3
+ },
+ "cap": {
+  "stat_ratio": 250,
+  "base_values": 250,
+  "other_value": 250,
+  "drop_term": 250,
+  "multiplier": 250
+ },
+ "reallocated": [
+  {
+   "from": "multiplier",
+   "count": 48,
+   "to": {
+    "stat_ratio": 12,
+    "base_values": 12,
+    "other_value": 12,
+    "drop_term": 12
+   },
+   "why": "no records left"
+  },
+  {
+   "from": "base_values",
+   "count": 59,
+   "to": {
+    "stat_ratio": 20,
+    "other_value": 20,
+    "drop_term": 19
+   },
+   "why": "no records left"
+  },
+  {
+   "from": "other_value",
+   "count": 69,
+   "to": {
+    "stat_ratio": 35,
+    "drop_term": 34
+   },
+   "why": "no records left"
+  },
+  {
+   "from": "stat_ratio",
+   "count": 31,
+   "to": {
+    "drop_term": 31
+   },
+   "why": "no records left"
+  }
+ ],
+ "not_written": {
+  "drop_term": {
+   "the left-out term leaves a value of 0": 3,
+   "no change at any site passed the self-check": 1
+  }
+ },
+ "errors": [
+  {
+   "id": "test-001",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:ivern:Characters/Ivern/Spells/IvernEAbility/IvernE:keyTooltip",
+   "ability": [
+    "ivern",
+    "Characters/Ivern/Spells/IvernEAbility/IvernE"
+   ],
+   "change": {
+    "calc": "TotalShield",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "IvernE",
+     "name": "BaseShield",
+     "values": [
+      75.0,
+      115.0,
+      155.0,
+      195.0,
+      235.0
+     ]
+    }
+   },
+   "sha256": "ebd0a6141d29901c196939c0a2b4f6b358ef1dc98407de0e7ad93840d0ac6b78",
+   "original_sha256": "1626c21cbbe9af6ce293e7a97861bcb4952f2c2ea6558474f9d71b520744edf5"
+  },
+  {
+   "id": "test-002",
+   "rule": "other_value",
+   "record_id": "16.19:en_us:shaco:Characters/Shaco/Spells/JackInTheBoxAbility/JackInTheBox:keyTooltip",
+   "ability": [
+    "shaco",
+    "Characters/Shaco/Spells/JackInTheBoxAbility/JackInTheBox"
+   ],
+   "change": {
+    "placeholder": "MonsterBonusDamage",
+    "points_at": "AoEBaseDamage",
+    "start": 581,
+    "anchor": {
+     "type": "level_up",
+     "spell": "JackInTheBox",
+     "name": "MonsterBonusDamage",
+     "values": [
+      20,
+      35,
+      50,
+      65,
+      80
+     ]
+    }
+   },
+   "sha256": "44e91eeeed71c32b4ba4dfd296154ad56c6b7052915fef63e04e5b6ca42e6d01",
+   "original_sha256": "c244b83e1e3b8ab2cfdece30b3ca8ce4c5b9085ab09230ae11945d86286a3963"
+  },
+  {
+   "id": "test-003",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:nunu:Characters/Nunu/Spells/NunuEAbility/NunuE:keyTooltip",
+   "ability": [
+    "nunu",
+    "Characters/Nunu/Spells/NunuEAbility"
+   ],
+   "change": {
+    "calc": "TotalRootDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 0.8,
+    "to": 1.2,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "NunuE",
+     "name": "mCoefficient2",
+     "values": [
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8
+     ]
+    }
+   },
+   "sha256": "a9a764502a4a1ef6277f5522754c0c1e2bcd9dbfccc377438f4095933be3e45d",
+   "original_sha256": "e06b7afa25d844e103853941ba8a2502f083c84bfe09cbe960a7f744cefefaca"
+  },
+  {
+   "id": "test-004",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:nautilus:Characters/Nautilus/Spells/NautilusGrandLineAbility/NautilusGrandLine:keyTooltip",
+   "ability": [
+    "nautilus",
+    "Characters/Nautilus/Spells/NautilusGrandLineAbility"
+   ],
+   "change": {
+    "calc": "PrimaryTargetDamage",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "NautilusGrandLineStart",
+     "name": "mCoefficient2",
+     "values": [
+      0.8,
+      0.8,
+      0.8
+     ]
+    }
+   },
+   "sha256": "c98d8104484adc1f77ab2bffe9b6d7daedb25ac708b34f890534622a3545b04f",
+   "original_sha256": "1a44bc58bb4816531a8c274f7ed518e7933c53a6a02e72f44d84da6701e93c31"
+  },
+  {
+   "id": "test-005",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:drmundo:Characters/DrMundo/Spells/DrMundoEAbility/DrMundoE:keyTooltip",
+   "ability": [
+    "drmundo",
+    "Characters/DrMundo/Spells/DrMundoEAbility"
+   ],
+   "change": {
+    "calc": "AdditionalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "DrMundoE",
+     "name": "BaseDamage",
+     "values": [
+      5.0,
+      15.0,
+      25.0,
+      35.0,
+      45.0
+     ]
+    }
+   },
+   "sha256": "2b427841f0f59e2948913330e570e4af54a4b21c076216ae18888b1c6e964112",
+   "original_sha256": "a9d0b8a50511e7e1a57c5c35d7209b22109a1666757feda93cabab085c7d8ee9"
+  },
+  {
+   "id": "test-006",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:karthus:Characters/Karthus/Spells/KarthusLayWasteA1Ability/KarthusLayWasteA1:keyTooltip",
+   "ability": [
+    "karthus",
+    "Characters/Karthus/Spells/KarthusLayWasteA1Ability"
+   ],
+   "change": {
+    "calc": "QDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "KarthusLayWasteA1",
+     "name": "BaseDamage",
+     "values": [
+      40.0,
+      59.0,
+      78.0,
+      97.0,
+      116.0
+     ]
+    }
+   },
+   "sha256": "76ca7b099c60fb56e81fde49cfa2410f1f8f70d4cd9adda0641fa0c92c08d039",
+   "original_sha256": "89eb29c8ea3cca9e0d6a3eee4a9f1f3239880372c7013cd76d61e1195dba63c0"
+  },
+  {
+   "id": "test-007",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:morgana:Characters/Morgana/Spells/MorganaWAbility/MorganaW:keyTooltip",
+   "ability": [
+    "morgana",
+    "Characters/Morgana/Spells/MorganaWAbility/MorganaW"
+   ],
+   "change": {
+    "calc": "TotalMinDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "MorganaW",
+     "name": "BaseDamage",
+     "values": [
+      18.0,
+      31.0,
+      44.0,
+      57.0,
+      70.0
+     ]
+    }
+   },
+   "sha256": "eca588170bb17dad553756bf21ff2dcf891e8f3834529a6ea0e885202a7cff6a",
+   "original_sha256": "8c31535afa74ef7762e186a4d1e3aa3ab839b3d3b503ad7234572e1dc9e2a254"
+  },
+  {
+   "id": "test-008",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:lissandra:Characters/Lissandra/Spells/LissandraEAbility/LissandraE:keyTooltip",
+   "ability": [
+    "lissandra",
+    "Characters/Lissandra/Spells/LissandraEAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 0.5,
+    "from": 0.6,
+    "to": 0.3,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "LissandraE",
+     "name": "mCoefficient",
+     "values": [
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6
+     ]
+    }
+   },
+   "sha256": "e3120049686cb60e24186b627232b26debfb6cd34a9d7c19717f190fa217b4f0",
+   "original_sha256": "2693d01cb24db59cfb3886ed85606b259d20e7e28eb2578b65165782687a28a6"
+  },
+  {
+   "id": "test-009",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:jhin:Characters/Jhin/Spells/JhinRAbility/JhinR:keyTooltip",
+   "ability": [
+    "jhin",
+    "Characters/Jhin/Spells/JhinRAbility"
+   ],
+   "change": {
+    "calc": "DamageCalc",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "JhinR",
+     "name": "Damage",
+     "values": [
+      64.0,
+      128.0,
+      192.0
+     ]
+    }
+   },
+   "sha256": "4800e0fd48f0b891f9291c9b662a58b017ef72213b8d457ba4d0a43399b5a04c",
+   "original_sha256": "91719f2d6523c866f718a381852918c543d1e199b6dd67a01537b33d73b4024f"
+  },
+  {
+   "id": "test-010",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:amumu:Characters/Amumu/Spells/TantrumAbility/Tantrum:keyTooltip",
+   "ability": [
+    "amumu",
+    "Characters/Amumu/Spells/TantrumAbility/Tantrum"
+   ],
+   "change": {
+    "calc": "TantrumDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 0.5,
+    "to": 0.75,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "Tantrum",
+     "name": "mCoefficient",
+     "values": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "sha256": "d653070a614c98472db91e36f25dc565518080f24fcf0ba1768f8429682bf35b",
+   "original_sha256": "1a9685fb5b6aac11705752598f4e38933b59325ade968a8e615cca01c72e830f"
+  },
+  {
+   "id": "test-011",
+   "rule": "other_value",
+   "record_id": "16.19:en_us:sivir:Characters/Sivir/Spells/SivirRAbility/SivirR:keyTooltip",
+   "ability": [
+    "sivir",
+    "Characters/Sivir/Spells/SivirRAbility/SivirR"
+   ],
+   "change": {
+    "placeholder": "MaxMS",
+    "points_at": "MinMS",
+    "start": 54,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SivirR",
+     "name": "MaxMS",
+     "values": [
+      20,
+      25,
+      30.000001
+     ]
+    }
+   },
+   "sha256": "15012e48c54da4a32ee6a40aa256d371d99ed7c4bbf77b556682d6904e7a0a22",
+   "original_sha256": "fe7a543334773d64ff4a17002c9e394283a1385dd897ed7d7303c9dc0ca8a583"
+  },
+  {
+   "id": "test-012",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:udyr:Characters/Udyr/Spells/UdyrEAbility/UdyrE:keyTooltip",
+   "ability": [
+    "udyr",
+    "Characters/Udyr/Spells/UdyrEAbility"
+   ],
+   "change": {
+    "calc": "MoveSpeed",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "UdyrE",
+     "name": "BaseMoveSpeed",
+     "values": [
+      0.25,
+      0.3100000023841858,
+      0.3700000047683716,
+      0.4300000071525574,
+      0.49000000953674316,
+      0.550000011920929
+     ]
+    }
+   },
+   "sha256": "be7890a25e681a1147ac71ec1057e418994a085727a0558988e8e9069d801537",
+   "original_sha256": "fd733072c7f66fba8d0ba596b756910e13255d213848e44c317b6b6bc3885b32"
+  },
+  {
+   "id": "test-013",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:lillia:Characters/Lillia/Spells/LilliaRAbility/LilliaR:keyTooltip",
+   "ability": [
+    "lillia",
+    "Characters/Lillia/Spells/LilliaRAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 0.5,
+    "from": 0.4,
+    "to": 0.2,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "LilliaR",
+     "name": "mCoefficient2",
+     "values": [
+      0.4,
+      0.4,
+      0.4
+     ]
+    }
+   },
+   "sha256": "0b19c1748def0b9bb114527b6e6e8f70382982ecea772771740a0a2e18ec286b",
+   "original_sha256": "deaa9ec4b558b5a84c6ec0f77d47a13fc8a55b16975af342a7a3edf6d59f40bc"
+  },
+  {
+   "id": "test-014",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:aurora:Characters/Aurora/Spells/AuroraQAbility/AuroraQ:keyTooltip",
+   "ability": [
+    "aurora",
+    "Characters/Aurora/Spells/AuroraQAbility"
+   ],
+   "change": {
+    "calc": "Q2DamageMax",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AuroraQ",
+     "name": "BaseDamage",
+     "values": [
+      45.0,
+      70.0,
+      95.0,
+      120.0,
+      145.0
+     ]
+    }
+   },
+   "sha256": "bdc599c38004ff0082f13acde6075e2e91c1ffe00d14ecf8e3a21db5ad2104b1",
+   "original_sha256": "72ec6a8d1cd345fd426a979845bb0b27f7e5023e19a6e724e2383a727bfcc883"
+  },
+  {
+   "id": "test-015",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:rell:Characters/Rell/Spells/RellQAbility/RellQ:keyTooltip",
+   "ability": [
+    "rell",
+    "Characters/Rell/Spells/RellQAbility/RellQ"
+   ],
+   "change": {
+    "calc": "Damage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "RellQ",
+     "name": "BaseDamage",
+     "values": [
+      60.0,
+      100.0,
+      140.0,
+      180.0,
+      220.0
+     ]
+    }
+   },
+   "sha256": "a20ee9beb80a48ee4a94ee6687ea9936bdd3ad808e2059fee48d6bba67e96e00",
+   "original_sha256": "faffca174d0e8c35da8c220a861be7259154f61161ef88ab3731a9afbd752383"
+  },
+  {
+   "id": "test-016",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:janna:Characters/Janna/Spells/SowTheWindAbility/SowTheWind:keyTooltip",
+   "ability": [
+    "janna",
+    "Characters/Janna/Spells/SowTheWindAbility"
+   ],
+   "change": {
+    "calc": "TotalMS",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SowTheWind",
+     "name": "MSPercent",
+     "values": [
+      0.05999999865889549,
+      0.07000000029802322,
+      0.07999999821186066,
+      0.09000000357627869,
+      0.10000000149011612
+     ]
+    }
+   },
+   "sha256": "e8086f7799c5a4631f575cebdf7aeb7bc818b16f8c96aa340e8644ef1b8c97b5",
+   "original_sha256": "4c5fd72018ab5a33724b25ac89820589c76612b11591fc5bfd1cf21b60343983"
+  },
+  {
+   "id": "test-017",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:heimerdinger:Characters/Heimerdinger/Spells/HeimerdingerQAbility/HeimerdingerQ:keyTooltipExtendedBelowLine",
+   "ability": [
+    "heimerdinger",
+    "Characters/Heimerdinger/Spells/HeimerdingerQAbility"
+   ],
+   "change": {
+    "calc": "DamageBeam",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "HeimerdingerQ",
+     "name": "BaseDamageBeam",
+     "values": [
+      40.0,
+      60.0,
+      80.0,
+      100.0,
+      120.0
+     ]
+    }
+   },
+   "sha256": "c075a270860023056ab368d10cb7b641e902dfa82033d4dccfe45b45df8e6754",
+   "original_sha256": "a9e2d45582696ea626e940e94045a44a584a1bc379ebf4a22ad78d96457e5305"
+  },
+  {
+   "id": "test-018",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:graves:Characters/Graves/Spells/GravesQLineSpellAbility/GravesQLineSpell:keyTooltip",
+   "ability": [
+    "graves",
+    "Characters/Graves/Spells/GravesQLineSpellAbility"
+   ],
+   "change": {
+    "calc": "TotalDetonationDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "GravesQLineSpell",
+     "name": "BaseDetonationDamage",
+     "values": [
+      80.0,
+      125.0,
+      170.0,
+      215.0,
+      260.0
+     ]
+    }
+   },
+   "sha256": "40171ded27a62e80b3b261c86b7f8d2a49ae139fc0fe1c27708692d815c31da8",
+   "original_sha256": "b7e3cc3470fdc58bbaba49908282f611bd1ba5c7184c4d162b66b4bebd56ac69"
+  },
+  {
+   "id": "test-019",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:rengar:Characters/Rengar/Spells/RengarQAbility/RengarQ:keyTooltipExtended",
+   "ability": [
+    "rengar",
+    "Characters/Rengar/Spells/RengarQAbility"
+   ],
+   "change": {
+    "calc": "QTotalDamage",
+    "dropped_part": 2,
+    "anchor": {
+     "type": "calculation",
+     "spell": "RengarQ",
+     "name": "QBonusDamage",
+     "values": [
+      0.05000000074505806,
+      0.05000000074505806,
+      0.05000000074505806,
+      0.05000000074505806,
+      0.05000000074505806
+     ]
+    }
+   },
+   "sha256": "1ade3391e7a46d93bee06e09ace3fde962a9079db154563380e2b09fcdf57642",
+   "original_sha256": "78ea4033bec6f44e140fe4313b6e8154af7b1615bae650fc5b39e94b4f32a50e"
+  },
+  {
+   "id": "test-020",
+   "rule": "other_value",
+   "record_id": "16.19:en_us:sona:Characters/Sona/Spells/SonaWAbility/SonaW:keyTooltip",
+   "ability": [
+    "sona",
+    "Characters/Sona/Spells/SonaWAbility"
+   ],
+   "change": {
+    "placeholder": "AccelerandoShieldBreakpoint",
+    "points_at": "BaseHeal",
+    "start": 562,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SonaW",
+     "name": "BaseShield",
+     "values": [
+      25,
+      45,
+      65,
+      85,
+      105
+     ]
+    }
+   },
+   "sha256": "ab1d7b2ed214ef6a6a48ea0643b4d98c142bbf7bffcfb82a42f93d61eca1ebae",
+   "original_sha256": "750411e61e562f073ba6b9b89005f06e665792a4008a77198d1dc0cfad485d6a"
+  },
+  {
+   "id": "test-021",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:bard:Characters/Bard/Spells/BardWAbility/BardW:keyTooltip",
+   "ability": [
+    "bard",
+    "Characters/Bard/Spells/BardWAbility"
+   ],
+   "change": {
+    "calc": "InitialHeal",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "BardW",
+     "name": "MinimumHeal",
+     "values": [
+      25.0,
+      50.0,
+      75.0,
+      100.0,
+      125.0
+     ]
+    }
+   },
+   "sha256": "dcae5581510bdd9d63777ae658bfc2463638db9f8fa2b6343a5d2ec62e6d7913",
+   "original_sha256": "0c8b885bd385bd5ab4c962df1c5e5a506d73fa47f337f64839d0d208c503ca31"
+  },
+  {
+   "id": "test-022",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:anivia:Characters/Anivia/Spells/GlacialStormAbility/GlacialStorm:keyTooltip",
+   "ability": [
+    "anivia",
+    "Characters/Anivia/Spells/GlacialStormAbility"
+   ],
+   "change": {
+    "calc": "TotalDamagePerSecond",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "GlacialStorm",
+     "name": "DamagePerSecond",
+     "values": [
+      30.0,
+      45.0,
+      60.0
+     ]
+    }
+   },
+   "sha256": "ad98026ccf27af630ee781cb2649eff55a14e64762a03046a78a59900a9b0415",
+   "original_sha256": "4e0b563acb0f96e64bffc4d9dd430385565ad921b35702c8bea35eb0d2cdc09b"
+  },
+  {
+   "id": "test-023",
+   "rule": "other_value",
+   "record_id": "16.19:en_us:warwick:Characters/Warwick/Spells/WarwickWAbility/WarwickW:keyTooltip",
+   "ability": [
+    "warwick",
+    "Characters/Warwick/Spells/WarwickWAbility"
+   ],
+   "change": {
+    "placeholder": "PassiveMSBonus",
+    "points_at": "MoveSpeedBonus",
+    "start": 99,
+    "anchor": {
+     "type": "level_up",
+     "spell": "WarwickW",
+     "name": "PassiveMSBonus",
+     "values": [
+      35,
+      42.5,
+      50,
+      57.5,
+      65
+     ]
+    }
+   },
+   "sha256": "b5f3f6242becbe684c0ccb9d500ba3923383648cc52c2b2851486556337fcb5a",
+   "original_sha256": "266fcb2285cd66fb1717eaa69c55b07f5f44a24d1f4ff3290f4394e1621a4798"
+  },
+  {
+   "id": "test-024",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:yorick:Characters/Yorick/Spells/YorickEAbility/YorickE:keyTooltip",
+   "ability": [
+    "yorick",
+    "Characters/Yorick/Spells/YorickEAbility"
+   ],
+   "change": {
+    "calc": "Calc_HealthDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "YorickE",
+     "name": "HealthDamage",
+     "values": [
+      6.0,
+      6.5,
+      7.0,
+      7.5,
+      8.0
+     ]
+    }
+   },
+   "sha256": "c81b62273c5eea655187db7a971e3e8e8e0585608d150a0a8cedf58e6632baf4",
+   "original_sha256": "aa591cc37620989eeaa907521ea2da86fdc106ef85af0a50db560e18c5d77f08"
+  },
+  {
+   "id": "test-025",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:shaco:Characters/Shaco/Spells/TwoShivPoisonAbility/TwoShivPoison:keyTooltip",
+   "ability": [
+    "shaco",
+    "Characters/Shaco/Spells/TwoShivPoisonAbility/TwoShivPoison"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "TwoShivPoison",
+     "name": "BaseDamage",
+     "values": [
+      70.0,
+      95.0,
+      120.0,
+      145.0,
+      170.0
+     ]
+    }
+   },
+   "sha256": "af841c2b05adc92591fc6cf54e82e71ea2d595da394fd5c92d8aa2fc05bc909f",
+   "original_sha256": "823e2c6ce181b5325a34d43ea6f811ed1b63015c6cd250288c462f9f202c53d0"
+  },
+  {
+   "id": "test-026",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:ornn:Characters/Ornn/Spells/OrnnRAbility/OrnnR:keyTooltip",
+   "ability": [
+    "ornn",
+    "Characters/Ornn/Spells/OrnnRAbility"
+   ],
+   "change": {
+    "calc": "RDamageCalc",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "OrnnR",
+     "name": "mCoefficient",
+     "values": [
+      0.20000000298023224,
+      0.20000000298023224,
+      0.20000000298023224
+     ]
+    }
+   },
+   "sha256": "1b75a790eefcf40e2c79c3ff25e9d9ca1f608aea8101fbfb22d1d3d478f616e0",
+   "original_sha256": "aad9590960680c8ea9b1816a5b791ea0fa31c6ed9032221525e6a070f8877dd4"
+  },
+  {
+   "id": "test-027",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:udyr:Characters/Udyr/Spells/UdyrQAbility/UdyrQ:keyTooltip",
+   "ability": [
+    "udyr",
+    "Characters/Udyr/Spells/UdyrQAbility"
+   ],
+   "change": {
+    "calc": "Q2TotalOnHitHPDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "UdyrQ",
+     "name": "MaxHPOnHitBase",
+     "values": [
+      0.029999999329447746,
+      0.03999999910593033,
+      0.05000000074505806,
+      0.05999999865889549,
+      0.07000000029802322,
+      0.07999999821186066
+     ]
+    }
+   },
+   "sha256": "d0d3f33956f05b030e228029e3bee4c6c05d8549a8d891190e4e1a5478a67ea6",
+   "original_sha256": "fd3cee891e6aed37c237f415754ac48bbf1f0169b50f2ebcf16f9fc31581b87e"
+  },
+  {
+   "id": "test-028",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:ivern:Characters/Ivern/Spells/IvernQAbility/IvernQ:keyTooltip",
+   "ability": [
+    "ivern",
+    "Characters/Ivern/Spells/IvernQAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "IvernQ",
+     "name": "BaseDamage",
+     "values": [
+      80.0,
+      125.0,
+      170.0,
+      215.0,
+      260.0
+     ]
+    }
+   },
+   "sha256": "bccef101315320507537194b87b458bc807c0b33bad959eb0b5e01aa29269dc2",
+   "original_sha256": "46506cc992581c4f33307dde9c630e95d631b271497f729d77e897f19e93e955"
+  },
+  {
+   "id": "test-029",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:xinzhao:Characters/XinZhao/Spells/XinZhaoRAbility/XinZhaoR:keyTooltip",
+   "ability": [
+    "xinzhao",
+    "Characters/XinZhao/Spells/XinZhaoRAbility/XinZhaoR"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "bonus AD",
+    "factor": 0.75,
+    "from": 1,
+    "to": 0.75,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "XinZhaoR",
+     "name": "mCoefficient",
+     "values": [
+      1,
+      1,
+      1
+     ]
+    }
+   },
+   "sha256": "3ae11f98480a39684f4251143ae1f9c0e42ade762c7c2aa47331555e0398ec39",
+   "original_sha256": "657eacd7d9c024add7109e39ccd4614672f9be099a99c82563d484ff198dea9d"
+  },
+  {
+   "id": "test-030",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:naafiri:Characters/Naafiri/Spells/NaafiriWAbility/NaafiriW:keyTooltip",
+   "ability": [
+    "naafiri",
+    "Characters/Naafiri/Spells/NaafiriWAbility/NaafiriW"
+   ],
+   "change": {
+    "calc": "ShieldTotal",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "NaafiriW",
+     "name": "ShieldSize",
+     "values": [
+      100.0,
+      150.0,
+      200.0
+     ]
+    }
+   },
+   "sha256": "c26c158bfafdb8b127a8f2dd5a18f02f4dc5c38a0ee45c0492a4344fd0a8865b",
+   "original_sha256": "1f17224c251a20099c761bd4f27db716997a4fde6eaaae4adddc8fd0bc7f1b37"
+  },
+  {
+   "id": "test-031",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:lux:Characters/Lux/Spells/LuxLightStrikeKugelAbility/LuxLightStrikeKugel:keyTooltip",
+   "ability": [
+    "lux",
+    "Characters/Lux/Spells/LuxLightStrikeKugelAbility"
+   ],
+   "change": {
+    "calc": "TotalDamageTT",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 0.8,
+    "to": 1.2,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "LuxLightStrikeKugel",
+     "name": "mCoefficient",
+     "values": [
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8
+     ]
+    }
+   },
+   "sha256": "0c590b74607a34a35c49a51f9b75e0ba6bde23a0b11287b70c880dbf05ed5f41",
+   "original_sha256": "9a94bf5bba794033079738715c85cc47d7fe2dceaef212015ecaa7e04735127f"
+  },
+  {
+   "id": "test-032",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:akali:Characters/Akali/Spells/AkaliEAbility/AkaliE:keyTooltip",
+   "ability": [
+    "akali",
+    "Characters/Akali/Spells/AkaliEAbility"
+   ],
+   "change": {
+    "calc": "E2DamageCalc",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AkaliE",
+     "name": "BaseDamage",
+     "values": [
+      70.0,
+      140.0,
+      210.0,
+      280.0,
+      350.0
+     ]
+    }
+   },
+   "sha256": "1dfc66a3f0d5dc852362e56c20774bb57794e56840ed0454201a7a4194958022",
+   "original_sha256": "4e944effadd7e02868cb3df1667a8afa21ca4987c28e37b83c9e64a656306702"
+  },
+  {
+   "id": "test-033",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:gragas:Characters/Gragas/Spells/GragasEAbility/GragasE:keyTooltip",
+   "ability": [
+    "gragas",
+    "Characters/Gragas/Spells/GragasEAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "GragasE",
+     "name": "BaseDamage",
+     "values": [
+      80.0,
+      125.0,
+      170.0,
+      215.0,
+      260.0
+     ]
+    }
+   },
+   "sha256": "5c36dd7a21e9f486cb63683cc248b70a71c38c7da5df5b3e8acb0601018551a9",
+   "original_sha256": "96919bca241fd3843183f644deb399e6aac6b0522292e951eb540c9f914eac0b"
+  },
+  {
+   "id": "test-034",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:zoe:Characters/Zoe/Spells/ZoePassiveAbility/ZoePassive:keyTooltip",
+   "ability": [
+    "zoe",
+    "Characters/Zoe/Spells/ZoePassiveAbility"
+   ],
+   "change": {
+    "calc": "PassiveDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "APRatio",
+    "factor": 2.0,
+    "from": [
+     0.2
+    ],
+    "to": [
+     0.4
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "ZoePassive",
+     "name": "mCoefficient",
+     "values": [
+      0.20000000298023224
+     ]
+    }
+   },
+   "sha256": "f0e59c86108adca80200250d704d4a1c7145d3154f1124bf94605b42478d61ff",
+   "original_sha256": "b9769a5642ecf399eac8b0ab28bbe045962700703384a3ea69c1601cd5ae0086"
+  },
+  {
+   "id": "test-035",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:corki:Characters/Corki/Spells/PhosphorusBombAbility/PhosphorusBomb:keyTooltip",
+   "ability": [
+    "corki",
+    "Characters/Corki/Spells/PhosphorusBombAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "PhosphorusBomb",
+     "name": "BaseDamage",
+     "values": [
+      60.0,
+      105.0,
+      150.0,
+      195.0,
+      240.0
+     ]
+    }
+   },
+   "sha256": "f9c81bc915ac7e1ef2c71f1bdd6a9429a953b66acf8874f798f5354d6c72d9b5",
+   "original_sha256": "594a84f0eb3a846a55e1f477c332f5335045c8d0c8a20efd840567e8be688bd8"
+  },
+  {
+   "id": "test-036",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:gragas:Characters/Gragas/Spells/GragasWAbility/GragasW:keyTooltip",
+   "ability": [
+    "gragas",
+    "Characters/Gragas/Spells/GragasWAbility"
+   ],
+   "change": {
+    "calc": "DamageReduction",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "GragasW",
+     "name": "BaseDamageReduction",
+     "values": [
+      10.0,
+      14.0,
+      18.0,
+      22.0,
+      26.0
+     ]
+    }
+   },
+   "sha256": "8d1c86337bd507ac5789eb368b8063342996376844f805c4ffc7cfbc68ba14b7",
+   "original_sha256": "a3635c4caf16b6f512b44b87560fea46ab12910bf4239d64cd1daf8355a4b3b3"
+  },
+  {
+   "id": "test-037",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:jax:Characters/Jax/Spells/JaxEAbility/JaxE:keyTooltip",
+   "ability": [
+    "jax",
+    "Characters/Jax/Spells/JaxEAbility/JaxE"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "JaxE",
+     "name": "BaseDamage",
+     "values": [
+      40.0,
+      70.0,
+      100.0,
+      130.0,
+      160.0
+     ]
+    }
+   },
+   "sha256": "4777fac350e44ea09776069ef47dbf7e62b22d8cc5414ee11c05e001641cac33",
+   "original_sha256": "38a96636e516596474436b78a019936cd9b161d3f3234b4ce85bab4424a6105a"
+  },
+  {
+   "id": "test-038",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:viego:Characters/Viego/Spells/ViegoRAbility/ViegoR:keyTooltip",
+   "ability": [
+    "viego",
+    "Characters/Viego/Spells/ViegoRAbility"
+   ],
+   "change": {
+    "calc": "TotalPercentHealth",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "ViegoR",
+     "name": "MaxHealthDamage",
+     "values": [
+      12.0,
+      16.0,
+      20.0
+     ]
+    }
+   },
+   "sha256": "e14296b08e4c8e95ec342546c2a14e09bfe3e07df5ad3e01e6cb5db14caf406f",
+   "original_sha256": "15c7c0ef027e705cf31c1c47fd451fec3497addcc80c00cbefa4a18090efa8a1"
+  },
+  {
+   "id": "test-039",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:ziggs:Characters/Ziggs/Spells/ZiggsWAbility/ZiggsW:keyTooltip",
+   "ability": [
+    "ziggs",
+    "Characters/Ziggs/Spells/ZiggsWAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.5,
+    "to": 1,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "ZiggsW",
+     "name": "mCoefficient",
+     "values": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "sha256": "aea1ab10895ac5c5e82c44d0042e53eb9b4d9767a054a01021f5fd1aa4c26fb3",
+   "original_sha256": "b85eb5f3fd8f4e6d4321311bf11a54b9ed0895ef579d302c8ae9e835fdeeeac3"
+  },
+  {
+   "id": "test-040",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:braum:Characters/Braum/Spells/BraumRWrapperAbility/BraumRWrapper:keyTooltip",
+   "ability": [
+    "braum",
+    "Characters/Braum/Spells/BraumRWrapperAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 0.75,
+    "from": 0.6,
+    "to": 0.45,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "BraumRWrapper",
+     "name": "mCoefficient",
+     "values": [
+      0.6,
+      0.6,
+      0.6
+     ]
+    }
+   },
+   "sha256": "8ecfd0b48ccc1d728ef17fbeeb69f6b339bde94711d04ed12fff1d86630975e0",
+   "original_sha256": "80ff1dad2421f0a671f9305741e729e8c4db625338dbcafb0558ae931c62591d"
+  },
+  {
+   "id": "test-041",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:renata:Characters/Renata/Spells/RenataWAbility/RenataW:keyTooltip",
+   "ability": [
+    "renata",
+    "Characters/Renata/Spells/RenataWAbility/RenataW"
+   ],
+   "change": {
+    "calc": "FinalASCalc",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "RenataW",
+     "name": "BonusAttackSpeed",
+     "values": [
+      10.0,
+      15.0,
+      20.0,
+      25.0,
+      30.0
+     ]
+    }
+   },
+   "sha256": "fb8d7e41a1f44376ffed1a4bfc31ced44cd2c78fc5f8eef3ccc2c36275e8b266",
+   "original_sha256": "7bd27f6a4a5fb8fdcfec20c87b470e6248c3a16d7b0806660eeb7f001d0cd87f"
+  },
+  {
+   "id": "test-042",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:neeko:Characters/Neeko/Spells/NeekoRAbility/NeekoR:keyTooltip",
+   "ability": [
+    "neeko",
+    "Characters/Neeko/Spells/NeekoRAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "NeekoR",
+     "name": "Damage",
+     "values": [
+      150.0,
+      350.0,
+      550.0
+     ]
+    }
+   },
+   "sha256": "883ed12d4aa3fc21975bb81415d8cb69e4c88ade466309c62e73556387bfd81d",
+   "original_sha256": "e9c8983d31011d016d58e2185a9bd25584072ae1fe8aee50f8ecc1f3dbeda01f"
+  },
+  {
+   "id": "test-043",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:rammus:Characters/Rammus/Spells/PuncturingTauntAbility/PuncturingTaunt:keyTooltip",
+   "ability": [
+    "rammus",
+    "Characters/Rammus/Spells/PuncturingTauntAbility"
+   ],
+   "change": {
+    "calc": "MonsterDamageCalc",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "PuncturingTaunt",
+     "name": "MonsterDamage",
+     "values": [
+      80.0,
+      100.0,
+      120.0,
+      140.0,
+      160.0
+     ]
+    }
+   },
+   "sha256": "16431d8fa1d4856757e5b83c1b452559e3e41e4cda8d857a582865f1d1504c71",
+   "original_sha256": "7b3c7051f5d19eca6840cd5e11b88aea6fe598cb1c094904257dc74034cafa40"
+  },
+  {
+   "id": "test-044",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:orianna:Characters/Orianna/Spells/OrianaDissonanceCommandAbility/OrianaDissonanceCommand:keyTooltip",
+   "ability": [
+    "orianna",
+    "Characters/Orianna/Spells/OrianaDissonanceCommandAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "OrianaDissonanceCommand",
+     "name": "BaseDamage",
+     "values": [
+      70.0,
+      110.0,
+      150.0,
+      190.0,
+      230.0
+     ]
+    }
+   },
+   "sha256": "f94c9bbe48d685fb16524fea9169fbb64e0d641c03f4b9b4dce84a65d0aaa8ab",
+   "original_sha256": "462b3531b3c17f159f2d5b1ab2b844290fe4a258ae0c2653d3cb4972d2b1a2d5"
+  },
+  {
+   "id": "test-045",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:locke:Characters/Locke/Spells/LockeEAbility/LockeE:keyTooltip",
+   "ability": [
+    "locke",
+    "Characters/Locke/Spells/LockeEAbility"
+   ],
+   "change": {
+    "calc": "DashDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "LockeE",
+     "name": "BaseDashDamage",
+     "values": [
+      40.0,
+      60.0,
+      80.0,
+      100.0,
+      120.0
+     ]
+    }
+   },
+   "sha256": "ff485cd58c75777cee2aa1bb05772480982f37c8d3b0771f773da36ced9c6bd5",
+   "original_sha256": "cb84c3e9f78d24a9c6a1676de5b2cf14e1fde8882259214ad825d04df08cd913"
+  },
+  {
+   "id": "test-046",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:corki:Characters/Corki/Spells/GGunAbility/GGun:keyTooltip",
+   "ability": [
+    "corki",
+    "Characters/Corki/Spells/GGunAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "GGun",
+     "name": "BaseDamage",
+     "values": [
+      80.0,
+      130.0,
+      180.0,
+      230.0,
+      280.0
+     ]
+    }
+   },
+   "sha256": "cc12575e49204b98d4364d53bb0cb215dc12a5b521d6d70c961bc300bb917ba7",
+   "original_sha256": "19a6455644d30c140782b322de2c95f359d55eb51b5b50a9ba445a7fafb21b28"
+  },
+  {
+   "id": "test-047",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:neeko:Characters/Neeko/Spells/NeekoQAbility/NeekoQ:keyTooltip",
+   "ability": [
+    "neeko",
+    "Characters/Neeko/Spells/NeekoQAbility/NeekoQ"
+   ],
+   "change": {
+    "calc": "SecondDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "NeekoQ",
+     "name": "SecondaryDamage",
+     "values": [
+      35.0,
+      60.0,
+      85.0,
+      110.0,
+      135.0
+     ]
+    }
+   },
+   "sha256": "35120641ce5b51a84cb4cb7b0fecf0223b3181af777694b009451769c81f8ea5",
+   "original_sha256": "9ac558adc0797dc55910b0e47b186d31310663f8f0384fc002bf2936f256bd39"
+  },
+  {
+   "id": "test-048",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:aurelionsol:Characters/AurelionSol/Spells/AurelionSolEAbility/AurelionSolE:keyTooltip",
+   "ability": [
+    "aurelionsol",
+    "Characters/AurelionSol/Spells/AurelionSolEAbility"
+   ],
+   "change": {
+    "calc": "DamagePerSecond",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AurelionSolE",
+     "name": "BaseDamagePerSecond",
+     "values": [
+      10.0,
+      15.0,
+      20.0,
+      25.0,
+      30.0
+     ]
+    }
+   },
+   "sha256": "acc94a20a9d42017d57b2f35ad665ca3728a0961c257d8be45dfb2461a05c2b5",
+   "original_sha256": "2e58b06fa15c1f1751fb1512ae18690ffa0d40522256fdac83e6aa62d3573dfe"
+  },
+  {
+   "id": "test-049",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:vladimir:Characters/Vladimir/Spells/VladimirEAbility/VladimirE:keyTooltip",
+   "ability": [
+    "vladimir",
+    "Characters/Vladimir/Spells/VladimirEAbility"
+   ],
+   "change": {
+    "calc": "MaxDamageTooltip",
+    "part": [
+     "mFormulaParts",
+     2
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 0.8,
+    "to": 1.2,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "VladimirE",
+     "name": "mCoefficient2",
+     "values": [
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8
+     ]
+    }
+   },
+   "sha256": "36157693207dd2a6eb1fd31b611ed1a5c5aa6201cd598c29c5c9582daecee2ca",
+   "original_sha256": "d98eaa3b31c6bfd2e0b846a8aed248d5727af8b59d5d7ae0e0ac1c07a5f3923c"
+  },
+  {
+   "id": "test-050",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:evelynn:Characters/Evelynn/Spells/EvelynnRAbility/EvelynnR:keyTooltip",
+   "ability": [
+    "evelynn",
+    "Characters/Evelynn/Spells/EvelynnRAbility"
+   ],
+   "change": {
+    "calc": "Damage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "EvelynnR",
+     "name": "BaseDamage",
+     "values": [
+      125.0,
+      250.0,
+      375.0
+     ]
+    }
+   },
+   "sha256": "446e814445a4df67ec9553c79f7e0de54f32ff3c7c22d3eeee50c5d87d6a2558",
+   "original_sha256": "93939880548d91016acee5d2a70c93b13454010f67fcf7c86a14ab6b9781bed5"
+  },
+  {
+   "id": "test-051",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:malphite:Characters/Malphite/Spells/UFSlashAbility/UFSlash:keyTooltip",
+   "ability": [
+    "malphite",
+    "Characters/Malphite/Spells/UFSlashAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "UFSlash",
+     "name": "BaseDamage",
+     "values": [
+      200.0,
+      300.0,
+      400.0
+     ]
+    }
+   },
+   "sha256": "6de845d5f074db4ca54047f958756568efe682898f01fb0b87293fcbaf537b4b",
+   "original_sha256": "053bd159136994ea249fb182f3cc931ad2a0a66825f422a92d0e1d7038c02a83"
+  },
+  {
+   "id": "test-052",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:evelynn:Characters/Evelynn/Spells/EvelynnWAbility/EvelynnW:keyTooltip",
+   "ability": [
+    "evelynn",
+    "Characters/Evelynn/Spells/EvelynnWAbility"
+   ],
+   "change": {
+    "calc": "MonsterDamageTotalTOOLTIP",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 0.75,
+    "from": 0.6,
+    "to": 0.45,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "EvelynnW",
+     "name": "mCoefficient",
+     "values": [
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6
+     ]
+    }
+   },
+   "sha256": "ee0b63995d924980aabe9f86511810ffdad1dfdc7c4987745966790424652b7e",
+   "original_sha256": "6ba0c6ba8dc7eb5c9b1328089cb25a3ee3030df36ce7d18291a2f5c56e5696a1"
+  },
+  {
+   "id": "test-053",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:riven:Characters/Riven/Spells/RivenFengShuiEngineAbility/RivenFengShuiEngine:keyTooltip",
+   "ability": [
+    "riven",
+    "Characters/Riven/Spells/RivenFengShuiEngineAbility"
+   ],
+   "change": {
+    "calc": "MaxDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "RivenFengShuiEngine",
+     "name": "MaxBase",
+     "values": [
+      300.0,
+      450.0,
+      600.0
+     ]
+    }
+   },
+   "sha256": "840af87e231c867845250f6c9f1b87c0dfc0147a3bf432f4743ac3341e18c825",
+   "original_sha256": "1df9f36cd01ff2a07f9c98d44091c4374bb8769e42f8beee4e0ed387be589ca2"
+  },
+  {
+   "id": "test-054",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:nautilus:Characters/Nautilus/Spells/NautilusSplashZoneAbility/NautilusSplashZone:keyTooltipExtendedBelowLine",
+   "ability": [
+    "nautilus",
+    "Characters/Nautilus/Spells/NautilusSplashZoneAbility"
+   ],
+   "change": {
+    "calc": "MonsterBonusCalc",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.5,
+    "to": 1,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "NautilusSplashZoneSplash",
+     "name": "mCoefficient",
+     "values": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "sha256": "5eb2563d1f3842043c46ef54d0bef59262958d2f41ef26571c91293f914aca53",
+   "original_sha256": "6d523d8895b368fd05183640fb70f8acc217afbd5cb4c8e2bd91978dea242afd"
+  },
+  {
+   "id": "test-055",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:tryndamere:Characters/Tryndamere/Spells/TryndamereQAbility/TryndamereQ:keyTooltip",
+   "ability": [
+    "tryndamere",
+    "Characters/Tryndamere/Spells/TryndamereQAbility/TryndamereQ"
+   ],
+   "change": {
+    "calc": "BaseHeal",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "TryndamereQ",
+     "name": "BaseHealing",
+     "values": [
+      30.0,
+      40.0,
+      50.0,
+      60.0,
+      70.0
+     ]
+    }
+   },
+   "sha256": "67f335c276ec658681f3abe21c5283792ccfd42a312dca72fd43ce6007ad9b19",
+   "original_sha256": "54107e714c54045cda342fc6665865fb8b814f69f49d247d87d701c344e503f6"
+  },
+  {
+   "id": "test-056",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:sona:Characters/Sona/Spells/SonaRAbility/SonaR:keyTooltip",
+   "ability": [
+    "sona",
+    "Characters/Sona/Spells/SonaRAbility/SonaR"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SonaR",
+     "name": "BaseDamage",
+     "values": [
+      150.0,
+      250.0,
+      350.0
+     ]
+    }
+   },
+   "sha256": "0524940a373f933e71e6d7bfdf2052c68588a9409f6b1687ff251e75b1ab1d11",
+   "original_sha256": "1cc98acd0a155e30857e4261d644f291888496d492de785b8276ca2eca798973"
+  },
+  {
+   "id": "test-057",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:nocturne:Characters/Nocturne/Spells/NocturneUnspeakableHorrorAbility/NocturneUnspeakableHorror:keyTooltip",
+   "ability": [
+    "nocturne",
+    "Characters/Nocturne/Spells/NocturneUnspeakableHorrorAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "NocturneUnspeakableHorror",
+     "name": "mCoefficient",
+     "values": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ]
+    }
+   },
+   "sha256": "17ecadfe32eaa33e4dbf3e10692fd89519a3a52b2aff8f5f426a4e734e5cfade",
+   "original_sha256": "e7cbd7dd2b8c77afca38cf156089676e910cb1770ea7207fdfa3fac81ff75a90"
+  },
+  {
+   "id": "test-058",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:nautilus:Characters/Nautilus/Spells/NautilusPiercingGazeAbility/NautilusPiercingGaze:keyTooltip",
+   "ability": [
+    "nautilus",
+    "Characters/Nautilus/Spells/NautilusPiercingGazeAbility"
+   ],
+   "change": {
+    "calc": "DotDamageCalc",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "DotDamageAPRatio",
+    "factor": 0.5,
+    "from": [
+     0.4,
+     0.4,
+     0.4,
+     0.4,
+     0.4
+    ],
+    "to": [
+     0.2,
+     0.2,
+     0.2,
+     0.2,
+     0.2
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "NautilusPiercingGaze",
+     "name": "mCoefficient",
+     "values": [
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645
+     ]
+    }
+   },
+   "sha256": "17b1537bf1367e33604a57059ea14611762a61c2381003b495db0e160d666d47",
+   "original_sha256": "67519932428f91ef0893c03f4e64e0508c18d8500d87abe6443676b14b903064"
+  },
+  {
+   "id": "test-059",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:kogmaw:Characters/KogMaw/Spells/KogMawBioArcaneBarrageAbility/KogMawBioArcaneBarrage:keyTooltip",
+   "ability": [
+    "kogmaw",
+    "Characters/KogMaw/Spells/KogMawBioArcaneBarrageAbility"
+   ],
+   "change": {
+    "calc": "TotalHealthDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "KogMawBioArcaneBarrage",
+     "name": "MaxHealthDamage",
+     "values": [
+      3.0,
+      3.75,
+      4.5,
+      5.25,
+      6.0
+     ]
+    }
+   },
+   "sha256": "e40279ad3a8cf90ac1113ae058df1f8655ffc34e5ef2a4f0bf1d645db188ae11",
+   "original_sha256": "d91eecaf0aabb982ae62c07f0fddfc96243b2ab3f5835e8cce7299aeb6f68eb3"
+  },
+  {
+   "id": "test-060",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:tryndamere:Characters/Tryndamere/Spells/TryndamereEAbility/TryndamereE:keyTooltip",
+   "ability": [
+    "tryndamere",
+    "Characters/Tryndamere/Spells/TryndamereEAbility/TryndamereE"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "TryndamereE",
+     "name": "Damage",
+     "values": [
+      80.0,
+      120.0,
+      160.0,
+      200.0,
+      240.0
+     ]
+    }
+   },
+   "sha256": "4f24755044a3fdb658df765a0316b9e054d6ddd77020a51bfcbc9d64f304a506",
+   "original_sha256": "2b208b51ca90614f0a99f08e2767fd8c5e06cfcd9eae9695bbd3a67b98531f47"
+  },
+  {
+   "id": "test-061",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:ekko:Characters/Ekko/Spells/EkkoQAbility/EkkoQ:keyTooltip",
+   "ability": [
+    "ekko",
+    "Characters/Ekko/Spells/EkkoQAbility"
+   ],
+   "change": {
+    "calc": "RecallDamage",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "EkkoQ",
+     "name": "mCoefficient2",
+     "values": [
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7
+     ]
+    }
+   },
+   "sha256": "a082e009e942c1d64ca785fd40db9a4dc617c413e63fd0b52d0dc581f4d8a17b",
+   "original_sha256": "18abf7529d706911cd00ec39478f274b56bb52a71e8388159052777d50c0ec15"
+  },
+  {
+   "id": "test-062",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:leona:Characters/Leona/Spells/LeonaZenithBladeAbility/LeonaZenithBlade:keyTooltip",
+   "ability": [
+    "leona",
+    "Characters/Leona/Spells/LeonaZenithBladeAbility"
+   ],
+   "change": {
+    "calc": "TotalDamageTooltip",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 0.4,
+    "to": 0.6,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "LeonaZenithBlade",
+     "name": "mCoefficient",
+     "values": [
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4
+     ]
+    }
+   },
+   "sha256": "5cab7a345487584d6d9936ca2223c7521c5bff1689e4873ada67739e82226a82",
+   "original_sha256": "f28c9bd419b13c0146ff1bbf008c3644bece79997e882e34bc5edfd47321f920"
+  },
+  {
+   "id": "test-063",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:fizz:Characters/Fizz/Spells/FizzPassiveAbility/FizzPassive:keyTooltip",
+   "ability": [
+    "fizz",
+    "Characters/Fizz/Spells/FizzPassiveAbility/FizzPassive"
+   ],
+   "change": {
+    "calc": "DamageReductionCalc",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "calculation",
+     "spell": "FizzPassive",
+     "name": "MonsterDamageReductionCalc",
+     "values": [
+      0.009999999776482582
+     ]
+    }
+   },
+   "sha256": "1e3ebd2fcc5a0c41a933f13330180e6e32a07559525ac83a5301db86c758979d",
+   "original_sha256": "563f4b24a9a5696b5f992b1e0b39e0d0f8281d114264fa4b434a1573df7b5238"
+  },
+  {
+   "id": "test-064",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:drmundo:Characters/DrMundo/Spells/DrMundoWAbility/DrMundoW:keyTooltip",
+   "ability": [
+    "drmundo",
+    "Characters/DrMundo/Spells/DrMundoWAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "DrMundoW",
+     "name": "RecastBaseDamage",
+     "values": [
+      20.0,
+      35.0,
+      50.0,
+      65.0,
+      80.0
+     ]
+    }
+   },
+   "sha256": "01d2daf947fc458179baec8dc3c5ecf0cd4c59a9468123cbbb350cda14a7c48b",
+   "original_sha256": "db8318a44ea929eb0aa31ac10c8c1a1270cd0d434a38ae3f69beb5a5c09ce0b1"
+  },
+  {
+   "id": "test-065",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:lux:Characters/Lux/Spells/LuxPrismaticWaveAbility/LuxPrismaticWave:keyTooltip",
+   "ability": [
+    "lux",
+    "Characters/Lux/Spells/LuxPrismaticWaveAbility"
+   ],
+   "change": {
+    "calc": "TotalShieldTT",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "APRatio",
+    "factor": 0.75,
+    "from": [
+     0.4,
+     0.4,
+     0.4,
+     0.4,
+     0.4
+    ],
+    "to": [
+     0.3,
+     0.3,
+     0.3,
+     0.3,
+     0.3
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "LuxPrismaticWave",
+     "name": "mCoefficient2",
+     "values": [
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645
+     ]
+    }
+   },
+   "sha256": "c793dba97810ac535831ff70994ccc3eb2830a306c3e40e3366905073c857c87",
+   "original_sha256": "7e4721452b24271f10f9970f077ca4e1bf45d258d06604b089fc18c96c3dcd66"
+  },
+  {
+   "id": "test-066",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:ryze:Characters/Ryze/Spells/RyzeQWrapperAbility/RyzeQWrapper:keyTooltip",
+   "ability": [
+    "ryze",
+    "Characters/Ryze/Spells/RyzeQWrapperAbility"
+   ],
+   "change": {
+    "calc": "QDamageCalc",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "RyzeQWrapper",
+     "name": "BaseDamage",
+     "values": [
+      75.0,
+      95.0,
+      115.0,
+      135.0,
+      155.0
+     ]
+    }
+   },
+   "sha256": "39941c252acc82cf419b8000db624f1cc38ffe75441b131c2feeb178cc9da225",
+   "original_sha256": "7eb76cf665a02fb60445cc5e1fc5987dede7d7ee7ec3d6c998ed24f08f7897ed"
+  },
+  {
+   "id": "test-067",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:annie:Characters/Annie/Spells/AnnieRAbility/AnnieR:keyTooltipExtendedBelowLine",
+   "ability": [
+    "annie",
+    "Characters/Annie/Spells/AnnieRAbility"
+   ],
+   "change": {
+    "calc": "TibbersAADamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AnnieR",
+     "name": "TibbersAttackDamage",
+     "values": [
+      30.0,
+      45.0,
+      60.0
+     ]
+    }
+   },
+   "sha256": "0374ce753b6bf13573828698240d2b88daa737d7f152f339790a2a34ced17143",
+   "original_sha256": "ffb4c017a71daec074cad2462b623cf587a38efbc47d89e10e9a4cf0f5a8be37"
+  },
+  {
+   "id": "test-068",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:neeko:Characters/Neeko/Spells/NeekoEAbility/NeekoE:keyTooltip",
+   "ability": [
+    "neeko",
+    "Characters/Neeko/Spells/NeekoEAbility"
+   ],
+   "change": {
+    "calc": "BaseDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "NeekoE",
+     "name": "Damage",
+     "values": [
+      70.0,
+      105.0,
+      140.0,
+      175.0,
+      210.0
+     ]
+    }
+   },
+   "sha256": "62a693bd8f9478a6470ac6d3b1bd1a1fbcb23cadb1e0506ee93d4fe7f96a81c1",
+   "original_sha256": "f61b6970a521ac2c928d92c3d303b75f7522b5850af1a773aa3128987bef4c03"
+  },
+  {
+   "id": "test-069",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:viktor:Characters/Viktor/Spells/ViktorEAbility/ViktorE:keyTooltip",
+   "ability": [
+    "viktor",
+    "Characters/Viktor/Spells/ViktorEAbility"
+   ],
+   "change": {
+    "calc": "AftershockDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "ViktorE",
+     "name": "BaseDamageAftershock",
+     "values": [
+      20.0,
+      50.0,
+      80.0,
+      110.0,
+      140.0
+     ]
+    }
+   },
+   "sha256": "044601a7551910e85bedc655e691f454c254902f8a5e52718c5c8868286f46f0",
+   "original_sha256": "6d1156f8e6174a11efe6df22d94e3eb92130231664b9d49b315204271129cd74"
+  },
+  {
+   "id": "test-070",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:irelia:Characters/Irelia/Spells/IreliaRAbility/IreliaR:keyTooltip",
+   "ability": [
+    "irelia",
+    "Characters/Irelia/Spells/IreliaRAbility"
+   ],
+   "change": {
+    "calc": "ZoneDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "IreliaR",
+     "name": "BaseMissileDamage",
+     "values": [
+      125.0,
+      200.0,
+      275.0
+     ]
+    }
+   },
+   "sha256": "73dd7cf673c97e9228daf15cbfa4657d409552aab1edd521509743c424c8eaeb",
+   "original_sha256": "18c5efe44f7e0e6969e87768c4ac67aee6b4f07be5758bf816946bf23a142dba"
+  },
+  {
+   "id": "test-071",
+   "rule": "base_values",
+   "record_id": "16.19:en_us:gangplank:Characters/Gangplank/Spells/GangplankRAbility/GangplankR:keyTooltip",
+   "ability": [
+    "gangplank",
+    "Characters/Gangplank/Spells/GangplankRAbility"
+   ],
+   "change": {
+    "data_value": "RaiseMoraleHaste",
+    "factor": 0.75,
+    "from": [
+     40,
+     40,
+     40
+    ],
+    "to": [
+     30,
+     30,
+     30
+    ],
+    "anchor": {
+     "type": "same_name",
+     "spell": "GangplankRWithRaiseMorale",
+     "name": "RaiseMoraleHaste",
+     "values": [
+      40.0,
+      40.0,
+      40.0
+     ]
+    }
+   },
+   "sha256": "ddfc2cfa3c1ff109a19d086da9ecab7768bb410dad44f5c1d09dcf8aa9262c6b",
+   "original_sha256": "360ec925fb50796653af4863fdc1c4b571220f23532899f809fdca502c6a7357"
+  },
+  {
+   "id": "test-072",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:pyke:Characters/Pyke/Spells/PykeRAbility/PykeR:keyTooltip",
+   "ability": [
+    "pyke",
+    "Characters/Pyke/Spells/PykeRAbility"
+   ],
+   "change": {
+    "calc": "RDamage",
+    "part": [
+     "mFormulaParts",
+     2
+    ],
+    "stat": "lethality",
+    "factor": 2.0,
+    "from": 1.5,
+    "to": 3,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "PykeR",
+     "name": "mCoefficient",
+     "values": [
+      1.5,
+      1.5,
+      1.5
+     ]
+    }
+   },
+   "sha256": "6893f86eac787037e7d5384b6336b79ab79e1d83766c3b0c535128bb14275986",
+   "original_sha256": "a877c5f7837ca189c302a6d50684ec40e301484b8500d5eea8794ba0c4f1a7e4"
+  },
+  {
+   "id": "test-073",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:kaisa:Characters/Kaisa/Spells/KaisaQAbility/KaisaQ:keyTooltip",
+   "ability": [
+    "kaisa",
+    "Characters/Kaisa/Spells/KaisaQAbility"
+   ],
+   "change": {
+    "calc": "TotalIndividualMissileDamage",
+    "part": [
+     "mFormulaParts",
+     2
+    ],
+    "stat": "AP",
+    "data_value": "APRatio",
+    "factor": 2.0,
+    "from": [
+     0.2,
+     0.2,
+     0.2,
+     0.2,
+     0.2
+    ],
+    "to": [
+     0.4,
+     0.4,
+     0.4,
+     0.4,
+     0.4
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "KaisaQ",
+     "name": "mCoefficient2",
+     "values": [
+      0.20000000298023224,
+      0.20000000298023224,
+      0.20000000298023224,
+      0.20000000298023224,
+      0.20000000298023224
+     ]
+    }
+   },
+   "sha256": "7230e57e8ebe5cbcdbe6a8de96dc3cd82200eca27057bc7910783e31a32be411",
+   "original_sha256": "41b6336bfe2c5f9fd928738f261d678474e9add962ea838df658726ba77533ad"
+  },
+  {
+   "id": "test-074",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:alistar:Characters/Alistar/Spells/AlistarEAbility/AlistarE:keyTooltip",
+   "ability": [
+    "alistar",
+    "Characters/Alistar/Spells/AlistarEAbility/AlistarE"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "APRatio",
+    "factor": 0.5,
+    "from": [
+     0.7,
+     0.7,
+     0.7,
+     0.7,
+     0.7
+    ],
+    "to": [
+     0.35,
+     0.35,
+     0.35,
+     0.35,
+     0.35
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "AlistarE",
+     "name": "mCoefficient",
+     "values": [
+      0.699999988079071,
+      0.699999988079071,
+      0.699999988079071,
+      0.699999988079071,
+      0.699999988079071
+     ]
+    }
+   },
+   "sha256": "73de904e0d0c0ef892bc366105bd58bc8cedbbb9355601568222c1492814fe3f",
+   "original_sha256": "882deccf8d3fb123ffab3a6260ce72d1f904cd43daf71e8408ed2eb1da873358"
+  },
+  {
+   "id": "test-075",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:masteryi:Characters/MasterYi/Spells/MeditateAbility/Meditate:keyTooltip",
+   "ability": [
+    "masteryi",
+    "Characters/MasterYi/Spells/MeditateAbility/Meditate"
+   ],
+   "change": {
+    "calc": "TotalHeal",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 1,
+    "to": 1.5,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "Meditate",
+     "name": "mCoefficient",
+     "values": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ]
+    }
+   },
+   "sha256": "0550bca8fbeeba4e6a294e6d2a1a34500d9cef47d009746c297b57a6a1d9bceb",
+   "original_sha256": "35f333201e7067f8d1b139a3fc9f148c1b2a0d503062d5c57efa688f5cbc4e3c"
+  },
+  {
+   "id": "test-076",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:yasuo:Characters/Yasuo/Spells/YasuoEAbility/YasuoE:keyTooltip",
+   "ability": [
+    "yasuo",
+    "Characters/Yasuo/Spells/YasuoEAbility/YasuoE"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "YasuoE",
+     "name": "BaseDamage",
+     "values": [
+      70.0,
+      85.0,
+      100.0,
+      115.0,
+      130.0
+     ]
+    }
+   },
+   "sha256": "becbea33ba30684122ba49663de751c2a1334c36c902da4ed2e8713c4970f900",
+   "original_sha256": "88cd0436507a1d3c20f6074a0ba547bce2e24405f4e5e066b8b17570c8f78833"
+  },
+  {
+   "id": "test-077",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:pyke:Characters/Pyke/Spells/PykeQAbility/PykeQ:keyTooltip",
+   "ability": [
+    "pyke",
+    "Characters/Pyke/Spells/PykeQAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "PykeQ",
+     "name": "BaseDamage",
+     "values": [
+      100.0,
+      150.0,
+      200.0,
+      250.0,
+      300.0
+     ]
+    }
+   },
+   "sha256": "ed3614cac0afaa4a676a54952fac796d9091c62f4600b79e7b4eeb57c94029fd",
+   "original_sha256": "47b15bae004b36c6f765f889230e20f502b4e289a7e4c13f62ccf7858173d53c"
+  },
+  {
+   "id": "test-078",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:sona:Characters/Sona/Spells/SonaEAbility/SonaE:keyTooltip",
+   "ability": [
+    "sona",
+    "Characters/Sona/Spells/SonaEAbility"
+   ],
+   "change": {
+    "calc": "TotalSelfMovementSpeed",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "calculation",
+     "spell": "SonaE",
+     "name": "TotalAllyMovementSpeed",
+     "values": [
+      0.0002,
+      0.0002,
+      0.0002,
+      0.0002,
+      0.0002
+     ]
+    }
+   },
+   "sha256": "89450ae3f35ada668c52cc157b5e2e6a27e75e0f5bc6065104b7ed014cf11210",
+   "original_sha256": "3b5cc9026648327b324a7640bbab25b9b15a8423685217e99a7b38d0b87fe8e9"
+  },
+  {
+   "id": "test-079",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:locke:Characters/Locke/Spells/LockeQAbility/LockeQ:keyTooltip",
+   "ability": [
+    "locke",
+    "Characters/Locke/Spells/LockeQAbility"
+   ],
+   "change": {
+    "calc": "MissileDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "LockeQ",
+     "name": "BaseMissileDamage",
+     "values": [
+      40.0,
+      48.0,
+      56.0,
+      64.0,
+      72.0
+     ]
+    }
+   },
+   "sha256": "c3ad6a2222275dd1ad507207407d01e6790295960fda70f80717606c18f02fb3",
+   "original_sha256": "41c0ed0f6bc14b9a275a009b2f63b5725bcf70c39a71cc387bec05793e46a79b"
+  },
+  {
+   "id": "test-080",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:riven:Characters/Riven/Spells/RivenMartyrAbility/RivenMartyr:keyTooltip",
+   "ability": [
+    "riven",
+    "Characters/Riven/Spells/RivenMartyrAbility/RivenMartyr"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "bonus AD",
+    "factor": 0.75,
+    "from": 1,
+    "to": 0.75,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "RivenMartyr",
+     "name": "mCoefficient",
+     "values": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ]
+    }
+   },
+   "sha256": "47dc56910cf5349fec603e785350298de0fe9dffaa116440fb41b675f2d5bb92",
+   "original_sha256": "fd131805453bcc4c95e17980bba8a809fe9396927b0daa61091ff1aeffeb45bf"
+  },
+  {
+   "id": "test-081",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:hwei:Characters/Hwei/Spells/HweiRAbility/HweiR:keyTooltip",
+   "ability": [
+    "hwei",
+    "Characters/Hwei/Spells/HweiRAbility"
+   ],
+   "change": {
+    "calc": "DamageOverTime",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "HweiR",
+     "name": "BaseDamageOverTime",
+     "values": [
+      10.0,
+      20.0,
+      30.0
+     ]
+    }
+   },
+   "sha256": "0acb64e95a212096d8fc21ad754fedae93a51f6549e6687af11edc47dc917aef",
+   "original_sha256": "56fde17a04558d2532dc3a4d4804a6468a6f3623016085a789411810caef05f4"
+  },
+  {
+   "id": "test-082",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:braum:Characters/Braum/Spells/BraumWAbility/BraumW:keyTooltip",
+   "ability": [
+    "braum",
+    "Characters/Braum/Spells/BraumWAbility"
+   ],
+   "change": {
+    "calc": "GrantedBraumMR",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "BraumW",
+     "name": "BaseResists",
+     "values": [
+      20.0,
+      25.0,
+      30.0,
+      35.0,
+      40.0
+     ]
+    }
+   },
+   "sha256": "2cfcba9ff78895d71afde14423e002e1f987e7e22b9c0667ec3f8b00742a7be1",
+   "original_sha256": "2aafac76a8999522aa08c33b1821752f85f0a3aa699acbf59ec45e6460404771"
+  },
+  {
+   "id": "test-083",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:urgot:Characters/Urgot/Spells/UrgotQAbility/UrgotQ:keyTooltip",
+   "ability": [
+    "urgot",
+    "Characters/Urgot/Spells/UrgotQAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AD",
+    "factor": 0.5,
+    "from": 0.7,
+    "to": 0.35,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "UrgotQ",
+     "name": "mCoefficient",
+     "values": [
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7
+     ]
+    }
+   },
+   "sha256": "7ce5f41db6906e89365ce2fcd7372f8bfde6e68a3418077411f5e01648c35d01",
+   "original_sha256": "be871d4d6eccb4179bea7b3eb6a72ac09f019ae26eda0898aabcf49a8eb3e6e5"
+  },
+  {
+   "id": "test-084",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:belveth:Characters/Belveth/Spells/BelvethRAbility/BelvethR:keyTooltip",
+   "ability": [
+    "belveth",
+    "Characters/Belveth/Spells/BelvethRAbility"
+   ],
+   "change": {
+    "calc": "MaxHealthOnDevour",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "BelvethR",
+     "name": "BaseMaxHealth",
+     "values": [
+      100.0,
+      250.0,
+      400.0
+     ]
+    }
+   },
+   "sha256": "b23d9fbeafc7a9e041b19b464bf5ff8d21eb00e65cb14fc580ca75aad78e2728",
+   "original_sha256": "4164dd91d0f10b2957521ff70f23afad963452c073ef5c02429f3c870c932825"
+  },
+  {
+   "id": "test-085",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:rakan:Characters/Rakan/Spells/RakanRAbility/RakanR:keyTooltip",
+   "ability": [
+    "rakan",
+    "Characters/Rakan/Spells/RakanRAbility"
+   ],
+   "change": {
+    "calc": "TotalDamageTooltip",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 0.5,
+    "to": 0.75,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "RakanR",
+     "name": "mCoefficient",
+     "values": [
+      0.5,
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "sha256": "087ac8af383d1af99d3694ddd3c9a3d065d7bd2ffdbbf1a216f8e3a3fbe443f3",
+   "original_sha256": "c1deecf523979274e7715a44a5f5acd32dc6f8b39248b2b07b38056bf06d241e"
+  },
+  {
+   "id": "test-086",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:ekko:Characters/Ekko/Spells/EkkoEAbility/EkkoE:keyTooltip",
+   "ability": [
+    "ekko",
+    "Characters/Ekko/Spells/EkkoEAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 0.75,
+    "from": 0.4,
+    "to": 0.3,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "EkkoE",
+     "name": "mCoefficient",
+     "values": [
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4
+     ]
+    }
+   },
+   "sha256": "ffa2932599b301a86a69d24a9e6fa5ff1e87514f7a1fc58c3524e5d40fa2395c",
+   "original_sha256": "1adc79570cb4e0099f0450427900f1633ef2eb82d252641ae2cc2fcc1fd45f4c"
+  },
+  {
+   "id": "test-087",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:smolder:Characters/Smolder/Spells/SmolderWAbility/SmolderW:keyTooltip",
+   "ability": [
+    "smolder",
+    "Characters/Smolder/Spells/SmolderWAbility"
+   ],
+   "change": {
+    "calc": "InitialDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SmolderW",
+     "name": "BaseDamage",
+     "values": [
+      60.0,
+      70.0,
+      80.0,
+      90.0,
+      100.0
+     ]
+    }
+   },
+   "sha256": "93b18a16aa5ca30f9bcf63a704dbd1df7ad8ee23b1294ed517730e33069ba8d5",
+   "original_sha256": "e52648ed8ba17ec95388ac638cc8798541727a3ccd13209bf10fdc99576c8dc0"
+  },
+  {
+   "id": "test-088",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:xayah:Characters/Xayah/Spells/XayahRAbility/XayahR:keyTooltip",
+   "ability": [
+    "xayah",
+    "Characters/Xayah/Spells/XayahRAbility"
+   ],
+   "change": {
+    "calc": "Damage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "bonus AD",
+    "factor": 1.5,
+    "from": 1,
+    "to": 1.5,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "XayahR",
+     "name": "mCoefficient",
+     "values": [
+      1,
+      1,
+      1
+     ]
+    }
+   },
+   "sha256": "1eaa077652b0799350d9d890d38cc473757257b04df4b05505dd6f8a53987bde",
+   "original_sha256": "940482b8ad99fe9a74848f2ea8216ceba36f84ecdff2cc180d4ff50a919b103a"
+  },
+  {
+   "id": "test-089",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:bard:Characters/Bard/Spells/BardQAbility/BardQ:keyTooltip",
+   "ability": [
+    "bard",
+    "Characters/Bard/Spells/BardQAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "BardQ",
+     "name": "BaseDamage",
+     "values": [
+      80.0,
+      120.0,
+      160.0,
+      200.0,
+      240.0
+     ]
+    }
+   },
+   "sha256": "8bf1d0556d95669c7652e681efb667f13669a711b43e36cebba19fcc7d609545",
+   "original_sha256": "21ed2b93ca466bcbdafa820c144c5b0f9e57f9c95b2fc6ff564247f6b91e07f9"
+  },
+  {
+   "id": "test-090",
+   "rule": "multiplier",
+   "record_id": "16.19:en_us:renekton:Characters/Renekton/Spells/RenektonPreExecuteAbility/RenektonPreExecute:keyTooltip",
+   "ability": [
+    "renekton",
+    "Characters/Renekton/Spells/RenektonPreExecuteAbility"
+   ],
+   "change": {
+    "calc": "EmpTotalDamage",
+    "part": [
+     "mMultiplier"
+    ],
+    "step": -1,
+    "from": 3,
+    "to": 2,
+    "anchor": {
+     "type": "typed_number",
+     "start": 346,
+     "values": [
+      3,
+      3,
+      3,
+      3,
+      3
+     ]
+    }
+   },
+   "sha256": "fdf323e755e0a63ef8dfeda25f69200eb6967b440bcd624f3d381fa0b94c5d69",
+   "original_sha256": "2ba12899e47bde63648d39f35e6074bfa354f485780a2cc5b0f5edee83a4d682"
+  },
+  {
+   "id": "test-091",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:trundle:Characters/Trundle/Spells/TrundleTrollSmashAbility/TrundleTrollSmash:keyTooltip",
+   "ability": [
+    "trundle",
+    "Characters/Trundle/Spells/TrundleTrollSmashAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "TrundleTrollSmash",
+     "name": "BonusDamage",
+     "values": [
+      10.0,
+      30.0,
+      50.0,
+      70.0,
+      90.0
+     ]
+    }
+   },
+   "sha256": "a21ee9f36822586585b7f3749a15ed932028feec14800412a748973604d50e41",
+   "original_sha256": "b579409f8e91cc0cf34ba8ef1dca83fac867113bc2db099b1ba4c97729a4f755"
+  },
+  {
+   "id": "test-092",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:corki:Characters/Corki/Spells/CarpetBombAbility/CarpetBomb:keyTooltip",
+   "ability": [
+    "corki",
+    "Characters/Corki/Spells/CarpetBombAbility/CarpetBomb"
+   ],
+   "change": {
+    "calc": "MaximumDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "CarpetBomb",
+     "name": "BaseDamage",
+     "values": [
+      150.0,
+      225.0,
+      300.0,
+      375.0,
+      450.0
+     ]
+    }
+   },
+   "sha256": "3cbc09c1994209753468c834fa3bc34ec0bdcb4c3ba4b5e62cf19fdd5ac8f3d4",
+   "original_sha256": "73127684ce5ef9aaf83df5b110b6d6ac6f20aff22157e81ff9388cbf3405d5c9"
+  },
+  {
+   "id": "test-093",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:ahri:Characters/Ahri/Spells/AhriWAbility/AhriW:keyTooltip",
+   "ability": [
+    "ahri",
+    "Characters/Ahri/Spells/AhriWAbility"
+   ],
+   "change": {
+    "calc": "SingleFireDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AhriW",
+     "name": "BaseDamage",
+     "values": [
+      40.0,
+      60.0,
+      80.0,
+      100.0,
+      120.0
+     ]
+    }
+   },
+   "sha256": "50e4364f7df90d2ba8b6af16d127c4bab06baa216312328e9a05855f9abf871e",
+   "original_sha256": "c4e479230f2b9bd0a3ebcd15e0521e451dd1f671f17cfaae011948060003ff61"
+  },
+  {
+   "id": "test-094",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:seraphine:Characters/Seraphine/Spells/SeraphineEAbility/SeraphineE:keyTooltip",
+   "ability": [
+    "seraphine",
+    "Characters/Seraphine/Spells/SeraphineEAbility"
+   ],
+   "change": {
+    "calc": "FinalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SeraphineE",
+     "name": "BaseDamage",
+     "values": [
+      70.0,
+      100.0,
+      130.0,
+      160.0,
+      190.0
+     ]
+    }
+   },
+   "sha256": "9d03588a5b5b7f9162efba6cade6d9d1e582e66b62da2f449d91a11c4eb9360f",
+   "original_sha256": "1044b2e102c2bdf443977fa29630d5fba8e18b9ec503308b51aaab7a0a4ebe18"
+  },
+  {
+   "id": "test-095",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:seraphine:Characters/Seraphine/Spells/SeraphineQAbility/SeraphineQ:keyTooltip",
+   "ability": [
+    "seraphine",
+    "Characters/Seraphine/Spells/SeraphineQAbility"
+   ],
+   "change": {
+    "calc": "ExplosionDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SeraphineQ",
+     "name": "BaseDamage",
+     "values": [
+      60.0,
+      85.0,
+      110.0,
+      135.0,
+      160.0
+     ]
+    }
+   },
+   "sha256": "40213811cc4463fa74a1a1dfef66bb4a8f3722bf02a01c86d442d9de668f2809",
+   "original_sha256": "ba478b6ef20e4e53c33435f89d767af221b7fa8fd0bb40e5cff7f6b6e00fc5f0"
+  },
+  {
+   "id": "test-096",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:ksante:Characters/KSante/Spells/KSanteQAbility/KSanteQ:keyTooltip",
+   "ability": [
+    "ksante",
+    "Characters/KSante/Spells/KSanteQAbility"
+   ],
+   "change": {
+    "calc": "BaseDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "KSanteQ",
+     "name": "FlatDamage",
+     "values": [
+      70.0,
+      100.0,
+      130.0,
+      160.0,
+      190.0
+     ]
+    }
+   },
+   "sha256": "4a741eeead942e2f5dd9fb9524e00f5a12c6129edbeafd3436287290e2567359",
+   "original_sha256": "977bfcfd6f9d51ca9a16ae38fcd86e7b1ca19122bc5cb0da1270a927bd182b03"
+  },
+  {
+   "id": "test-097",
+   "rule": "base_values",
+   "record_id": "16.19:en_us:volibear:Characters/Volibear/Spells/VolibearRAbility/VolibearR:keyTooltip",
+   "ability": [
+    "volibear",
+    "Characters/Volibear/Spells/VolibearRAbility/VolibearR"
+   ],
+   "change": {
+    "data_value": "TowerDamage",
+    "factor": 0.75,
+    "from": [
+     300,
+     500,
+     700
+    ],
+    "to": [
+     225,
+     375,
+     525
+    ],
+    "anchor": {
+     "type": "level_up",
+     "spell": "VolibearR",
+     "name": "SweetSpotDamage",
+     "values": [
+      300.0,
+      500.0,
+      700.0
+     ]
+    }
+   },
+   "sha256": "f65bd725f403efdc8a3b2d8f4f61eb5ebc4dd82f66d8182a81767fa0fb817161",
+   "original_sha256": "cac99c7389154a854334894f57826d0f0cb7227ef5f66ef7fa2511796c6f9243"
+  },
+  {
+   "id": "test-098",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:sylas:Characters/Sylas/Spells/SylasWAbility/SylasW:keyTooltip",
+   "ability": [
+    "sylas",
+    "Characters/Sylas/Spells/SylasWAbility"
+   ],
+   "change": {
+    "calc": "MinDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SylasW",
+     "name": "Damage",
+     "values": [
+      75.0,
+      110.0,
+      145.0,
+      180.0,
+      215.0
+     ]
+    }
+   },
+   "sha256": "d0ed9461a8259a78f80c5820eb7bfec3e6b1e0397c863224e2d8ddfc57e5657f",
+   "original_sha256": "37fc45c54eee51a0d243f2d4d45d2aabba6858069c38e12ffbf1160ce67982cf"
+  },
+  {
+   "id": "test-099",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:zac:Characters/Zac/Spells/ZacWAbility/ZacW:keyTooltip",
+   "ability": [
+    "zac",
+    "Characters/Zac/Spells/ZacWAbility/ZacW"
+   ],
+   "change": {
+    "calc": "DisplayPercentDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "APRatioToPercentDamage",
+    "factor": 2.0,
+    "from": [
+     0.03,
+     0.03,
+     0.03,
+     0.03,
+     0.03
+    ],
+    "to": [
+     0.06,
+     0.06,
+     0.06,
+     0.06,
+     0.06
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "ZacW",
+     "name": "mCoefficient",
+     "values": [
+      0.029999999329447746,
+      0.029999999329447746,
+      0.029999999329447746,
+      0.029999999329447746,
+      0.029999999329447746
+     ]
+    }
+   },
+   "sha256": "ce01b7769401942476ec1395a9296374e6fcc183973349293e2fb526c0400c92",
+   "original_sha256": "9b13998e29d5684302180a02f3c0174c3cd5664e0e82bcc6a2216b9682d8287d"
+  },
+  {
+   "id": "test-100",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:udyr:Characters/Udyr/Spells/UdyrRAbility/UdyrR:keyTooltipExtended",
+   "ability": [
+    "udyr",
+    "Characters/Udyr/Spells/UdyrRAbility"
+   ],
+   "change": {
+    "calc": "StormDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "UdyrR",
+     "name": "StormBaseDamage",
+     "values": [
+      20.0,
+      36.0,
+      52.0,
+      68.0,
+      84.0,
+      100.0
+     ]
+    }
+   },
+   "sha256": "88afef9018f3eb14fed62351f766ff60a1280588eb6eff972cf814f93803e0c3",
+   "original_sha256": "0d925399ddc20e7776ecb9b02e80ade49c07edb261f29819ab6f6588a4c75d2b"
+  },
+  {
+   "id": "test-101",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:zaahen:Characters/Zaahen/Spells/ZaahenQAbility/ZaahenQ:keyTooltip",
+   "ability": [
+    "zaahen",
+    "Characters/Zaahen/Spells/ZaahenQAbility"
+   ],
+   "change": {
+    "calc": "InitialDamage",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "level_up",
+     "spell": "ZaahenQ",
+     "name": "QCoeff",
+     "values": [
+      0.20000000298023224,
+      0.25,
+      0.30000001192092896,
+      0.3499999940395355,
+      0.4000000059604645
+     ]
+    }
+   },
+   "sha256": "ec890ab5cfa2184c8b383a41d0858e8143a34c5084ad2a7e458cbf2f2eadd903",
+   "original_sha256": "8e7f07cfadf37b5ce8edacab3d90993e6afd2639c9f6a073e48153ab404cdc64"
+  },
+  {
+   "id": "test-102",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:nidalee:Characters/Nidalee/Spells/BushwhackAbility/Bushwhack:keyTooltip",
+   "ability": [
+    "nidalee",
+    "Characters/Nidalee/Spells/BushwhackAbility"
+   ],
+   "change": {
+    "calc": "DamagePerSecond",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.05,
+    "to": 0.1,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "Bushwhack",
+     "name": "mCoefficient",
+     "values": [
+      0.05,
+      0.05,
+      0.05,
+      0.05,
+      0.05
+     ]
+    }
+   },
+   "sha256": "7866cb89ff66621a541a2268777a18309268530f67c3717c67d458cc060b508a",
+   "original_sha256": "5039d76285185982c0580b1d8352af078cd1ff9cfd582334d94867d575afee58"
+  },
+  {
+   "id": "test-103",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:yunara:Characters/Yunara/Spells/YunaraQAbility/YunaraQ:keyTooltip",
+   "ability": [
+    "yunara",
+    "Characters/Yunara/Spells/YunaraQAbility"
+   ],
+   "change": {
+    "calc": "Calc_Passive_Damage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "YunaraQ",
+     "name": "Damage_Passive",
+     "values": [
+      5.0,
+      10.0,
+      15.0,
+      20.0,
+      25.0
+     ]
+    }
+   },
+   "sha256": "89c5e645a22a69282cfc2400bd497f73b577eda9f2c057d8430f2cdc1daaa74a",
+   "original_sha256": "e7d3988a9445a7a16ee0ecee474c747d108398492e443f3a9e497a3319b348ea"
+  },
+  {
+   "id": "test-104",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:lissandra:Characters/Lissandra/Spells/LissandraWAbility/LissandraW:keyTooltip",
+   "ability": [
+    "lissandra",
+    "Characters/Lissandra/Spells/LissandraWAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 0.5,
+    "from": 0.7,
+    "to": 0.35,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "LissandraW",
+     "name": "mCoefficient",
+     "values": [
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7
+     ]
+    }
+   },
+   "sha256": "e880c0ae2194f78e4d118a82a30931da307427de6f09e40f852e04833058cf56",
+   "original_sha256": "cde34239e33d3fe15e67dc7bf4bf17f0c0f8123c180ca8df7492e0e925164b59"
+  },
+  {
+   "id": "test-105",
+   "rule": "base_values",
+   "record_id": "16.19:en_us:kogmaw:Characters/KogMaw/Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianSurpriseReady:keyTooltip",
+   "ability": [
+    "kogmaw",
+    "Characters/KogMaw/Spells/KogMawIcathianSurpriseReadyAbility"
+   ],
+   "change": {
+    "data_value": "TooltipPassiveDuration",
+    "factor": 0.75,
+    "from": [
+     4
+    ],
+    "to": [
+     3
+    ],
+    "anchor": {
+     "type": "same_name",
+     "spell": "KogMawIcathianSurprise",
+     "name": "TooltipPassiveDuration",
+     "values": [
+      4.0
+     ]
+    }
+   },
+   "sha256": "04c174acd690f2d6ac5f5109bb5fe43e7c47aedcd4da67432d49ed4f87d87457",
+   "original_sha256": "915e8e31b4ea18691427c19d33378a6f43ac8a40b0f80edbe50588ad78ee9370"
+  },
+  {
+   "id": "test-106",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:malphite:Characters/Malphite/Spells/ObduracyAbility/Obduracy:keyTooltip",
+   "ability": [
+    "malphite",
+    "Characters/Malphite/Spells/ObduracyAbility"
+   ],
+   "change": {
+    "calc": "ThunderclapSplash",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "Obduracy",
+     "name": "ThunderclapSplashDamage",
+     "values": [
+      15.0,
+      25.0,
+      35.0,
+      45.0,
+      55.0
+     ]
+    }
+   },
+   "sha256": "74090481fdd6665080e2e3d4ae838a4284d8d1695171cc14cbedbab86d9d1ad6",
+   "original_sha256": "f1130c728e58875ee4e39013cb253dbe1d3d7fa3e53ece29cae13fe427845905"
+  },
+  {
+   "id": "test-107",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:kled:Characters/Kled/Spells/KledQAbility/KledQ:keyTooltipExtended",
+   "ability": [
+    "kled",
+    "Characters/Kled/Spells/KledQAbility"
+   ],
+   "change": {
+    "calc": "DismountedQDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "bonus AD",
+    "factor": 2.0,
+    "from": 0.65,
+    "to": 1.3,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "KledQ",
+     "name": "mCoefficient",
+     "values": [
+      0.65,
+      0.65,
+      0.65,
+      0.65,
+      0.65
+     ]
+    }
+   },
+   "sha256": "8668d940282a46aee34b13ce7299b5218c0acf33e5b75a2bfe38068cb8dad07d",
+   "original_sha256": "60dea7330de190afc361cd35b9e1548db94bb845a3298a674c23bf1a6221d0ab"
+  },
+  {
+   "id": "test-108",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:lillia:Characters/Lillia/Spells/LilliaWAbility/LilliaW:keyTooltip",
+   "ability": [
+    "lillia",
+    "Characters/Lillia/Spells/LilliaWAbility/LilliaW"
+   ],
+   "change": {
+    "calc": "FlatDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.35,
+    "to": 0.7,
+    "anchor": {
+     "type": "calculation",
+     "spell": "LilliaW",
+     "name": "FlatDamageSweetSpot",
+     "values": [
+      0.35,
+      0.35,
+      0.35,
+      0.35,
+      0.35
+     ]
+    }
+   },
+   "sha256": "0895385b0edb33534541cae4a7007e734c8d77c9aaa3cd328c0f2a314f6d8ca9",
+   "original_sha256": "1ad025ffc9450d02c12c3fc78273415bc472c55c4dd2d36f5eda89620efe972f"
+  },
+  {
+   "id": "test-109",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:mel:Characters/Mel/Spells/MelEAbility/MelE:keyTooltip",
+   "ability": [
+    "mel",
+    "Characters/Mel/Spells/MelEAbility"
+   ],
+   "change": {
+    "calc": "Damage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "MelE",
+     "name": "BaseDamage",
+     "values": [
+      60.0,
+      105.0,
+      150.0,
+      195.0,
+      240.0
+     ]
+    }
+   },
+   "sha256": "dd73d1631c9e29974f9d5dd5bb17196668073425deae5501f8262180320e6580",
+   "original_sha256": "ff5096d40692b4120192875eca2fd62319dc2991831370cc7bcefedc33675299"
+  },
+  {
+   "id": "test-110",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:nidalee:Characters/Nidalee/Spells/PrimalSurgeAbility/PrimalSurge:keyTooltip",
+   "ability": [
+    "nidalee",
+    "Characters/Nidalee/Spells/PrimalSurgeAbility/PrimalSurge"
+   ],
+   "change": {
+    "calc": "TotalHealing",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "PrimalSurge",
+     "name": "BaseHeal",
+     "values": [
+      50.0,
+      75.0,
+      100.0,
+      125.0,
+      150.0
+     ]
+    }
+   },
+   "sha256": "bfa7da06d962950b39686244b17bc7513b54291d2634c36274d3697d26975a2b",
+   "original_sha256": "656dbe3f5ce5998b51bc20100123221e09e3037b780486257e5dba8184cadb4c"
+  },
+  {
+   "id": "test-111",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:katarina:Characters/Katarina/Spells/KatarinaRAbility/KatarinaR:keyTooltip",
+   "ability": [
+    "katarina",
+    "Characters/Katarina/Spells/KatarinaRAbility"
+   ],
+   "change": {
+    "calc": "DamageCalc",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "KatarinaR",
+     "name": "DamagePerTick",
+     "values": [
+      25.0,
+      37.5,
+      50.0
+     ]
+    }
+   },
+   "sha256": "736997d4f7c5dd06048369d2f855fad67f6664a9065578cf7f41f7c1c4b43045",
+   "original_sha256": "a6e545ddc7f9bbea8218474822598dd3dd1e125b9818a85b354eb71786caa5f6"
+  },
+  {
+   "id": "test-112",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:veigar:Characters/Veigar/Spells/VeigarRAbility/VeigarR:keyTooltip",
+   "ability": [
+    "veigar",
+    "Characters/Veigar/Spells/VeigarRAbility/VeigarR"
+   ],
+   "change": {
+    "calc": "MinDamage",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "level_up",
+     "spell": "VeigarR",
+     "name": "APRatio",
+     "values": [
+      0.6499999761581421,
+      0.699999988079071,
+      0.75
+     ]
+    }
+   },
+   "sha256": "14ddf4f954b08d3c921b773f6b04eba0eca2ae61f0951124d590eda4b43da3c3",
+   "original_sha256": "b2b7517db1b3bfde4ca824a38ae37fa878b75d4af1a35cb1a288f59c28c54a71"
+  },
+  {
+   "id": "test-113",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:yasuo:Characters/Yasuo/Spells/YasuoRAbility/YasuoR:keyTooltip",
+   "ability": [
+    "yasuo",
+    "Characters/Yasuo/Spells/YasuoRAbility/YasuoR"
+   ],
+   "change": {
+    "calc": "Damage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "YasuoR",
+     "name": "RBaseDamage",
+     "values": [
+      200.0,
+      350.0,
+      500.0
+     ]
+    }
+   },
+   "sha256": "cffaa8e2e432772e858f6d2d35f4ea6c0a5d95e7431a70886a93e365a692805c",
+   "original_sha256": "f43b4e2883853bcd8e0f851a93dc4cdf50a80fe29ad7769d74fdef294cc9c3d3"
+  },
+  {
+   "id": "test-114",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:gragas:Characters/Gragas/Spells/GragasQAbility/GragasQ:keyTooltip",
+   "ability": [
+    "gragas",
+    "Characters/Gragas/Spells/GragasQAbility"
+   ],
+   "change": {
+    "calc": "MinDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 0.8,
+    "to": 1.2,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "GragasQ",
+     "name": "mCoefficient",
+     "values": [
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8
+     ]
+    }
+   },
+   "sha256": "cf61a664cb6d7e718f3257b1c7b0d3e3e19f69fbd24ef042bd90993a6a0c992b",
+   "original_sha256": "7c8ce0abc9366784ebf7a5eb02aab9588ae54d3366b67fee03f2427983a32170"
+  },
+  {
+   "id": "test-115",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:zac:Characters/Zac/Spells/ZacEAbility/ZacE:keyTooltip",
+   "ability": [
+    "zac",
+    "Characters/Zac/Spells/ZacEAbility/ZacE"
+   ],
+   "change": {
+    "calc": "Damage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 0.75,
+    "from": 0.8,
+    "to": 0.6,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "ZacE",
+     "name": "mCoefficient",
+     "values": [
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8
+     ]
+    }
+   },
+   "sha256": "9b80e2752baa8d178d7cbf78e933c326b40ac8b3c1b13d759e166372daa19a8b",
+   "original_sha256": "51c93cd31a3924aa8e02ffa782d9c013abc470c6a771335d00c4b1207f30eddc"
+  },
+  {
+   "id": "test-116",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:evelynn:Characters/Evelynn/Spells/EvelynnEAbility/EvelynnE:keyTooltip",
+   "ability": [
+    "evelynn",
+    "Characters/Evelynn/Spells/EvelynnEAbility"
+   ],
+   "change": {
+    "calc": "PercentHealthBaseTOOLTIP",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.015,
+    "to": 0.03,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "EvelynnE",
+     "name": "mCoefficient",
+     "values": [
+      0.015,
+      0.015,
+      0.015,
+      0.015,
+      0.015
+     ]
+    }
+   },
+   "sha256": "3fd04a5e5da30dabd5105c9a9f635b672daab3b9f4b80d79b4d5ed7f0a486fd3",
+   "original_sha256": "64cdc94dfe768fdd6132d1ca8d17b14badedde5f45c78ffc4cf5420efae1e53d"
+  },
+  {
+   "id": "test-117",
+   "rule": "other_value",
+   "record_id": "16.19:en_us:missfortune:Characters/MissFortune/Spells/MissFortuneViciousStrikesAbility/MissFortuneViciousStrikes:keyTooltipSimple",
+   "ability": [
+    "missfortune",
+    "Characters/MissFortune/Spells/MissFortuneViciousStrikesAbility"
+   ],
+   "change": {
+    "placeholder": "PassiveMaxMS",
+    "points_at": "PassiveBaseMS",
+    "start": 49,
+    "anchor": {
+     "type": "level_up",
+     "spell": "MissFortuneViciousStrikes",
+     "name": "PassiveMaxMS",
+     "values": [
+      60,
+      70,
+      80,
+      90,
+      100
+     ]
+    }
+   },
+   "sha256": "6b447b371d653679624f2748d0a1070ffd48d50e66c25917405d2f3168c0a065",
+   "original_sha256": "aaf9c545517dfe21c9e4ca85ab3dbb9542f4fe8e4c9d36ec781f455d62872c29"
+  },
+  {
+   "id": "test-118",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:jhin:Characters/Jhin/Spells/JhinPassiveAbility/JhinPassive:keyTooltip",
+   "ability": [
+    "jhin",
+    "Characters/Jhin/Spells/JhinPassiveAbility"
+   ],
+   "change": {
+    "calc": "TotalADPercent",
+    "part": [
+     "mFormulaParts",
+     2
+    ],
+    "stat": "bonus attack speed",
+    "factor": 1.5,
+    "from": 0.3,
+    "to": 0.45,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "JhinPassiveReload",
+     "name": "mCoefficient",
+     "values": [
+      0.3
+     ]
+    }
+   },
+   "sha256": "3876c4584579b6e5a81dfbd3c81651f86777cac3f1c90e52cfde9516f4b6d0b8",
+   "original_sha256": "d2ca8ac41c41811de3be2a661df42e0c6490f5ad71e47abe96d0eebe0677fce6"
+  },
+  {
+   "id": "test-119",
+   "rule": "other_value",
+   "record_id": "16.19:en_us:tahmkench:Characters/TahmKench/Spells/TahmKenchRWrapperAbility/TahmKenchRWrapper:keyTooltip",
+   "ability": [
+    "tahmkench",
+    "Characters/TahmKench/Spells/TahmKenchRWrapperAbility"
+   ],
+   "change": {
+    "placeholder": "AllyDuration",
+    "points_at": "MinimumAllyDuration",
+    "start": 558,
+    "anchor": {
+     "type": "placeholder",
+     "name": "AllyDuration",
+     "values": [
+      3,
+      3,
+      3
+     ]
+    }
+   },
+   "sha256": "b93fc4b15dfc64349d3dbb5ba65d5266d8e71cbab4053452e75c497a6c3281d5",
+   "original_sha256": "358ae47c29aeec679aba7cb62fb2d57411e0656e654e7693aa2e83135f865eb7"
+  },
+  {
+   "id": "test-120",
+   "rule": "other_value",
+   "record_id": "16.19:en_us:akali:Characters/Akali/Spells/AkaliWAbility/AkaliW:keyTooltip",
+   "ability": [
+    "akali",
+    "Characters/Akali/Spells/AkaliWAbility"
+   ],
+   "change": {
+    "placeholder": "BaseDuration",
+    "points_at": "MaxDuration",
+    "start": 72,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AkaliW",
+     "name": "BaseDuration",
+     "values": [
+      5,
+      5.5,
+      6,
+      6.5,
+      7
+     ]
+    }
+   },
+   "sha256": "51d2a1daf44d621114bea49ee4e56a7952173ee185dccb6e8755bef1bca672cc",
+   "original_sha256": "e4209d39816918ccc5dea7eb23e1bcda9827caa8b6cc11ee9236550a3aedb871"
+  },
+  {
+   "id": "test-121",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:katarina:Characters/Katarina/Spells/KatarinaQAbility/KatarinaQ:keyTooltip",
+   "ability": [
+    "katarina",
+    "Characters/Katarina/Spells/KatarinaQAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "QAPRatio",
+    "factor": 1.5,
+    "from": [
+     0.4,
+     0.4,
+     0.4,
+     0.4,
+     0.4
+    ],
+    "to": [
+     0.6,
+     0.6,
+     0.6,
+     0.6,
+     0.6
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "KatarinaQMis",
+     "name": "mCoefficient",
+     "values": [
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645
+     ]
+    }
+   },
+   "sha256": "eee2265268daccc15b7aa3baa7545dd1e8ad8a980354f50993c6e4dd32ed0f9b",
+   "original_sha256": "1778ba5f18897174f191a4efd50e6c38c4c1505bb1e119c63a109b58cc5aabdb"
+  },
+  {
+   "id": "test-122",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:pyke:Characters/Pyke/Spells/PykeWAbility/PykeW:keyTooltip",
+   "ability": [
+    "pyke",
+    "Characters/Pyke/Spells/PykeWAbility/PykeW"
+   ],
+   "change": {
+    "calc": "MoveSpeed",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "lethality",
+    "factor": 2.0,
+    "from": 2,
+    "to": 4,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "PykeW",
+     "name": "mCoefficient",
+     "values": [
+      2,
+      2,
+      2,
+      2,
+      2
+     ]
+    }
+   },
+   "sha256": "4d32570070e0c2acf4ad880cdbfaa20a5e22795d5f240582f806c2888b477ab9",
+   "original_sha256": "0789ee71550e7715a6a074821babc74640afe081680ae9f2b1478ed627678add"
+  },
+  {
+   "id": "test-123",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:velkoz:Characters/Velkoz/Spells/VelkozEAbility/VelkozE:keyTooltip",
+   "ability": [
+    "velkoz",
+    "Characters/Velkoz/Spells/VelkozEAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "APRatio",
+    "factor": 0.5,
+    "from": [
+     0.3,
+     0.3,
+     0.3,
+     0.3,
+     0.3
+    ],
+    "to": [
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "VelkozE",
+     "name": "mCoefficient",
+     "values": [
+      0.30000001192092896,
+      0.30000001192092896,
+      0.30000001192092896,
+      0.30000001192092896,
+      0.30000001192092896
+     ]
+    }
+   },
+   "sha256": "22b03c079cadc639f879eee95133163494d143dafcce0aeaca6dacf253743606",
+   "original_sha256": "4a5d24e5e2cc838d754a3e0d32984032a02792671d633090b0e2fb315c93a321"
+  },
+  {
+   "id": "test-124",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:malphite:Characters/Malphite/Spells/LandslideAbility/Landslide:keyTooltip",
+   "ability": [
+    "malphite",
+    "Characters/Malphite/Spells/LandslideAbility"
+   ],
+   "change": {
+    "calc": "EDamageCalc",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "Landslide",
+     "name": "BaseDamage",
+     "values": [
+      60.0,
+      95.0,
+      130.0,
+      165.0,
+      200.0
+     ]
+    }
+   },
+   "sha256": "8c2ce3302c0e374ba8e26d3947cd9f2bceeeb88d8aba65e0bcd0d66cfec079c7",
+   "original_sha256": "9d4ac4911429316fc0fb0ec0a0e8281defb0164554bce3440b321286ec6718eb"
+  },
+  {
+   "id": "test-125",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:kalista:Characters/Kalista/Spells/KalistaExpungeWrapperAbility/KalistaExpungeWrapper:keyTooltip",
+   "ability": [
+    "kalista",
+    "Characters/Kalista/Spells/KalistaExpungeWrapperAbility"
+   ],
+   "change": {
+    "calc": "NormalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AD",
+    "data_value": "BaseADRatio",
+    "factor": 0.5,
+    "from": [
+     0.7,
+     0.7,
+     0.7,
+     0.7,
+     0.7
+    ],
+    "to": [
+     0.35,
+     0.35,
+     0.35,
+     0.35,
+     0.35
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "KalistaExpunge",
+     "name": "mCoefficient",
+     "values": [
+      0.699999988079071,
+      0.699999988079071,
+      0.699999988079071,
+      0.699999988079071,
+      0.699999988079071
+     ]
+    }
+   },
+   "sha256": "6856ace9cfebf85d38a6abec2451e8d488ec0ae7abe04f58b9974894a04a8170",
+   "original_sha256": "44f621f3ad96a1ea79176c218e9a11b8c6fd5adebb5ca2d5585ef51911418a25"
+  },
+  {
+   "id": "test-126",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:gnar:Characters/Gnar/Spells/GnarRAbility/GnarR:keyTooltip",
+   "ability": [
+    "gnar",
+    "Characters/Gnar/Spells/GnarRAbility"
+   ],
+   "change": {
+    "calc": "Damage",
+    "part": [
+     "mFormulaParts",
+     2
+    ],
+    "stat": "bonus AD",
+    "factor": 1.5,
+    "from": 0.5,
+    "to": 0.75,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "GnarR",
+     "name": "mCoefficient2",
+     "values": [
+      0.5,
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "sha256": "3570a01a0abf5d3afa786cc77e35cd498909d4469cedbe45ac5caa31438b93f6",
+   "original_sha256": "bf1bf1eb27b89adb64bcba35477edfbe55114ffe5b87fcfe63081257cc68e7d0"
+  },
+  {
+   "id": "test-127",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:morgana:Characters/Morgana/Spells/MorganaEAbility/MorganaE:keyTooltip",
+   "ability": [
+    "morgana",
+    "Characters/Morgana/Spells/MorganaEAbility/MorganaE"
+   ],
+   "change": {
+    "calc": "TotalShieldStrength",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "MorganaE",
+     "name": "ShieldStrength",
+     "values": [
+      100.0,
+      155.0,
+      210.0,
+      265.0,
+      320.0
+     ]
+    }
+   },
+   "sha256": "fd94cd7d37ac3ed9b714c07f8e084498bf119ea8b305863ebf1221248048163e",
+   "original_sha256": "35efce15294ee59a70575df91eae4ffc44076d3693b16c35aea5a5daab3b5a74"
+  },
+  {
+   "id": "test-128",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:ivern:Characters/Ivern/Spells/IvernRAbility/IvernR:keyTooltipExtendedBelowLine",
+   "ability": [
+    "ivern",
+    "Characters/Ivern/Spells/IvernRAbility"
+   ],
+   "change": {
+    "calc": "TotalDaisyHP",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.5,
+    "to": 1,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "IvernR",
+     "name": "mCoefficient2",
+     "values": [
+      0.5,
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "sha256": "d274f3a6c9f215f12c94f02068e4cc4417279567c3b059483aaeaf39c9bd6b00",
+   "original_sha256": "e6e5a82fc3ded77690d39af5e96907d4d91fc87bb81b35fef92ccb697967c483"
+  },
+  {
+   "id": "test-129",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:teemo:Characters/Teemo/Spells/TeemoRAbility/TeemoR:keyTooltip",
+   "ability": [
+    "teemo",
+    "Characters/Teemo/Spells/TeemoRAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "APRatioPerTick",
+    "factor": 1.5,
+    "from": [
+     0.5,
+     0.5,
+     0.5
+    ],
+    "to": [
+     0.75,
+     0.75,
+     0.75
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "TeemoRTrap",
+     "name": "mCoefficient",
+     "values": [
+      0.5,
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "sha256": "229a18ea159912577066ee39fc3a2c88fa6f23e570ff3b502ae7be83167759fb",
+   "original_sha256": "1d29bf1b2b14513d7d5c32e31c8584c51b5df8352725c799c2f74825677cf270"
+  },
+  {
+   "id": "test-130",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:alistar:Characters/Alistar/Spells/PulverizeAbility/Pulverize:keyTooltip",
+   "ability": [
+    "alistar",
+    "Characters/Alistar/Spells/PulverizeAbility/Pulverize"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "Pulverize",
+     "name": "BaseDamage",
+     "values": [
+      60.0,
+      100.0,
+      140.0,
+      180.0,
+      220.0
+     ]
+    }
+   },
+   "sha256": "bbac8e2d9eaf064574e53b67b7b73d55121e45f7fd59fa0e00c242981595191b",
+   "original_sha256": "3486ab01b68fe246eae2f1ae79fa0e3543400487a8968090f410f1e75497a6dd"
+  },
+  {
+   "id": "test-131",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:janna:Characters/Janna/Spells/EyeOfTheStormAbility/EyeOfTheStorm:keyTooltip",
+   "ability": [
+    "janna",
+    "Characters/Janna/Spells/EyeOfTheStormAbility"
+   ],
+   "change": {
+    "calc": "TotalShield",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "EyeOfTheStorm",
+     "name": "BaseShield",
+     "values": [
+      80.0,
+      120.0,
+      160.0,
+      200.0,
+      240.0
+     ]
+    }
+   },
+   "sha256": "801ee8ae2038b0ad92ecebe00ea090cccaf48a67a0795cb7e3c9b4bdc0bf5b3a",
+   "original_sha256": "2791caffc5e73c633740d2a6705a4d367edb93328a94819cee39faf01700cb18"
+  },
+  {
+   "id": "test-132",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:ornn:Characters/Ornn/Spells/OrnnEAbility/OrnnE:keyTooltip",
+   "ability": [
+    "ornn",
+    "Characters/Ornn/Spells/OrnnEAbility/OrnnE"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "bonus armor",
+    "data_value": "ArmorRatio",
+    "factor": 0.5,
+    "from": [
+     0.4,
+     0.4,
+     0.4,
+     0.4,
+     0.4
+    ],
+    "to": [
+     0.2,
+     0.2,
+     0.2,
+     0.2,
+     0.2
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "OrnnE",
+     "name": "mCoefficient",
+     "values": [
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645
+     ]
+    }
+   },
+   "sha256": "6ee81fe425b8e32a6c4a01d10f7cbbd37b8572e25e793196f36c606e68339573",
+   "original_sha256": "0e989990f3170a37fbbd8662b03316d5a1945162337e758e5db9198ac242f318"
+  },
+  {
+   "id": "test-133",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:sivir:Characters/Sivir/Spells/SivirEAbility/SivirE:keyTooltip",
+   "ability": [
+    "sivir",
+    "Characters/Sivir/Spells/SivirEAbility/SivirE"
+   ],
+   "change": {
+    "calc": "TotalHeal",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SivirE",
+     "name": "HealRatio",
+     "values": [
+      0.6000000238418579,
+      0.6499999761581421,
+      0.699999988079071,
+      0.75,
+      0.800000011920929
+     ]
+    }
+   },
+   "sha256": "e96767a1b2c89fafe81aef47a29e1e3e2d84d18ed2d874c6777ccdbe0a4f8a0b",
+   "original_sha256": "a1092cd3492f4d3554f35f306659571122f372ad849866a4aee10eff900e96f1"
+  },
+  {
+   "id": "test-134",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:thresh:Characters/Thresh/Spells/ThreshWAbility/ThreshW:keyTooltip",
+   "ability": [
+    "thresh",
+    "Characters/Thresh/Spells/ThreshWAbility"
+   ],
+   "change": {
+    "calc": "TotalShield",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "ThreshW",
+     "name": "BaseShieldValue",
+     "values": [
+      50.0,
+      70.0,
+      90.0,
+      110.0,
+      130.0
+     ]
+    }
+   },
+   "sha256": "fb8db1c8c7e4f124e49029b485049cca6bc88984e44ad8e18343a46ef5ab845a",
+   "original_sha256": "e5589f257f0cc99bf95962d77a54d87be5b4d1a55902805702a01c5e47ea88d7"
+  },
+  {
+   "id": "test-135",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:lucian:Characters/Lucian/Spells/LucianWAbility/LucianW:keyTooltip",
+   "ability": [
+    "lucian",
+    "Characters/Lucian/Spells/LucianWAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.9,
+    "to": 1.8,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "LucianW",
+     "name": "mCoefficient",
+     "values": [
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9
+     ]
+    }
+   },
+   "sha256": "16ad6a09987c01349e3195aea6ce6c299ca63f2e0b7f1baacd9c24542a5841ae",
+   "original_sha256": "012fcc8607ec94f0a2d92be2456052a9ecb252c4c473a131db023bbe47a4a6ab"
+  },
+  {
+   "id": "test-136",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:aurelionsol:Characters/AurelionSol/Spells/AurelionSolQAbility/AurelionSolQ:keyTooltip",
+   "ability": [
+    "aurelionsol",
+    "Characters/AurelionSol/Spells/AurelionSolQAbility/AurelionSolQ"
+   ],
+   "change": {
+    "calc": "BurstDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AurelionSolQ",
+     "name": "RankBurstDamage",
+     "values": [
+      60.0,
+      70.0,
+      80.0,
+      90.0,
+      100.0
+     ]
+    }
+   },
+   "sha256": "35725784502086c769365dd5f737c3752d659d650979bbf96b6efedd97baa6c3",
+   "original_sha256": "9e80c72a277009e79748edebe80ce80f31e9b6a5c47e07cd14f01e1084c7a57f"
+  },
+  {
+   "id": "test-137",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:olaf:Characters/Olaf/Spells/OlafRagnarokAbility/OlafRagnarok:keyTooltip",
+   "ability": [
+    "olaf",
+    "Characters/Olaf/Spells/OlafRagnarokAbility"
+   ],
+   "change": {
+    "calc": "AD",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "OlafRagnarok",
+     "name": "FlatAD",
+     "values": [
+      10.0,
+      20.0,
+      30.0
+     ]
+    }
+   },
+   "sha256": "70d90dad5a3b8fa930f83a56f4a1ef2c79b3efd3f914974ceae14037efea9d32",
+   "original_sha256": "3e18c2d634cbf49cf403e170e505a0d3de4818cc97aebc6f57862947663ed614"
+  },
+  {
+   "id": "test-138",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:ahri:Characters/Ahri/Spells/AhriRAbility/AhriR:keyTooltip",
+   "ability": [
+    "ahri",
+    "Characters/Ahri/Spells/AhriRAbility"
+   ],
+   "change": {
+    "calc": "RCalculatedDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AhriR",
+     "name": "RBaseDamage",
+     "values": [
+      75.0,
+      125.0,
+      175.0
+     ]
+    }
+   },
+   "sha256": "918feccc65d0e5d3311680cf19d1e7973fe72fe08b2c2a121ae6247ac8f20951",
+   "original_sha256": "3b895e7ff9f412c5731c0420e5fbc2c86ddf4f92c4e93c17ea67dcf35a5ce2d1"
+  },
+  {
+   "id": "test-139",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:galio:Characters/Galio/Spells/GalioRAbility/GalioR:keyTooltip",
+   "ability": [
+    "galio",
+    "Characters/Galio/Spells/GalioRAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "GalioR",
+     "name": "mCoefficient",
+     "values": [
+      0.7,
+      0.7,
+      0.7
+     ]
+    }
+   },
+   "sha256": "81898e00cdaa8cc2f034659110e50f606c144ffad059fc6aa427859af4097d10",
+   "original_sha256": "6b1f633fb005b8eceab9988117686183160ee7e8b18dda30b622862ee95ae2fa"
+  },
+  {
+   "id": "test-140",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:velkoz:Characters/Velkoz/Spells/VelkozRAbility/VelkozR:keyTooltip",
+   "ability": [
+    "velkoz",
+    "Characters/Velkoz/Spells/VelkozRAbility/VelkozR"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 1.25,
+    "to": 2.5,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "VelkozR",
+     "name": "mCoefficient",
+     "values": [
+      1.25,
+      1.25,
+      1.25
+     ]
+    }
+   },
+   "sha256": "81fb62374123d93f140c00b22e24e26ebf4470ad8cd126213367e20bb748afb5",
+   "original_sha256": "5e88da2e110486e0e796153a5b403f3f3e68c3fc95438d7adbc3bb5bfb406cfd"
+  },
+  {
+   "id": "test-141",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:ahri:Characters/Ahri/Spells/AhriEAbility/AhriE:keyTooltip",
+   "ability": [
+    "ahri",
+    "Characters/Ahri/Spells/AhriEAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AhriE",
+     "name": "BaseDamage",
+     "values": [
+      80.0,
+      120.0,
+      160.0,
+      200.0,
+      240.0
+     ]
+    }
+   },
+   "sha256": "f3146e94256d9f11c17f381645b0fc444ed1379ab603b9e51fa721b9dd55aa98",
+   "original_sha256": "8f1072b31efc37eb52d3ad84d23b8ca27cd92249d778c54da812543ddbef6d89"
+  },
+  {
+   "id": "test-142",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:poppy:Characters/Poppy/Spells/PoppyRAbility/PoppyR:keyTooltip",
+   "ability": [
+    "poppy",
+    "Characters/Poppy/Spells/PoppyRAbility"
+   ],
+   "change": {
+    "calc": "Damage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "bonus AD",
+    "factor": 2.0,
+    "from": 0.9,
+    "to": 1.8,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "PoppyR",
+     "name": "mCoefficient",
+     "values": [
+      0.9,
+      0.9,
+      0.9
+     ]
+    }
+   },
+   "sha256": "0684fc6b6ac00e986d10d0c009ab3c5f433070cefbe6ee82f7b70250f282ceeb",
+   "original_sha256": "7fae684d0595812c383cc320d5ec2a12bbd200b634bdf9f6d118fff2f4d5159d"
+  },
+  {
+   "id": "test-143",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:zilean:Characters/Zilean/Spells/ChronoShiftAbility/ChronoShift:keyTooltip",
+   "ability": [
+    "zilean",
+    "Characters/Zilean/Spells/ChronoShiftAbility/ChronoShift"
+   ],
+   "change": {
+    "calc": "RTotalHeal",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "APRatio",
+    "factor": 2.0,
+    "from": [
+     2,
+     2,
+     2
+    ],
+    "to": [
+     4,
+     4,
+     4
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "ChronoShift",
+     "name": "mCoefficient",
+     "values": [
+      2.0,
+      2.0,
+      2.0
+     ]
+    }
+   },
+   "sha256": "3a7a22a952c531a71606a142f73c91e84c71cbc2920cd88502025dc6f72e2186",
+   "original_sha256": "05cff47c77ebfdd20a7b463568cf8fe3c0a35cf1dd6a595468c95957b7038711"
+  },
+  {
+   "id": "test-144",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:taliyah:Characters/Taliyah/Spells/TaliyahEAbility/TaliyahE:keyTooltip",
+   "ability": [
+    "taliyah",
+    "Characters/Taliyah/Spells/TaliyahEAbility"
+   ],
+   "change": {
+    "calc": "ScatterDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "TaliyahE",
+     "name": "BaseDamage",
+     "values": [
+      60.0,
+      105.0,
+      150.0,
+      195.0,
+      240.0
+     ]
+    }
+   },
+   "sha256": "f1dcef32659a85b666ad143f735788c398a155c3541f61a1e5d6a4ed1d7f0223",
+   "original_sha256": "1d9e963e696194babbfc5bc6d84f53b84c9eff1ec23b1c141a91e9d8eb78d50c"
+  },
+  {
+   "id": "test-145",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:singed:Characters/Singed/Spells/FlingAbility/Fling:keyTooltip",
+   "ability": [
+    "singed",
+    "Characters/Singed/Spells/FlingAbility/Fling"
+   ],
+   "change": {
+    "calc": "BaseDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.55,
+    "to": 1.1,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "Fling",
+     "name": "mCoefficient",
+     "values": [
+      0.55,
+      0.55,
+      0.55,
+      0.55,
+      0.55
+     ]
+    }
+   },
+   "sha256": "e1e70888505d5d02b85623e8d1bc6ae53e9373f9c089c15823df3b3acd9183d6",
+   "original_sha256": "88d5907b09303a53283057c0a955984642f15d5fbbbadef35d0f90bee7c856d7"
+  },
+  {
+   "id": "test-146",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:talon:Characters/Talon/Spells/TalonRAbility/TalonR:keyTooltip",
+   "ability": [
+    "talon",
+    "Characters/Talon/Spells/TalonRAbility"
+   ],
+   "change": {
+    "calc": "Damage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "bonus AD",
+    "factor": 0.5,
+    "from": 1,
+    "to": 0.5,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "TalonRToggle",
+     "name": "mCoefficient",
+     "values": [
+      1,
+      1,
+      1
+     ]
+    }
+   },
+   "sha256": "6d1617af00d180a8e9bd97ab82b8a89261b83e5df4198989191078fa68978f7e",
+   "original_sha256": "187af0341bc762360ff7d3fb88357073875149a427d827258dd31d9e794f25ee"
+  },
+  {
+   "id": "test-147",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:azir:Characters/Azir/Spells/AzirWAbility/AzirW:keyTooltip",
+   "ability": [
+    "azir",
+    "Characters/Azir/Spells/AzirWAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AzirW",
+     "name": "BaseDamage",
+     "values": [
+      50.0,
+      65.0,
+      80.0,
+      95.0,
+      110.0
+     ]
+    }
+   },
+   "sha256": "d63744bc8ee6c9fb6be68c4e50b5886688a3e74908b04236a5fc56d14b863744",
+   "original_sha256": "c2fe0ca7b0ebf1146b2e4e2d1ffff606d4a6f8ae46b65e96aa448ea0c3d80967"
+  },
+  {
+   "id": "test-148",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:warwick:Characters/Warwick/Spells/WarwickQAbility/WarwickQ:keyTooltip",
+   "ability": [
+    "warwick",
+    "Characters/Warwick/Spells/WarwickQAbility/WarwickQ"
+   ],
+   "change": {
+    "calc": "BaseBiteDamage",
+    "part": [
+     "mFormulaParts",
+     0
+    ],
+    "stat": "AD",
+    "data_value": "ADRatio",
+    "factor": 0.75,
+    "from": [
+     1.2,
+     1.2,
+     1.2,
+     1.2,
+     1.2
+    ],
+    "to": [
+     0.9,
+     0.9,
+     0.9,
+     0.9,
+     0.9
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "WarwickQ",
+     "name": "mCoefficient",
+     "values": [
+      1.2000000476837158,
+      1.2000000476837158,
+      1.2000000476837158,
+      1.2000000476837158,
+      1.2000000476837158
+     ]
+    }
+   },
+   "sha256": "d3407b684466b304ebb97232c979f8006aafe84848577242d2b011996b1f7e67",
+   "original_sha256": "3bbc7524c468b58cace1287c178950c9e5921b52c3742269d2b717fc82563df9"
+  },
+  {
+   "id": "test-149",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:reksai:Characters/RekSai/Spells/RekSaiRAbility/RekSaiR:keyTooltip",
+   "ability": [
+    "reksai",
+    "Characters/RekSai/Spells/RekSaiRAbility"
+   ],
+   "change": {
+    "calc": "RBaseDamageCalc",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "bonus AD",
+    "data_value": "ADRatio",
+    "factor": 0.75,
+    "from": [
+     1,
+     1,
+     1
+    ],
+    "to": [
+     0.75,
+     0.75,
+     0.75
+    ],
+    "anchor": {
+     "type": "same_name",
+     "spell": "RekSaiRWrapper",
+     "name": "ADRatio",
+     "values": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "sha256": "7e038964f9db4de06d1062866d0e020eca4ee67811833973bb2550637ce93b40",
+   "original_sha256": "5ad7331495f554141bafce75039a7cc338f0ec73a5ddb5da09a26132e71e521e"
+  },
+  {
+   "id": "test-150",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:tristana:Characters/Tristana/Spells/TristanaWAbility/TristanaW:keyTooltip",
+   "ability": [
+    "tristana",
+    "Characters/Tristana/Spells/TristanaWAbility"
+   ],
+   "change": {
+    "calc": "LandingDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "TristanaW",
+     "name": "BaseDamage",
+     "values": [
+      70.0,
+      105.0,
+      140.0,
+      175.0,
+      210.0
+     ]
+    }
+   },
+   "sha256": "c245454ed8ea611b40df95b8e47017dbd4ff10a99a10ddd01f75be885d8b3ac6",
+   "original_sha256": "b37a01d4344004b71c87e089ef602b9f446d10b32b980c0f0cdaa4b1981ffec5"
+  },
+  {
+   "id": "test-151",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:galio:Characters/Galio/Spells/GalioQAbility/GalioQ:keyTooltip",
+   "ability": [
+    "galio",
+    "Characters/Galio/Spells/GalioQAbility"
+   ],
+   "change": {
+    "calc": "QMissileDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "GalioQ",
+     "name": "BaseDamage",
+     "values": [
+      70.0,
+      105.0,
+      140.0,
+      175.0,
+      210.0
+     ]
+    }
+   },
+   "sha256": "f876839f2af93ba8a70ba7f9840c7707c7ef96cb2ee1e98778a933f1f3134789",
+   "original_sha256": "9816b014599c135f831acdd9b48b79dbf2764928ece10584d0c69033ea14943f"
+  },
+  {
+   "id": "test-152",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:fizz:Characters/Fizz/Spells/FizzQAbility/FizzQ:keyTooltip",
+   "ability": [
+    "fizz",
+    "Characters/Fizz/Spells/FizzQAbility/FizzQ"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     0
+    ],
+    "stat": "AD",
+    "factor": 0.75,
+    "from": 1,
+    "to": 0.75,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "FizzQ",
+     "name": "mCoefficient2",
+     "values": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ]
+    }
+   },
+   "sha256": "6c8dec61753da529331eb11f32dca51740fc5be7daeb72235663995126fce5ee",
+   "original_sha256": "3f99f990cf1e8111b384b44c450501cc24c9de1d8b070f4c6535b8a14a5eadce"
+  },
+  {
+   "id": "test-153",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:evelynn:Characters/Evelynn/Spells/EvelynnQAbility/EvelynnQ:keyTooltip",
+   "ability": [
+    "evelynn",
+    "Characters/Evelynn/Spells/EvelynnQAbility"
+   ],
+   "change": {
+    "calc": "TotalBonusDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "BonusDamageAPRatio",
+    "factor": 2.0,
+    "from": [
+     0.25,
+     0.25,
+     0.25,
+     0.25,
+     0.25
+    ],
+    "to": [
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "EvelynnQ",
+     "name": "mCoefficient",
+     "values": [
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25
+     ]
+    }
+   },
+   "sha256": "a8c0edbd62795be7091fe14d8bb083ef25bc4953315951c6014b510ed9427d9b",
+   "original_sha256": "f9c913620de5a9ac380838c6f74fe91fb9e9ae9f6c051a8918080c167db2ada5"
+  },
+  {
+   "id": "test-154",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:xinzhao:Characters/XinZhao/Spells/XinZhaoEAbility/XinZhaoE:keyTooltipExtended",
+   "ability": [
+    "xinzhao",
+    "Characters/XinZhao/Spells/XinZhaoEAbility"
+   ],
+   "change": {
+    "calc": "ChargeDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "XinZhaoE",
+     "name": "BaseDamage",
+     "values": [
+      50.0,
+      75.0,
+      100.0,
+      125.0,
+      150.0
+     ]
+    }
+   },
+   "sha256": "07a48e3cdb0c02f15dfb6818eddc64fb2bea249c904c327d633d2070af6d7e88",
+   "original_sha256": "e302ef770d5ff953d38f487b00e6c168cc38d6d956180918010df88cf7e3ddc8"
+  },
+  {
+   "id": "test-155",
+   "rule": "other_value",
+   "record_id": "16.19:en_us:hwei:Characters/Hwei/Spells/HweiQAbility/HweiQ:keyTooltip",
+   "ability": [
+    "hwei",
+    "Characters/Hwei/Spells/HweiQAbility"
+   ],
+   "change": {
+    "placeholder": "Tooltip_QQBonusDamage",
+    "points_at": "Tooltip_QWBonusDamageMult",
+    "start": 243,
+    "anchor": {
+     "type": "level_up",
+     "spell": "HweiQ",
+     "name": "Tooltip_QQBonusDamage",
+     "values": [
+      3,
+      4,
+      5,
+      6,
+      7
+     ]
+    }
+   },
+   "sha256": "a985e807a4e904f97eae559358175c816f8dab44184fb77dd1478c516d2e14bc",
+   "original_sha256": "8f51d17314117fadcd829ba9ad4bb47ef7bdc15af96e7edeb42e500c2cdc88f1"
+  },
+  {
+   "id": "test-156",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:fizz:Characters/Fizz/Spells/FizzWAbility/FizzW:keyTooltip",
+   "ability": [
+    "fizz",
+    "Characters/Fizz/Spells/FizzWAbility"
+   ],
+   "change": {
+    "calc": "OnHitBuffDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "FizzW",
+     "name": "OnHitBuffBaseDamage",
+     "values": [
+      20.0,
+      25.0,
+      30.0,
+      35.0,
+      40.0
+     ]
+    }
+   },
+   "sha256": "ecd127f80a4d762b1d5a88e4eb132a5111105e1f9bda7cb6bd6242329884ff4f",
+   "original_sha256": "4d9e5d3d90c688ed53d4c2f7f5c14b4b339d87d7ba0616459261afade85cf883"
+  },
+  {
+   "id": "test-157",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:trundle:Characters/Trundle/Spells/TrundlePainAbility/TrundlePain:keyTooltip",
+   "ability": [
+    "trundle",
+    "Characters/Trundle/Spells/TrundlePainAbility"
+   ],
+   "change": {
+    "calc": "TotalPercentHPDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "TrundlePain",
+     "name": "PercentHPDamage",
+     "values": [
+      0.20000000298023224,
+      0.25,
+      0.30000001192092896
+     ]
+    }
+   },
+   "sha256": "eb3dd9aeea7c09f8d98d1439d98351c697be886e80214e09bf6206ab19537c38",
+   "original_sha256": "92fa8717c234d09f8619c45f77f2f78dc5391d935772b8530b68a5fc8d69196e"
+  },
+  {
+   "id": "test-158",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:zac:Characters/Zac/Spells/ZacRAbility/ZacR:keyTooltipExtendedBelowLine",
+   "ability": [
+    "zac",
+    "Characters/Zac/Spells/ZacRAbility/ZacR"
+   ],
+   "change": {
+    "calc": "MaxDamageTooltip",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "level_up",
+     "spell": "ZacR",
+     "name": "BaseDamageBounce",
+     "values": [
+      120.0,
+      190.0,
+      260.0
+     ]
+    }
+   },
+   "sha256": "78690bbec4b4e648a57b753909251124f07fd6c885b71ec3e2380099543c3e47",
+   "original_sha256": "35b0a1c98c0636c15cc142a672a9efaae8515ed6c5bc709bc7d8eeef73d20881"
+  },
+  {
+   "id": "test-159",
+   "rule": "other_value",
+   "record_id": "16.19:en_us:viego:Characters/Viego/Spells/ViegoEAbility/ViegoE:keyTooltip",
+   "ability": [
+    "viego",
+    "Characters/Viego/Spells/ViegoEAbility"
+   ],
+   "change": {
+    "placeholder": "AttackSpeed",
+    "points_at": "MoveSpeed",
+    "start": 231,
+    "anchor": {
+     "type": "level_up",
+     "spell": "ViegoE",
+     "name": "AttackSpeed",
+     "values": [
+      30.000001,
+      34.999999,
+      40.000001,
+      44.999999,
+      50
+     ]
+    }
+   },
+   "sha256": "7b31a9f57d370ebb5ff81c80be0cb0b05f5e9cf4b7e2d7f97fdcf5f7ab527cfa",
+   "original_sha256": "027eecaede5a12b1ee148df5f62efd4c65758fc0b6f021f8e026a10ee6ba91fd"
+  },
+  {
+   "id": "test-160",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:karthus:Characters/Karthus/Spells/KarthusFallenOneAbility/KarthusFallenOne:keyTooltip",
+   "ability": [
+    "karthus",
+    "Characters/Karthus/Spells/KarthusFallenOneAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "APRatio",
+    "factor": 0.5,
+    "from": [
+     0.7,
+     0.7,
+     0.7
+    ],
+    "to": [
+     0.35,
+     0.35,
+     0.35
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "KarthusFallenOne",
+     "name": "mCoefficient",
+     "values": [
+      0.699999988079071,
+      0.699999988079071,
+      0.699999988079071
+     ]
+    }
+   },
+   "sha256": "d052be4c21b7e45d890db3245ffeb71f3d439dfdb25473c7b73bdaf2b093211a",
+   "original_sha256": "4cfe86af812bc64997595cd42d5f3e67329d03cf1fadfcc401b861b9bc568c5e"
+  },
+  {
+   "id": "test-161",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:vayne:Characters/Vayne/Spells/VayneCondemnAbility/VayneCondemn:keyTooltip",
+   "ability": [
+    "vayne",
+    "Characters/Vayne/Spells/VayneCondemnAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "bonus AD",
+    "factor": 2.0,
+    "from": 0.5,
+    "to": 1,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "VayneCondemn",
+     "name": "mCoefficient",
+     "values": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "sha256": "cfbd53101866337e2bac2b490423ec6c58af035d73b2339079ffdf73e42e5b4a",
+   "original_sha256": "7264457345eb40ce34dd74c12f806cb5940ba81a9e1a5f1d10282b11e2333437"
+  },
+  {
+   "id": "test-162",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:sona:Characters/Sona/Spells/SonaQAbility/SonaQ:keyTooltip",
+   "ability": [
+    "sona",
+    "Characters/Sona/Spells/SonaQAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SonaQ",
+     "name": "BaseDamage",
+     "values": [
+      50.0,
+      85.0,
+      120.0,
+      155.0,
+      190.0
+     ]
+    }
+   },
+   "sha256": "4871600ac4c88290478094de69aa3dfca687b2eee4daa5d3650ebc2a17eea37b",
+   "original_sha256": "79836fc7017bc0a7cee2b0efc4397b106c6fa9f1a5dc28e2cb7b34a170639c18"
+  },
+  {
+   "id": "test-163",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:taric:Characters/Taric/Spells/TaricQAbility/TaricQ:keyTooltip",
+   "ability": [
+    "taric",
+    "Characters/Taric/Spells/TaricQAbility"
+   ],
+   "change": {
+    "calc": "HealingPerStack",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "HealingAPRatio",
+    "factor": 2.0,
+    "from": [
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15
+    ],
+    "to": [
+     0.3,
+     0.3,
+     0.3,
+     0.3,
+     0.3
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "TaricQ",
+     "name": "mCoefficient",
+     "values": [
+      0.15000000596046448,
+      0.15000000596046448,
+      0.15000000596046448,
+      0.15000000596046448,
+      0.15000000596046448
+     ]
+    }
+   },
+   "sha256": "0ff6b9cac18f46bdd11873229304d20e3d0ed1c73325b81d80a3e5b314ffc98e",
+   "original_sha256": "139ffbf5c9fe717f314673f47d64532f11e7e5406ed20cc9d632fab376a82972"
+  },
+  {
+   "id": "test-164",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:brand:Characters/Brand/Spells/BrandQAbility/BrandQ:keyTooltip",
+   "ability": [
+    "brand",
+    "Characters/Brand/Spells/BrandQAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.65,
+    "to": 1.3,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "BrandQ",
+     "name": "mCoefficient",
+     "values": [
+      0.65,
+      0.65,
+      0.65,
+      0.65,
+      0.65
+     ]
+    }
+   },
+   "sha256": "baa942773e001d72da1d2f565ca91ba22aa2ece62ebb1609af78adb13b7f7315",
+   "original_sha256": "88d18c7bf7076ce478a8588c5ac6afd173705d629eb611390adf20f32ebcadf7"
+  },
+  {
+   "id": "test-165",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:vladimir:Characters/Vladimir/Spells/VladimirQAbility/VladimirQ:keyTooltip",
+   "ability": [
+    "vladimir",
+    "Characters/Vladimir/Spells/VladimirQAbility/VladimirQ"
+   ],
+   "change": {
+    "calc": "BaseHealTooltip",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "HealAPRatio",
+    "factor": 2.0,
+    "from": [
+     0.35,
+     0.35,
+     0.35,
+     0.35,
+     0.35
+    ],
+    "to": [
+     0.7,
+     0.7,
+     0.7,
+     0.7,
+     0.7
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "VladimirQ",
+     "name": "mCoefficient2",
+     "values": [
+      0.3499999940395355,
+      0.3499999940395355,
+      0.3499999940395355,
+      0.3499999940395355,
+      0.3499999940395355
+     ]
+    }
+   },
+   "sha256": "f16115116648e071b42f15a9c204230b84251c6379193b2785fa3fd43cfcee33",
+   "original_sha256": "ec8948adcde70541c1b029db791de1cb48fe393105d89940f4c063a81d3ccd06"
+  },
+  {
+   "id": "test-166",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:xayah:Characters/Xayah/Spells/XayahQAbility/XayahQ:keyTooltip",
+   "ability": [
+    "xayah",
+    "Characters/Xayah/Spells/XayahQAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "bonus AD",
+    "factor": 1.5,
+    "from": 0.5,
+    "to": 0.75,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "XayahQ",
+     "name": "mCoefficient",
+     "values": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "sha256": "57d77a59ac758de2c6cbd8e1a672563c9439d4450644e00d3795546958c92643",
+   "original_sha256": "2ac1001199c8cefd59b92b2900e843a6279999d241a192aa47f01ec895403079"
+  },
+  {
+   "id": "test-167",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:heimerdinger:Characters/Heimerdinger/Spells/HeimerdingerEAbility/HeimerdingerE:keyTooltip",
+   "ability": [
+    "heimerdinger",
+    "Characters/Heimerdinger/Spells/HeimerdingerEAbility"
+   ],
+   "change": {
+    "calc": "Damage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 0.75,
+    "from": 0.6,
+    "to": 0.45,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "HeimerdingerE",
+     "name": "mCoefficient",
+     "values": [
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6
+     ]
+    }
+   },
+   "sha256": "d6b260400b1a6bae39241ea314f0a3543f526171b7c0d1abc1f8747e6418f3fe",
+   "original_sha256": "fb65ab3912105765183c6e42b58cfd541345571140319c407c5dbda4a352b92e"
+  },
+  {
+   "id": "test-168",
+   "rule": "other_value",
+   "record_id": "16.19:en_us:fiddlesticks:Characters/Fiddlesticks/Spells/FiddleSticksEAbility/FiddleSticksE:keyTooltip",
+   "ability": [
+    "fiddlesticks",
+    "Characters/Fiddlesticks/Spells/FiddleSticksEAbility/FiddleSticksE"
+   ],
+   "change": {
+    "placeholder": "SlowAmount",
+    "points_at": "EmpoweredSlowAmount",
+    "start": 124,
+    "anchor": {
+     "type": "level_up",
+     "spell": "FiddleSticksE",
+     "name": "SlowAmount",
+     "values": [
+      30.000001,
+      34.999999,
+      40.000001,
+      44.999999,
+      50
+     ]
+    }
+   },
+   "sha256": "599d66c50eba003c7d15bc1716a68bd4d16c2767e0638c7467598b20a7f6caad",
+   "original_sha256": "28a3bdbcbc3bb3105246cb779654e76d0f624bfedf13c028745e6b3ccc4031f4"
+  },
+  {
+   "id": "test-169",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:zoe:Characters/Zoe/Spells/ZoeEAbility/ZoeE:keyTooltip",
+   "ability": [
+    "zoe",
+    "Characters/Zoe/Spells/ZoeEAbility"
+   ],
+   "change": {
+    "calc": "TotalDamageTooltip",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.45,
+    "to": 0.9,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "ZoeE",
+     "name": "mCoefficient",
+     "values": [
+      0.45,
+      0.45,
+      0.45,
+      0.45,
+      0.45
+     ]
+    }
+   },
+   "sha256": "9beef4e0b8331b4078497d08263c109edc793c6433a5e354557e4e7aec23b643",
+   "original_sha256": "08d9fefe86809ecf7507f08af09fea90868a8290052b9aabcec81675ece49245"
+  },
+  {
+   "id": "test-170",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:olaf:Characters/Olaf/Spells/OlafFrenziedStrikesAbility/OlafFrenziedStrikes:keyTooltip",
+   "ability": [
+    "olaf",
+    "Characters/Olaf/Spells/OlafFrenziedStrikesAbility/OlafFrenziedStrikes"
+   ],
+   "change": {
+    "calc": "MaxShieldCalc",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "OlafFrenziedStrikes",
+     "name": "BaseShield",
+     "values": [
+      10.0,
+      40.0,
+      70.0,
+      100.0,
+      130.0
+     ]
+    }
+   },
+   "sha256": "d20e6c629c16e363f9509c44206dcb1afcf73ab990bceeca71d4792f61a1c1e6",
+   "original_sha256": "fce7902b3d7cca1f0f700b3e4c3e4e4e0ca159a2491a685dbab0d7b88c4ef4cf"
+  },
+  {
+   "id": "test-171",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:zyra:Characters/Zyra/Spells/ZyraQAbility/ZyraQ:keyTooltip",
+   "ability": [
+    "zyra",
+    "Characters/Zyra/Spells/ZyraQAbility"
+   ],
+   "change": {
+    "calc": "InitialDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.65,
+    "to": 1.3,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "ZyraQ",
+     "name": "mCoefficient",
+     "values": [
+      0.65,
+      0.65,
+      0.65,
+      0.65,
+      0.65
+     ]
+    }
+   },
+   "sha256": "c98b9d99d3432028f3b0a56ef3e2b1bd86a3885ba309ee51a84b8ef9bc307b04",
+   "original_sha256": "cd84e2bcd5264dacffdc1e2754f89a297ffd99dbddfdd00c7dc8d5b6f445d942"
+  },
+  {
+   "id": "test-172",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:diana:Characters/Diana/Spells/DianaQAbility/DianaQ:keyTooltip",
+   "ability": [
+    "diana",
+    "Characters/Diana/Spells/DianaQAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "APRatio",
+    "factor": 1.5,
+    "from": [
+     0.7,
+     0.7,
+     0.7,
+     0.7,
+     0.7
+    ],
+    "to": [
+     1.05,
+     1.05,
+     1.05,
+     1.05,
+     1.05
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "DianaQ",
+     "name": "mCoefficient",
+     "values": [
+      0.699999988079071,
+      0.699999988079071,
+      0.699999988079071,
+      0.699999988079071,
+      0.699999988079071
+     ]
+    }
+   },
+   "sha256": "7baf02903641cc8b73fb8f8fd25757763beb65a06832f0761adb1a398acbf1ab",
+   "original_sha256": "177db359fc3ef0808aac2687d172570015dfa6371c38b1ed85f94de8bdc2a120"
+  },
+  {
+   "id": "test-173",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:sejuani:Characters/Sejuani/Spells/SejuaniWAbility/SejuaniW:keyTooltip",
+   "ability": [
+    "sejuani",
+    "Characters/Sejuani/Spells/SejuaniWAbility/SejuaniW"
+   ],
+   "change": {
+    "calc": "SecondHitDamageTooltip",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SejuaniW",
+     "name": "BaseDamageTwo",
+     "values": [
+      5.0,
+      25.0,
+      45.0,
+      65.0,
+      85.0
+     ]
+    }
+   },
+   "sha256": "c190b477d878eb9d6431be6b73c54d05a8d25edf82a67aee89a652a9cff3cf7a",
+   "original_sha256": "aaa4ce88c3080639459c021f2bb46e15289f912ae70fa967e7eccb7e945c196d"
+  },
+  {
+   "id": "test-174",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:fiora:Characters/Fiora/Spells/FioraQAbility/FioraQ:keyTooltip",
+   "ability": [
+    "fiora",
+    "Characters/Fiora/Spells/FioraQAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "FioraQ",
+     "name": "Damage",
+     "values": [
+      70.0,
+      80.0,
+      90.0,
+      100.0,
+      110.0
+     ]
+    }
+   },
+   "sha256": "7b4be1d13725b48ca379366ca2e8d7053409d9416f38652760702fe24bb31e31",
+   "original_sha256": "12bb8267afb43a0079cfd833d7fd07257d061706ed316ca73ad418e04addb38c"
+  },
+  {
+   "id": "test-175",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:twitch:Characters/Twitch/Spells/TwitchVenomCaskAbility/TwitchVenomCask:keyTooltip",
+   "ability": [
+    "twitch",
+    "Characters/Twitch/Spells/TwitchVenomCaskAbility"
+   ],
+   "change": {
+    "calc": "TotalSlowAmount",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "TwitchVenomCask",
+     "name": "BaseSlowAmount",
+     "values": [
+      30.0,
+      35.0,
+      40.0,
+      45.0,
+      50.0
+     ]
+    }
+   },
+   "sha256": "1f1f7d89112a806488d95b9d07a993fe4655948afd0e9759e5390be5db5fa783",
+   "original_sha256": "cdaa36b1ff5a50fad32a223586e0b77ac101586ebb50957155e4062d0a846783"
+  },
+  {
+   "id": "test-176",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:malphite:Characters/Malphite/Spells/SeismicShardAbility/SeismicShard:keyTooltip",
+   "ability": [
+    "malphite",
+    "Characters/Malphite/Spells/SeismicShardAbility"
+   ],
+   "change": {
+    "calc": "QDamageCalc",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 0.6,
+    "to": 0.9,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "SeismicShard",
+     "name": "mCoefficient",
+     "values": [
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6
+     ]
+    }
+   },
+   "sha256": "efbfc5dd8254fb503377428383bcfaf95a4f6a3e2a9c050907f79b172f59185a",
+   "original_sha256": "128f4a8d3951ba6839099720d38d3844e704f3f6209854dbdc5ced0879d72a6e"
+  },
+  {
+   "id": "test-177",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:sejuani:Characters/Sejuani/Spells/SejuaniEAbility/SejuaniE:keyTooltip",
+   "ability": [
+    "sejuani",
+    "Characters/Sejuani/Spells/SejuaniEAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SejuaniE",
+     "name": "BaseDamage",
+     "values": [
+      55.0,
+      105.0,
+      155.0,
+      205.0,
+      255.0
+     ]
+    }
+   },
+   "sha256": "e9651b029206decc4091e2b1b31e727f7b5472cbdc4efad186e9131d41606ea6",
+   "original_sha256": "ae5eb4b965ee1ace70b4337d39f6087994c6bce0b3259d10eee0a0e1a2798d2f"
+  },
+  {
+   "id": "test-178",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:nautilus:Characters/Nautilus/Spells/NautilusAnchorDragAbility/NautilusAnchorDrag:keyTooltip",
+   "ability": [
+    "nautilus",
+    "Characters/Nautilus/Spells/NautilusAnchorDragAbility"
+   ],
+   "change": {
+    "calc": "QDamageCalc",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 0.9,
+    "to": 1.35,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "NautilusAnchorDrag",
+     "name": "mCoefficient",
+     "values": [
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9
+     ]
+    }
+   },
+   "sha256": "d1395a05e5a58d841170c16ffb558a47f7f6d542ce4a54a3142311e2fa04472d",
+   "original_sha256": "36c31b95845f0ff7c80eeec008f67355c0d6311fbd22f58ffa505b7a2cac8a78"
+  },
+  {
+   "id": "test-179",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:galio:Characters/Galio/Spells/GalioWAbility/GalioW:keyTooltip",
+   "ability": [
+    "galio",
+    "Characters/Galio/Spells/GalioWAbility"
+   ],
+   "change": {
+    "calc": "MinTotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.3,
+    "to": 0.6,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "GalioW2",
+     "name": "mCoefficient",
+     "values": [
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3
+     ]
+    }
+   },
+   "sha256": "39721a271aabaa5af74a16cb3d039408caaf88d07ea4b7114f4b71bf43eb296f",
+   "original_sha256": "0343266f0c41992e3a3e6dea4e3e031352f50787cd5a17a4fc3ef2ca9959f65e"
+  },
+  {
+   "id": "test-180",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:sett:Characters/Sett/Spells/SettWAbility/SettW:keyTooltip",
+   "ability": [
+    "sett",
+    "Characters/Sett/Spells/SettWAbility/SettW"
+   ],
+   "change": {
+    "calc": "DamageConversion",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "calculation",
+     "spell": "SettW",
+     "name": "MaxDamage",
+     "values": [
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25
+     ]
+    }
+   },
+   "sha256": "1c3d358e79bb0a8951358db35054dc231cf947adbe37b58fd765609e72e2ed02",
+   "original_sha256": "bd5e02c2216caffdc8af159933a38f8d3eb093db3c0811e9ea084267aa96f170"
+  },
+  {
+   "id": "test-181",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:vladimir:Characters/Vladimir/Spells/VladimirHemoplagueAbility/VladimirHemoplague:keyTooltip",
+   "ability": [
+    "vladimir",
+    "Characters/Vladimir/Spells/VladimirHemoplagueAbility/VladimirHemoplague"
+   ],
+   "change": {
+    "calc": "Damage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.7,
+    "to": 1.4,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "VladimirHemoplague",
+     "name": "mCoefficient",
+     "values": [
+      0.7,
+      0.7,
+      0.7
+     ]
+    }
+   },
+   "sha256": "85627dd3b3a374ca79c5da356ec941bad0d3ac8e3bff15bf87577c6ce8edd915",
+   "original_sha256": "30c82027c42febb84cf6b59956d0eb2bcdf8c72229450a7da33786784617755f"
+  },
+  {
+   "id": "test-182",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:zyra:Characters/Zyra/Spells/ZyraEAbility/ZyraE:keyTooltip",
+   "ability": [
+    "zyra",
+    "Characters/Zyra/Spells/ZyraEAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.6,
+    "to": 1.2,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "ZyraE",
+     "name": "mCoefficient",
+     "values": [
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6
+     ]
+    }
+   },
+   "sha256": "26b19a5aee3bc41399aa5d83517586d71ca26e9a3fc6c5fd9007d402c46df6e0",
+   "original_sha256": "1ba112ddc4e0f5891b9c0d768e8a4f96077d037369212fa7f7bb16d027407b22"
+  },
+  {
+   "id": "test-183",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:azir:Characters/Azir/Spells/AzirQWrapperAbility/AzirQWrapper:keyTooltip",
+   "ability": [
+    "azir",
+    "Characters/Azir/Spells/AzirQWrapperAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AzirQWrapper",
+     "name": "BaseDamage",
+     "values": [
+      75.0,
+      95.0,
+      115.0,
+      135.0,
+      155.0
+     ]
+    }
+   },
+   "sha256": "3fe22f998f5276e5df9cbe602d23c7fa68e19db0d33b90927ae5101c3cf9ee61",
+   "original_sha256": "5ee8cd3ee1c6c3331de9ffd775f47180c7bd6e8422721904df30ce6bb60bfe99"
+  },
+  {
+   "id": "test-184",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:diana:Characters/Diana/Spells/DianaRAbility/DianaR:keyTooltip",
+   "ability": [
+    "diana",
+    "Characters/Diana/Spells/DianaRAbility/DianaR"
+   ],
+   "change": {
+    "calc": "RExplosionDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 0.6,
+    "to": 0.9,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "DianaR",
+     "name": "mCoefficient",
+     "values": [
+      0.6,
+      0.6,
+      0.6
+     ]
+    }
+   },
+   "sha256": "91c6ff8f3e92452d6fa5cc0879ef3c7ada0e5836039d7ce26c33b51a7abb45b4",
+   "original_sha256": "030ebd45628ad181256342ef801bd2c2b8d53a3e0bfed325851b031ab09caf23"
+  },
+  {
+   "id": "test-185",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:veigar:Characters/Veigar/Spells/VeigarDarkMatterAbility/VeigarDarkMatter:keyTooltip",
+   "ability": [
+    "veigar",
+    "Characters/Veigar/Spells/VeigarDarkMatterAbility/VeigarDarkMatter"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "VeigarDarkMatter",
+     "name": "BaseDamage",
+     "values": [
+      85.0,
+      140.0,
+      195.0,
+      250.0,
+      305.0
+     ]
+    }
+   },
+   "sha256": "e93233e2d3d021e189e22f88aa631c5716abf31956da9e89c7115772546eaef6",
+   "original_sha256": "10c43cd4ae2272cc1e2d9523610058e41752c0f3b4ccf45397fe6977920beb67"
+  },
+  {
+   "id": "test-186",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:anivia:Characters/Anivia/Spells/FlashFrostAbility/FlashFrost:keyTooltip",
+   "ability": [
+    "anivia",
+    "Characters/Anivia/Spells/FlashFrostAbility"
+   ],
+   "change": {
+    "calc": "TotalExplosionDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.45,
+    "to": 0.9,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "FlashFrostSpell",
+     "name": "mCoefficient",
+     "values": [
+      0.45,
+      0.45,
+      0.45,
+      0.45,
+      0.45
+     ]
+    }
+   },
+   "sha256": "5f8e830098de47f6b9073ee4ae131719e9418215afb0beecd1848e87cef2da17",
+   "original_sha256": "f9892756f1fdc5b7c420c1f34ee2ed735ad99206b6cfa817add1fb9dc0870ed6"
+  },
+  {
+   "id": "test-187",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:cassiopeia:Characters/Cassiopeia/Spells/CassiopeiaEAbility/CassiopeiaE:keyTooltip",
+   "ability": [
+    "cassiopeia",
+    "Characters/Cassiopeia/Spells/CassiopeiaEAbility/CassiopeiaE"
+   ],
+   "change": {
+    "calc": "BonusPoisonedDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "CassiopeiaE",
+     "name": "BonusDamage",
+     "values": [
+      20.0,
+      45.0,
+      70.0,
+      95.0,
+      120.0
+     ]
+    }
+   },
+   "sha256": "33aa31bb6a8f743bc33416de8b200e12085464063ffe878c47a46d6a258384d7",
+   "original_sha256": "2dd2ee4f82b81100ac1727394dc123240a9c6b9b4d007f47c9d3382459a66dfc"
+  },
+  {
+   "id": "test-188",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:darius:Characters/Darius/Spells/DariusCleaveAbility/DariusCleave:keyTooltip",
+   "ability": [
+    "darius",
+    "Characters/Darius/Spells/DariusCleaveAbility"
+   ],
+   "change": {
+    "calc": "BladeDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "DariusCleave",
+     "name": "BaseDamage",
+     "values": [
+      50.0,
+      80.0,
+      110.0,
+      140.0,
+      170.0
+     ]
+    }
+   },
+   "sha256": "999e5c891b9d062b4c34cc25ce3b520f095f165ac797a11c95577abcd534326b",
+   "original_sha256": "5a6928ed622496ce6b581754d2cd1766fe533142a8ae01daeecbbd3fea02f321"
+  },
+  {
+   "id": "test-189",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:lissandra:Characters/Lissandra/Spells/LissandraRAbility/LissandraR:keyTooltip",
+   "ability": [
+    "lissandra",
+    "Characters/Lissandra/Spells/LissandraRAbility"
+   ],
+   "change": {
+    "calc": "HealAmount",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "PercentMissingHPRatio",
+    "factor": 2.0,
+    "from": [
+     0.55,
+     0.55,
+     0.55
+    ],
+    "to": [
+     1.1,
+     1.1,
+     1.1
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "LissandraRSelf",
+     "name": "mCoefficient",
+     "values": [
+      0.550000011920929,
+      0.550000011920929,
+      0.550000011920929
+     ]
+    }
+   },
+   "sha256": "a23c70ee78546af1998cce45890c221b772f7fd6972f11dfe932963bbfe02a16",
+   "original_sha256": "08f601fc17853d90eb717682e75b3d118ef1e08722f87adff9d41661d3b90527"
+  },
+  {
+   "id": "test-190",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:fiora:Characters/Fiora/Spells/FioraRAbility/FioraR:keyTooltip",
+   "ability": [
+    "fiora",
+    "Characters/Fiora/Spells/FioraRAbility"
+   ],
+   "change": {
+    "calc": "HealPerSecondCalc",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "bonus AD",
+    "factor": 0.5,
+    "from": 0.7,
+    "to": 0.35,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "FioraR",
+     "name": "mCoefficient",
+     "values": [
+      0.7,
+      0.7,
+      0.7
+     ]
+    }
+   },
+   "sha256": "0cffbd979bb20c75dbb939f4fc008aa8d742e08665f15c658ae59f22f68fbebe",
+   "original_sha256": "40ee9a0c96f0ba137719d0e29374d6919509c1d01aada01b7855f7372668cd2e"
+  },
+  {
+   "id": "test-191",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:shaco:Characters/Shaco/Spells/DeceiveAbility/Deceive:keyTooltip",
+   "ability": [
+    "shaco",
+    "Characters/Shaco/Spells/DeceiveAbility/Deceive"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "Deceive",
+     "name": "BaseDamage",
+     "values": [
+      25.0,
+      35.0,
+      45.0,
+      55.0,
+      65.0
+     ]
+    }
+   },
+   "sha256": "a79df8dd5b6bac26e4920d50383c75b77e584b1e2939361bc7d73788422ebdb6",
+   "original_sha256": "609bfd2211c4fb5058c07f0bf039212e1a1ded2e2f6f16b9e30fc7c8882f1d02"
+  },
+  {
+   "id": "test-192",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:diana:Characters/Diana/Spells/DianaTeleportAbility/DianaTeleport:keyTooltip",
+   "ability": [
+    "diana",
+    "Characters/Diana/Spells/DianaTeleportAbility/DianaTeleport"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "APRatio",
+    "factor": 0.75,
+    "from": [
+     0.6,
+     0.6,
+     0.6,
+     0.6,
+     0.6
+    ],
+    "to": [
+     0.45,
+     0.45,
+     0.45,
+     0.45,
+     0.45
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "DianaTeleport",
+     "name": "mCoefficient",
+     "values": [
+      0.6000000238418579,
+      0.6000000238418579,
+      0.6000000238418579,
+      0.6000000238418579,
+      0.6000000238418579
+     ]
+    }
+   },
+   "sha256": "d02f4f8f3c08de53cc141035945c8da3c24c3a68afee950ed0d133fa3fe57daf",
+   "original_sha256": "784aa0d338abf1693e3e010a1feb1bb4464bb2d44deb7c9e329746abec760e2e"
+  },
+  {
+   "id": "test-193",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:warwick:Characters/Warwick/Spells/WarwickRAbility/WarwickR:keyTooltip",
+   "ability": [
+    "warwick",
+    "Characters/Warwick/Spells/WarwickRAbility/WarwickR"
+   ],
+   "change": {
+    "calc": "DamageCumulative",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "WarwickR",
+     "name": "RBaseDamage",
+     "values": [
+      175.0,
+      350.0,
+      525.0
+     ]
+    }
+   },
+   "sha256": "c890947453346292f3e4019cfc203c946a5512875e045234c67c7ae54cd95fed",
+   "original_sha256": "4f6f564f7f4846a894717e1ec1f2ec8a6bd727d3f1ea8dd26df4fdda51589b37"
+  },
+  {
+   "id": "test-194",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:illaoi:Characters/Illaoi/Spells/IllaoiEAbility/IllaoiE:keyTooltip",
+   "ability": [
+    "illaoi",
+    "Characters/Illaoi/Spells/IllaoiEAbility"
+   ],
+   "change": {
+    "calc": "EchoPercent",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "IllaoiE",
+     "name": "BaseDamageTransferPercent",
+     "values": [
+      0.25,
+      0.30000001192092896,
+      0.3499999940395355,
+      0.4000000059604645,
+      0.44999998807907104
+     ]
+    }
+   },
+   "sha256": "e7faf83ed47eea2881efe4212a8dd1e8cfec42a1548750747cd579537ecc07f7",
+   "original_sha256": "7758e4d83c27c5aede59f84b7b82f5e92dc6c3440e8950996df1c6f06390c9a8"
+  },
+  {
+   "id": "test-195",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:orianna:Characters/Orianna/Spells/OrianaRedactCommandAbility/OrianaRedactCommand:keyTooltip",
+   "ability": [
+    "orianna",
+    "Characters/Orianna/Spells/OrianaRedactCommandAbility"
+   ],
+   "change": {
+    "calc": "TotalShieldTooltip",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 2.0,
+    "from": 0.45,
+    "to": 0.9,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "OrianaRedactCommand",
+     "name": "mCoefficient",
+     "values": [
+      0.45,
+      0.45,
+      0.45,
+      0.45,
+      0.45
+     ]
+    }
+   },
+   "sha256": "6c2074b9a77395269537a18ba33b9ea8dc072724a52064b33b1613c315740265",
+   "original_sha256": "fe9e5f0bfd82aecc9202f428cb7dbe82eda11320cfd7576ac79be7bb0ff3cc7b"
+  },
+  {
+   "id": "test-196",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:graves:Characters/Graves/Spells/GravesSmokeGrenadeAbility/GravesSmokeGrenade:keyTooltip",
+   "ability": [
+    "graves",
+    "Characters/Graves/Spells/GravesSmokeGrenadeAbility"
+   ],
+   "change": {
+    "calc": "ImpactDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 0.6,
+    "to": 0.9,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "GravesSmokeGrenade",
+     "name": "mCoefficient",
+     "values": [
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6
+     ]
+    }
+   },
+   "sha256": "1f97cc42512ea37e3d58cca738f816f28317d48363e9a3cc14c203318e5e68a4",
+   "original_sha256": "cfd040e83339e80fb1cdcff70dea828e85262b213d29d362277dee23aa1b4982"
+  },
+  {
+   "id": "test-197",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:briar:Characters/Briar/Spells/BriarQAbility/BriarQ:keyTooltip",
+   "ability": [
+    "briar",
+    "Characters/Briar/Spells/BriarQAbility/BriarQ"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "BriarQ",
+     "name": "BaseDamage",
+     "values": [
+      60.0,
+      85.0,
+      110.0,
+      135.0,
+      160.0
+     ]
+    }
+   },
+   "sha256": "b2819cc2a035f6be50a2eb56227392ccf626b61e5838a658037632990b5ccbf5",
+   "original_sha256": "34dda806cc9473d5a884b50b7cd472a76968c0c2fe12092e73e9fc450098af20"
+  },
+  {
+   "id": "test-198",
+   "rule": "multiplier",
+   "record_id": "16.19:en_us:lulu:Characters/Lulu/Spells/LuluPassiveAbility/LuluPassive:keyTooltip",
+   "ability": [
+    "lulu",
+    "Characters/Lulu/Spells/LuluPassiveAbility"
+   ],
+   "change": {
+    "calc": "CombinedDamage",
+    "part": [
+     "mMultiplier"
+    ],
+    "data_value": "NumberOfBolts",
+    "step": -1,
+    "from": [
+     3
+    ],
+    "to": [
+     2
+    ],
+    "anchor": {
+     "type": "typed_number",
+     "start": 65,
+     "values": [
+      3.0
+     ]
+    }
+   },
+   "sha256": "0ec5e163d039ae79cb27a83af08f599dc604b4de882ca429bbb2508c8c84006f",
+   "original_sha256": "9e8ed0beed1394538b66830c41af8b4cb9f640c9fc73eb93ba1923901bc9f4fa"
+  },
+  {
+   "id": "test-199",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:yuumi:Characters/Yuumi/Spells/YuumiEAbility/YuumiE:keyTooltip",
+   "ability": [
+    "yuumi",
+    "Characters/Yuumi/Spells/YuumiEAbility/YuumiE"
+   ],
+   "change": {
+    "calc": "TotalShielding",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "YuumiE",
+     "name": "BaseShielding",
+     "values": [
+      65.0,
+      90.0,
+      115.0,
+      140.0,
+      165.0
+     ]
+    }
+   },
+   "sha256": "c56b974772a10af1c42475b2f07de32b6f75f54e8bb3bcc92efca1ab47cde41d",
+   "original_sha256": "d034cac85a245b345e87efb866cf29dbe8c75eb85562e65274af847446f052bf"
+  },
+  {
+   "id": "test-200",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:leona:Characters/Leona/Spells/LeonaSolarBarrierAbility/LeonaSolarBarrier:keyTooltip",
+   "ability": [
+    "leona",
+    "Characters/Leona/Spells/LeonaSolarBarrierAbility"
+   ],
+   "change": {
+    "calc": "TotalDamageTooltip",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "APRatio",
+    "factor": 0.5,
+    "from": [
+     0.4,
+     0.4,
+     0.4,
+     0.4,
+     0.4
+    ],
+    "to": [
+     0.2,
+     0.2,
+     0.2,
+     0.2,
+     0.2
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "LeonaSolarBarrier",
+     "name": "mCoefficient",
+     "values": [
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645,
+      0.4000000059604645
+     ]
+    }
+   },
+   "sha256": "5aa80e624f5fce42e57433c591dcec47d77d67f3a6abd1ed8b42943b8570db7c",
+   "original_sha256": "3add9e4fd0511474e885df7c48089b7a87e20ef856cfeb5c1ea72780d61f80ed"
+  },
+  {
+   "id": "test-201",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:riven:Characters/Riven/Spells/RivenTriCleaveAbility/RivenTriCleave:keyTooltip",
+   "ability": [
+    "riven",
+    "Characters/Riven/Spells/RivenTriCleaveAbility"
+   ],
+   "change": {
+    "calc": "FirstSlashDamage",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "level_up",
+     "spell": "RivenTriCleave",
+     "name": "ADRatio",
+     "values": [
+      0.6000000238418579,
+      0.6499999761581421,
+      0.699999988079071,
+      0.75,
+      0.800000011920929
+     ]
+    }
+   },
+   "sha256": "06c6d1dc279d5229e128a28bcc81452d3ca116df61d7cdc45648a4b3b8516f45",
+   "original_sha256": "c0dfc1e3c4dbc77a98a91951f9ae977b446295b7a104c58f684f12469d3a7bdb"
+  },
+  {
+   "id": "test-202",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:kassadin:Characters/Kassadin/Spells/NullLanceAbility/NullLance:keyTooltip",
+   "ability": [
+    "kassadin",
+    "Characters/Kassadin/Spells/NullLanceAbility/NullLance"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "NullLance",
+     "name": "BaseDamage",
+     "values": [
+      65.0,
+      95.0,
+      125.0,
+      155.0,
+      185.0
+     ]
+    }
+   },
+   "sha256": "0a4daa757c30d644b1b281cfc180a69fa650e41b786c710167591d952d3711be",
+   "original_sha256": "de3f8088574569095cd38d34caed3aef7d2075ea06baa153234c2fd1289aee59"
+  },
+  {
+   "id": "test-203",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:yone:Characters/Yone/Spells/YoneQAbility/YoneQ:keyTooltip",
+   "ability": [
+    "yone",
+    "Characters/Yone/Spells/YoneQAbility"
+   ],
+   "change": {
+    "calc": "QDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "YoneQ",
+     "name": "BaseDamage",
+     "values": [
+      25.0,
+      50.0,
+      75.0,
+      100.0,
+      125.0
+     ]
+    }
+   },
+   "sha256": "1f58e39ba69a364a2bc2c9946cfd33b8979a062f4e0e12b6c91d8a73c3a36293",
+   "original_sha256": "b391e4bed24ac78eccdd272a69d92a0082cfb946fa65cce3ad357eeff62f4fe4"
+  },
+  {
+   "id": "test-204",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:yasuo:Characters/Yasuo/Spells/YasuoQ1WrapperAbility/YasuoQ1Wrapper:keyTooltip",
+   "ability": [
+    "yasuo",
+    "Characters/Yasuo/Spells/YasuoQ1WrapperAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "YasuoQ1Wrapper",
+     "name": "BaseDamage",
+     "values": [
+      20.0,
+      45.0,
+      70.0,
+      95.0,
+      120.0
+     ]
+    }
+   },
+   "sha256": "840bbd9411fc320c3637145435f9e5e1c38ebb01c2b14082bd737d19633514fa",
+   "original_sha256": "a4b1af6e6b03e0a2d285c2f86260098a81589ba59e75da8be307cb87e9bfeb98"
+  },
+  {
+   "id": "test-205",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:twistedfate:Characters/TwistedFate/Spells/CardmasterStackAbility/CardmasterStack:keyTooltip",
+   "ability": [
+    "twistedfate",
+    "Characters/TwistedFate/Spells/CardmasterStackAbility/CardmasterStack"
+   ],
+   "change": {
+    "calc": "BonusDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "CardmasterStack",
+     "name": "Damage",
+     "values": [
+      65.0,
+      90.0,
+      115.0,
+      140.0,
+      165.0
+     ]
+    }
+   },
+   "sha256": "640f52b4695a710406789c795657fafe8300feb07ed57e3b6f6d1a0ca7e32e9d",
+   "original_sha256": "7c41e05c009f0be785bbef1661b99fa5f23c3f8ba14016122886c17c66ba280c"
+  },
+  {
+   "id": "test-206",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:leesin:Characters/LeeSin/Spells/LeeSinWOneAbility/LeeSinWOne:keyTooltip",
+   "ability": [
+    "leesin",
+    "Characters/LeeSin/Spells/LeeSinWOneAbility"
+   ],
+   "change": {
+    "calc": "ShieldAmount",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 0.75,
+    "from": 0.8,
+    "to": 0.6,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "LeeSinWOne",
+     "name": "mCoefficient",
+     "values": [
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8
+     ]
+    }
+   },
+   "sha256": "a8b74f3b3eda5d9dd76e4bd079718948d82b5ebbc3a353878281abc80d84ef06",
+   "original_sha256": "3c61ee7a380c8debd11df12b5aaddb17cf46091fb94f4ce0a915760c2fc2643e"
+  },
+  {
+   "id": "test-207",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:brand:Characters/Brand/Spells/BrandWAbility/BrandW:keyTooltip",
+   "ability": [
+    "brand",
+    "Characters/Brand/Spells/BrandWAbility/BrandW"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "BrandW",
+     "name": "BaseDamage",
+     "values": [
+      75.0,
+      120.0,
+      165.0,
+      210.0,
+      255.0
+     ]
+    }
+   },
+   "sha256": "ddd37c8fc7aebc0aed1214506d58b0c4b40dca80bba4e131f78eda64f0158b6e",
+   "original_sha256": "7d2ee5cd1286efe9c6668b9015f4925b08bee94038976f8adde5400660fe4185"
+  },
+  {
+   "id": "test-208",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:vex:Characters/Vex/Spells/VexWAbility/VexW:keyTooltip",
+   "ability": [
+    "vex",
+    "Characters/Vex/Spells/VexWAbility/VexW"
+   ],
+   "change": {
+    "calc": "ShieldCalc",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "VexW",
+     "name": "ShieldAmount",
+     "values": [
+      50.0,
+      75.0,
+      100.0,
+      125.0,
+      150.0
+     ]
+    }
+   },
+   "sha256": "c9cd163f005f4e7ab14ac6b42160441511bb1314aa922f01cc97589c0a3caa5a",
+   "original_sha256": "cc6387594128f82afca9979c102ea7bb4f807b0f90c156d34ef13467dc1a59b7"
+  },
+  {
+   "id": "test-209",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:ezreal:Characters/Ezreal/Spells/EzrealEAbility/EzrealE:keyTooltip",
+   "ability": [
+    "ezreal",
+    "Characters/Ezreal/Spells/EzrealEAbility"
+   ],
+   "change": {
+    "calc": "Damage",
+    "part": [
+     "mFormulaParts",
+     2
+    ],
+    "stat": "AP",
+    "data_value": "EAPRatio",
+    "factor": 2.0,
+    "from": [
+     0.75,
+     0.75,
+     0.75,
+     0.75,
+     0.75
+    ],
+    "to": [
+     1.5,
+     1.5,
+     1.5,
+     1.5,
+     1.5
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "EzrealE",
+     "name": "mCoefficient",
+     "values": [
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75
+     ]
+    }
+   },
+   "sha256": "7c4bf6cb9b81477fda13de8bac310c72c5b1bad2ab266fd10dd23550fa8dc323",
+   "original_sha256": "533370fb73e25b26c495b9abb1141858a6794afccde01cefc6e1c66a59e9e8bc"
+  },
+  {
+   "id": "test-210",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:sejuani:Characters/Sejuani/Spells/SejuaniRAbility/SejuaniR:keyTooltip",
+   "ability": [
+    "sejuani",
+    "Characters/Sejuani/Spells/SejuaniRAbility"
+   ],
+   "change": {
+    "calc": "TotalDamageTooltip",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 0.5,
+    "from": 0.8,
+    "to": 0.4,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "SejuaniR",
+     "name": "mCoefficient2",
+     "values": [
+      0.8,
+      0.8,
+      0.8
+     ]
+    }
+   },
+   "sha256": "33f1329d908b4aecb87d76fa5939dfff31d2dd54e5583f2dcd20de5bbb58d2e2",
+   "original_sha256": "853a794f679f08e290250ee214d61b203300e130d615f9b64d9e07c62ebf216e"
+  },
+  {
+   "id": "test-211",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:zeri:Characters/Zeri/Spells/ZeriRAbility/ZeriR:keyTooltip",
+   "ability": [
+    "zeri",
+    "Characters/Zeri/Spells/ZeriRAbility"
+   ],
+   "change": {
+    "calc": "TotalActiveDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "ZeriR",
+     "name": "ActiveDamage",
+     "values": [
+      150.0,
+      250.0,
+      350.0
+     ]
+    }
+   },
+   "sha256": "a6c11c9929549991b7fd7057a5fa5d8f8f0ea16e00cdea0b5ede4018cfddfe41",
+   "original_sha256": "3ac7df746bb9d8619c1c3bf266705d71a0d9291af401e0aa982ebe08c5f48e52"
+  },
+  {
+   "id": "test-212",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:varus:Characters/Varus/Spells/VarusRAbility/VarusR:keyTooltip",
+   "ability": [
+    "varus",
+    "Characters/Varus/Spells/VarusRAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 1,
+    "to": 1.5,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "VarusR",
+     "name": "mCoefficient",
+     "values": [
+      1,
+      1,
+      1
+     ]
+    }
+   },
+   "sha256": "77436c1e172e24f27de6a84eb356b5be36b02c4a8fbe195a636cf924bc402736",
+   "original_sha256": "d305dfb88193d4e2845c2396541555db461ae0982ae88f7c22315aac2bb9960b"
+  },
+  {
+   "id": "test-213",
+   "rule": "other_value",
+   "record_id": "16.19:en_us:maokai:Characters/Maokai/Spells/MaokaiQAbility/MaokaiQ:keyTooltipExtendedBelowLine",
+   "ability": [
+    "maokai",
+    "Characters/Maokai/Spells/MaokaiQAbility"
+   ],
+   "change": {
+    "placeholder": "BonusMonsterDamage",
+    "points_at": "BaseDamage",
+    "start": 53,
+    "anchor": {
+     "type": "level_up",
+     "spell": "MaokaiQ",
+     "name": "BonusMonsterDamage",
+     "values": [
+      150,
+      160,
+      170,
+      180,
+      190
+     ]
+    }
+   },
+   "sha256": "5c1135f24b38bac07c50eab094ce8a27755aa775f1823670894208f98050e5d7",
+   "original_sha256": "b7805c228c5415da0e312d4c41c44a77e46f937f2a1c588e5747a5d0756d7eb0"
+  },
+  {
+   "id": "test-214",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:viego:Characters/Viego/Spells/ViegoWAbility/ViegoW:keyTooltip",
+   "ability": [
+    "viego",
+    "Characters/Viego/Spells/ViegoWAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "ViegoW",
+     "name": "Damage",
+     "values": [
+      80.0,
+      135.0,
+      190.0,
+      245.0,
+      300.0
+     ]
+    }
+   },
+   "sha256": "75ff08e0bdaee550f48b63cb76dde8507afcdd076aa79933b7e37639641c7cfc",
+   "original_sha256": "a9c8f3b1423814390f171b46f64ed6a6fefc7e0b0c778e82a0188310d9d56c56"
+  },
+  {
+   "id": "test-215",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:gangplank:Characters/Gangplank/Spells/GangplankWAbility/GangplankW:keyTooltip",
+   "ability": [
+    "gangplank",
+    "Characters/Gangplank/Spells/GangplankWAbility/GangplankW"
+   ],
+   "change": {
+    "calc": "BaseHealth",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 0.5,
+    "from": 0.9,
+    "to": 0.45,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "GangplankW",
+     "name": "mCoefficient",
+     "values": [
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9
+     ]
+    }
+   },
+   "sha256": "d1e1c19578eac4ed8d005fbeb970a94350116ab65ae1417114f04b61c2540055",
+   "original_sha256": "9313e5d3b73f4e6decda0feb30e92a810a2944a6b455d8ec53420de93f8e25f5"
+  },
+  {
+   "id": "test-216",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:fizz:Characters/Fizz/Spells/FizzEAbility/FizzE:keyTooltip",
+   "ability": [
+    "fizz",
+    "Characters/Fizz/Spells/FizzEAbility"
+   ],
+   "change": {
+    "calc": "EDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "FizzE",
+     "name": "BaseDamage",
+     "values": [
+      80.0,
+      130.0,
+      180.0,
+      230.0,
+      280.0
+     ]
+    }
+   },
+   "sha256": "9690618d1806ef934259c203b822e5d23a2c6458894fac4ac199aa25854a800f",
+   "original_sha256": "2d52f7ecd5e294f9b3b918faabd50dd301d813fbdaa48d29e7f6a8b02a8bcf2a"
+  },
+  {
+   "id": "test-217",
+   "rule": "other_value",
+   "record_id": "16.19:en_us:sett:Characters/Sett/Spells/SettQAbility/SettQ:keyTooltip",
+   "ability": [
+    "sett",
+    "Characters/Sett/Spells/SettQAbility/SettQ"
+   ],
+   "change": {
+    "placeholder": "BaseDamage",
+    "points_at": "QMinimumDamage",
+    "start": 204,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SettQ",
+     "name": "BaseDamage",
+     "values": [
+      10,
+      20,
+      30,
+      40,
+      50
+     ]
+    }
+   },
+   "sha256": "4b6dbbb9dd4f54f972627dbe285c4ab7a10118bba712e4038252e057702e75a4",
+   "original_sha256": "58c75830e92e55ab6a69f0935b032e3114890f7636b871e4b8e1e316b9495c62"
+  },
+  {
+   "id": "test-218",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:aatrox:Characters/Aatrox/Spells/AatroxQAbility/AatroxQ:keyTooltip",
+   "ability": [
+    "aatrox",
+    "Characters/Aatrox/Spells/AatroxQAbility"
+   ],
+   "change": {
+    "calc": "QDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AatroxQ",
+     "name": "QBaseDamage",
+     "values": [
+      10.0,
+      25.0,
+      40.0,
+      55.0,
+      70.0
+     ]
+    }
+   },
+   "sha256": "8bdb67e9d3e219083223d40d3a7a361b271a2a3f652c8b316800d003fb11c540",
+   "original_sha256": "9a2385b4620775ca4ee4751f2e98a99787eab7e97bbbfec12c52ba20a2cea166"
+  },
+  {
+   "id": "test-219",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:syndra:Characters/Syndra/Spells/SyndraWAbility/SyndraW:keyTooltip",
+   "ability": [
+    "syndra",
+    "Characters/Syndra/Spells/SyndraWAbility"
+   ],
+   "change": {
+    "calc": "TOOLTIPONLYPassiveBonusPercent",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "calculation",
+     "spell": "SyndraW",
+     "name": "PassiveBonusDamage",
+     "values": [
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.02
+     ]
+    }
+   },
+   "sha256": "0a04f882820a759baa3c2a380ae6096d9fa3e1192ffb08cc65a074efdbbd14bc",
+   "original_sha256": "82fb9ca480c03e6fe952c02755e169e57b9ff030d65cd78511125e44aef7b985"
+  },
+  {
+   "id": "test-220",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:ambessa:Characters/Ambessa/Spells/AmbessaEAbility/AmbessaE:keyTooltip",
+   "ability": [
+    "ambessa",
+    "Characters/Ambessa/Spells/AmbessaEAbility"
+   ],
+   "change": {
+    "calc": "Calc_Damage_Flat",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AmbessaE",
+     "name": "Damage_Flat_Base",
+     "values": [
+      40.0,
+      60.0,
+      80.0,
+      100.0,
+      120.0
+     ]
+    }
+   },
+   "sha256": "b501e6d9bda37d70da8ce2cd3fc820d1104e9e83a2590e07455a3796c093358e",
+   "original_sha256": "9d9d5a0b4ac222527f89ccf5c6bab2120f7cc70f5d991c59796e7b62caa1768f"
+  },
+  {
+   "id": "test-221",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:kassadin:Characters/Kassadin/Spells/ForcePulseAbility/ForcePulse:keyTooltip",
+   "ability": [
+    "kassadin",
+    "Characters/Kassadin/Spells/ForcePulseAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "ForcePulse",
+     "name": "BaseDamage",
+     "values": [
+      70.0,
+      100.0,
+      130.0,
+      160.0,
+      190.0
+     ]
+    }
+   },
+   "sha256": "5c9eea02380621cc5adda6f1fcd3d0637ad0b652bd7612aa5c973738b0087f1f",
+   "original_sha256": "677000ad80fca07a5df6f580bc8192c2f65eb7a3cfc842af4207f7cebe1a6b57"
+  },
+  {
+   "id": "test-222",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:kled:Characters/Kled/Spells/KledRAbility/KledR:keyTooltip",
+   "ability": [
+    "kled",
+    "Characters/Kled/Spells/KledRAbility"
+   ],
+   "change": {
+    "calc": "MaximumShield",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "bonus AD",
+    "factor": 2.0,
+    "from": 3,
+    "to": 6,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "KledR",
+     "name": "mCoefficient",
+     "values": [
+      3,
+      3,
+      3
+     ]
+    }
+   },
+   "sha256": "f8bbaf20575d5b651f5b6f24e427af26849ebff14af8a894303ae15abc086f8b",
+   "original_sha256": "053c4c1b8ea9506c2476a1a076741878aa270aaab2c695681bd065f8f7984f28"
+  },
+  {
+   "id": "test-223",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:aurelionsol:Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR:keyTooltip",
+   "ability": [
+    "aurelionsol",
+    "Characters/AurelionSol/Spells/AurelionSolRAbility"
+   ],
+   "change": {
+    "calc": "MaxDamageTooltip",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "APRatio",
+    "factor": 2.0,
+    "from": [
+     0.75,
+     0.75,
+     0.75
+    ],
+    "to": [
+     1.5,
+     1.5,
+     1.5
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "AurelionSolR",
+     "name": "mCoefficient",
+     "values": [
+      0.75,
+      0.75,
+      0.75
+     ]
+    }
+   },
+   "sha256": "3cd62d22d7d7bf855da0aaf9e11f0e1ba5d95690b925d9da8bc17b948611ed57",
+   "original_sha256": "349526ebb5bf93c2c9c245ff5e0c3ab8f93320c00f64e72c579ad73144270c21"
+  },
+  {
+   "id": "test-224",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:nami:Characters/Nami/Spells/NamiWAbility/NamiW:keyTooltip",
+   "ability": [
+    "nami",
+    "Characters/Nami/Spells/NamiWAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "NamiWAlly",
+     "name": "mCoefficient",
+     "values": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "sha256": "ecd1ccb7903423e25bb533ae3b0abb755daba61727b4b267b406c9c0b5f37ba6",
+   "original_sha256": "fea9c4d3295b149b1023b9e2ffe6c4c08c8e75af728ecf063fb6e70fbee26556"
+  },
+  {
+   "id": "test-225",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:zed:Characters/Zed/Spells/ZedQAbility/ZedQ:keyTooltip",
+   "ability": [
+    "zed",
+    "Characters/Zed/Spells/ZedQAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "ZedQ",
+     "name": "BaseDamage",
+     "values": [
+      80.0,
+      120.0,
+      160.0,
+      200.0,
+      240.0
+     ]
+    }
+   },
+   "sha256": "d5f41874f586c71e031380bcb2e411c44b90befa583151b9a979a4eaf9be9ba9",
+   "original_sha256": "eb7769785cc2e3a38744dffd58e415faa72130890aac77d882e1087c7e71556d"
+  },
+  {
+   "id": "test-226",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:kennen:Characters/Kennen/Spells/KennenShurikenStormAbility/KennenShurikenStorm:keyTooltip",
+   "ability": [
+    "kennen",
+    "Characters/Kennen/Spells/KennenShurikenStormAbility/KennenShurikenStorm"
+   ],
+   "change": {
+    "calc": "PerTickDamageCalculated",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "KennenShurikenStorm",
+     "name": "BaseDamage",
+     "values": [
+      40.0,
+      80.0,
+      120.0
+     ]
+    }
+   },
+   "sha256": "8b73881a4a5fb887995b7944a86239df864eb7ea9fbe32b78a80fa161e7e7ff7",
+   "original_sha256": "fda75f04a0a048605dba74c34be3415b95deb2813b5233480a0a668872ef00da"
+  },
+  {
+   "id": "test-227",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:azir:Characters/Azir/Spells/AzirEWrapperAbility/AzirEWrapper:keyTooltip",
+   "ability": [
+    "azir",
+    "Characters/Azir/Spells/AzirEWrapperAbility"
+   ],
+   "change": {
+    "calc": "TotalShield",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AzirEWrapper",
+     "name": "BaseShield",
+     "values": [
+      70.0,
+      110.0,
+      150.0,
+      190.0,
+      230.0
+     ]
+    }
+   },
+   "sha256": "6d5eee14e3b0207867f42782ff7ce0ada1f58a6388d92762c75f00d591dad9e1",
+   "original_sha256": "ffcd6957e00e111bfd6bbabc7049a0ebcc63306a7e277e28738430353367e4b0"
+  },
+  {
+   "id": "test-228",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:nunu:Characters/Nunu/Spells/NunuQAbility/NunuQ:keyTooltip",
+   "ability": [
+    "nunu",
+    "Characters/Nunu/Spells/NunuQAbility/NunuQ"
+   ],
+   "change": {
+    "calc": "MonsterHealing",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "NunuQ",
+     "name": "BaseHealing",
+     "values": [
+      65.0,
+      95.0,
+      125.0,
+      155.0,
+      185.0
+     ]
+    }
+   },
+   "sha256": "1e75cdccabf98ef60fb43e70bf4197983ded912113dfafdfd9da4cdca851b455",
+   "original_sha256": "541a3ec8e0180c649616ff2e5ffcc75238689d09174e0cd9b40e3952bb35fc12"
+  },
+  {
+   "id": "test-229",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:lulu:Characters/Lulu/Spells/LuluQAbility/LuluQ:keyTooltip",
+   "ability": [
+    "lulu",
+    "Characters/Lulu/Spells/LuluQAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "LuluQ",
+     "name": "BaseDamage",
+     "values": [
+      60.0,
+      95.0,
+      130.0,
+      165.0,
+      200.0
+     ]
+    }
+   },
+   "sha256": "a00f75d3b6c9188aa6d0e38e9a57a7ca13567a14cdbdc43eb0c9e2a01ab113ec",
+   "original_sha256": "3818eed12a8acaa37e73692fe54ce1fad4dab764d08636375542fcf3024b0e51"
+  },
+  {
+   "id": "test-230",
+   "rule": "other_value",
+   "record_id": "16.19:en_us:volibear:Characters/Volibear/Spells/VolibearWAbility/VolibearW:keyTooltip",
+   "ability": [
+    "volibear",
+    "Characters/Volibear/Spells/VolibearWAbility/VolibearW"
+   ],
+   "change": {
+    "placeholder": "BaseHeal",
+    "points_at": "BaseDamage",
+    "start": 301,
+    "anchor": {
+     "type": "level_up",
+     "spell": "VolibearW",
+     "name": "BaseHeal",
+     "values": [
+      20,
+      35,
+      50,
+      65,
+      80
+     ]
+    }
+   },
+   "sha256": "1f6146591860f85bf104dd709e3a1e28cfdea80d106ddc7c84f7b14ac0a6bc97",
+   "original_sha256": "a433e6e52160855832407b1602dff64ce2541681654b12de6cc8f460e44e29be"
+  },
+  {
+   "id": "test-231",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:ryze:Characters/Ryze/Spells/RyzeWAbility/RyzeW:keyTooltip",
+   "ability": [
+    "ryze",
+    "Characters/Ryze/Spells/RyzeWAbility"
+   ],
+   "change": {
+    "calc": "WDamageCalc",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "RyzeW",
+     "name": "BaseDamage",
+     "values": [
+      60.0,
+      90.0,
+      120.0,
+      150.0,
+      180.0
+     ]
+    }
+   },
+   "sha256": "93a1a36dcaab41a2c0d03309b7bc23a88834dac23adb0aba248716105422c712",
+   "original_sha256": "eab5eb8d1d38f9e7ef1cc6b0813d3e18ed32cd5023b1c2225d7e665d10f14503"
+  },
+  {
+   "id": "test-232",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:karma:Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra:keyTooltip",
+   "ability": [
+    "karma",
+    "Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra"
+   ],
+   "change": {
+    "calc": "RQFieldDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "KarmaMantra",
+     "name": "QDetonationDamage",
+     "values": [
+      40.0,
+      130.0,
+      220.0,
+      310.0
+     ]
+    }
+   },
+   "sha256": "aa673e47a75cbe734b39f0d62c9420cb1aa3d79d5d3a4c0d3077d57bbbfe47de",
+   "original_sha256": "8c4977a36959f21984dc9eafa3e9f9ad40a3b998a26ac783dcc66d7843868dab"
+  },
+  {
+   "id": "test-233",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:ziggs:Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQ:keyTooltip",
+   "ability": [
+    "ziggs",
+    "Characters/Ziggs/Spells/ZiggsQAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "ZiggsQ",
+     "name": "BaseDamage",
+     "values": [
+      80.0,
+      130.0,
+      180.0,
+      230.0,
+      280.0
+     ]
+    }
+   },
+   "sha256": "c9ed5edf8f37c981c5fe274796ed9e2864e3bc4de21a9fef21ead9c84696bd0e",
+   "original_sha256": "68c2dcd01c839118389bbb67232f1e5cb797bbbb30a67e374f092f671d013db5"
+  },
+  {
+   "id": "test-234",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:ambessa:Characters/Ambessa/Spells/AmbessaWAbility/AmbessaW:keyTooltip",
+   "ability": [
+    "ambessa",
+    "Characters/Ambessa/Spells/AmbessaWAbility"
+   ],
+   "change": {
+    "calc": "Calc_Damage_Low",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "AmbessaW",
+     "name": "BaseDamage",
+     "values": [
+      50.0,
+      75.0,
+      100.0,
+      125.0,
+      150.0
+     ]
+    }
+   },
+   "sha256": "9ff84af7dbda091837dea2bbc1ffd19b5798f0eaa15fe00673a93672f939cdbe",
+   "original_sha256": "f45724cdfe9c23f716d5c4059c6dfaac8450a9bd49ffc1d877bc49e615078a31"
+  },
+  {
+   "id": "test-235",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:aurelionsol:Characters/AurelionSol/Spells/AurelionSolWAbility/AurelionSolW:keyTooltipExtendedBelowLine",
+   "ability": [
+    "aurelionsol",
+    "Characters/AurelionSol/Spells/AurelionSolWAbility"
+   ],
+   "change": {
+    "calc": "DashSpeed",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "calculation",
+     "spell": "AurelionSolW",
+     "name": "{ffd78035}",
+     "values": [
+      340.0,
+      340.0,
+      340.0,
+      340.0,
+      340.0
+     ]
+    }
+   },
+   "sha256": "d4c522c0320ce9352a884ac9b537497ead4368a1a2698ddbe9435fce5851c42d",
+   "original_sha256": "be36dfeaebdfd256aed2350d2fbdc229ac6e86266fc918ec87aad69588496735"
+  },
+  {
+   "id": "test-236",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:mordekaiser:Characters/Mordekaiser/Spells/MordekaiserQAbility/MordekaiserQ:keyTooltip",
+   "ability": [
+    "mordekaiser",
+    "Characters/Mordekaiser/Spells/MordekaiserQAbility/MordekaiserQ"
+   ],
+   "change": {
+    "calc": "QDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "MordekaiserQ",
+     "name": "QBaseDamage",
+     "values": [
+      80.0,
+      115.0,
+      150.0,
+      185.0,
+      220.0
+     ]
+    }
+   },
+   "sha256": "70b7aef9b473c8d8c0c79d480323b69dc7e568d827683c27b129b34f196b2610",
+   "original_sha256": "ecbbf5b93495943e7fe00b035d7a37aac597e43048758c24db559f7670cc677a"
+  },
+  {
+   "id": "test-237",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:sett:Characters/Sett/Spells/SettRAbility/SettR:keyTooltip",
+   "ability": [
+    "sett",
+    "Characters/Sett/Spells/SettRAbility/SettR"
+   ],
+   "change": {
+    "calc": "DamageCalc",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "SettR",
+     "name": "BaseDamage",
+     "values": [
+      200.0,
+      300.0,
+      400.0
+     ]
+    }
+   },
+   "sha256": "35481059b926cb6b1cfdf01cb86a475bef1d9485b173e79f15488ad12b665129",
+   "original_sha256": "b4c5d88e643988622cea1030201fcd7b895e594ab6fd3f58ac2cdaafc9a2bf53"
+  },
+  {
+   "id": "test-238",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:brand:Characters/Brand/Spells/BrandEAbility/BrandE:keyTooltip",
+   "ability": [
+    "brand",
+    "Characters/Brand/Spells/BrandEAbility"
+   ],
+   "change": {
+    "calc": "EDamageCalc",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "BrandE",
+     "name": "BaseDamage",
+     "values": [
+      55.0,
+      80.0,
+      105.0,
+      130.0,
+      155.0
+     ]
+    }
+   },
+   "sha256": "199554cd24bba8d1a90d3c49b12d7d4f22652cf950d073fd1d6b799a07af84bb",
+   "original_sha256": "e9e3ec7f34f7c6f06ca8c95ff14172ac42db3e9708e7b794b65696806be47369"
+  },
+  {
+   "id": "test-239",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:shyvana:Characters/Shyvana/Spells/ShyvanaQAbility/ShyvanaQ:keyTooltip",
+   "ability": [
+    "shyvana",
+    "Characters/Shyvana/Spells/ShyvanaQAbility"
+   ],
+   "change": {
+    "calc": "Calc_Damage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "ShyvanaQ",
+     "name": "Base_Damage",
+     "values": [
+      10.0,
+      15.0,
+      20.0,
+      25.0,
+      30.0
+     ]
+    }
+   },
+   "sha256": "d23fdf02180de40dcdf51816e6fb8041259fff14361723872b5c9fe5bc6ffd22",
+   "original_sha256": "e172a969bf934b541e23f33f3efd96b735955fb95e3079cb0ae9764b98060476"
+  },
+  {
+   "id": "test-240",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:illaoi:Characters/Illaoi/Spells/IllaoiRAbility/IllaoiR:keyTooltip",
+   "ability": [
+    "illaoi",
+    "Characters/Illaoi/Spells/IllaoiRAbility/IllaoiR"
+   ],
+   "change": {
+    "calc": "DamageCalc",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "IllaoiR",
+     "name": "BaseDamage",
+     "values": [
+      150.0,
+      250.0,
+      350.0
+     ]
+    }
+   },
+   "sha256": "1ff78d986387e560e1de9df2709dd731a186756b29122a6d6bd8d70aca72558b",
+   "original_sha256": "288f04c412aa19d6ec53e5a05103f09b406d5fbc342c273c63b365ec0642733d"
+  },
+  {
+   "id": "test-241",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:belveth:Characters/Belveth/Spells/BelvethEAbility/BelvethE:keyTooltip",
+   "ability": [
+    "belveth",
+    "Characters/Belveth/Spells/BelvethEAbility/BelvethE"
+   ],
+   "change": {
+    "calc": "DamagePerStrike",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "BelvethE",
+     "name": "DamagePerHit",
+     "values": [
+      10.0,
+      12.0,
+      14.0,
+      16.0,
+      18.0
+     ]
+    }
+   },
+   "sha256": "43adec3c91b4932368a9c30b32bb0d1b83e2d497c499b8a3b37230d70794311f",
+   "original_sha256": "07162e848bfb061875d17e3014ee69655d0654d5f315d8e57654dd7b896224bd"
+  },
+  {
+   "id": "test-242",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:caitlyn:Characters/Caitlyn/Spells/CaitlynEAbility/CaitlynE:keyTooltip",
+   "ability": [
+    "caitlyn",
+    "Characters/Caitlyn/Spells/CaitlynEAbility"
+   ],
+   "change": {
+    "calc": "NetDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 1.5,
+    "from": 0.8,
+    "to": 1.2,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "CaitlynE",
+     "name": "mCoefficient",
+     "values": [
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8
+     ]
+    }
+   },
+   "sha256": "ae4c3601d778b511daca562f4bb9e298be897f71e6e6fff441c8587d2a3d44bb",
+   "original_sha256": "805a0fccc0eac4c65c968d4ae6a791daff2e7ed167f1c5ce6d08a4aa6a0c5d06"
+  },
+  {
+   "id": "test-243",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:viktor:Characters/Viktor/Spells/ViktorRAbility/ViktorR:keyTooltip",
+   "ability": [
+    "viktor",
+    "Characters/Viktor/Spells/ViktorRAbility"
+   ],
+   "change": {
+    "calc": "InitialBurstDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "InitialBurstAPRatio",
+    "factor": 0.5,
+    "from": [
+     0.5,
+     0.5,
+     0.5
+    ],
+    "to": [
+     0.25,
+     0.25,
+     0.25
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "ViktorR",
+     "name": "mCoefficient",
+     "values": [
+      0.5,
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "sha256": "e5815e3e05c79a6e5656e94e4e9c27f65ad759d9370cb8c51eacff89b4432e40",
+   "original_sha256": "57d0ad12c01b52f1ee33ad1a1e17769c3a06b9ddb8d1b965d1c39fc6a4fd69d0"
+  },
+  {
+   "id": "test-244",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:veigar:Characters/Veigar/Spells/VeigarBalefulStrikeAbility/VeigarBalefulStrike:keyTooltip",
+   "ability": [
+    "veigar",
+    "Characters/Veigar/Spells/VeigarBalefulStrikeAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 1,
+    "anchor": {
+     "type": "level_up",
+     "spell": "VeigarBalefulStrike",
+     "name": "APRatio",
+     "values": [
+      0.5,
+      0.550000011920929,
+      0.6000000238418579,
+      0.6499999761581421,
+      0.699999988079071
+     ]
+    }
+   },
+   "sha256": "86d91b39f6722f6a6b34a1b08ac8383da7de7de7cd56230b4ece57f1dd68636f",
+   "original_sha256": "a98c5ae8b9ba5584bf80ad699790b00fc04ac1e3261a163f0bb02e2eab2f9194"
+  },
+  {
+   "id": "test-245",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:neeko:Characters/Neeko/Spells/NeekoWAbility/NeekoW:keyTooltip",
+   "ability": [
+    "neeko",
+    "Characters/Neeko/Spells/NeekoWAbility"
+   ],
+   "change": {
+    "calc": "PassiveBonusDamageCalc",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "data_value": "APRatio",
+    "factor": 0.75,
+    "from": [
+     0.6,
+     0.6,
+     0.6,
+     0.6,
+     0.6
+    ],
+    "to": [
+     0.45,
+     0.45,
+     0.45,
+     0.45,
+     0.45
+    ],
+    "anchor": {
+     "type": "calculation",
+     "spell": "NeekoW2",
+     "name": "PassiveBonusDamageCalc",
+     "values": [
+      0.6000000238418579,
+      0.6000000238418579,
+      0.6000000238418579,
+      0.6000000238418579,
+      0.6000000238418579
+     ]
+    }
+   },
+   "sha256": "83005540317958bed1affd0e88f275deb7e1ea1aade877e60fa9a3f8372df683",
+   "original_sha256": "ca74be5b814e0679a022a4d339499ee2c926eaceb35a994c593c7922ee0b5e60"
+  },
+  {
+   "id": "test-246",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:shen:Characters/Shen/Spells/ShenRAbility/ShenR:keyTooltip",
+   "ability": [
+    "shen",
+    "Characters/Shen/Spells/ShenRAbility/ShenR"
+   ],
+   "change": {
+    "calc": "Shield",
+    "part": [
+     "mFormulaParts",
+     2
+    ],
+    "stat": "AP",
+    "data_value": "ShieldAPRatio",
+    "factor": 2.0,
+    "from": [
+     1.35,
+     1.35,
+     1.35
+    ],
+    "to": [
+     2.7,
+     2.7,
+     2.7
+    ],
+    "anchor": {
+     "type": "coefficient",
+     "spell": "ShenR",
+     "name": "mCoefficient",
+     "values": [
+      1.350000023841858,
+      1.350000023841858,
+      1.350000023841858
+     ]
+    }
+   },
+   "sha256": "1815d5201bccaed70caa9ea3f72b4cc1ada20b46c659902b8b77cbaf145cae1e",
+   "original_sha256": "59e524c94600409c234dc02dfa4e9d588906dfb34b9e3063933be36456753215"
+  },
+  {
+   "id": "test-247",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:anivia:Characters/Anivia/Spells/FrostbiteAbility/Frostbite:keyTooltip",
+   "ability": [
+    "anivia",
+    "Characters/Anivia/Spells/FrostbiteAbility/Frostbite"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "Frostbite",
+     "name": "BaseDamage",
+     "values": [
+      55.0,
+      80.0,
+      105.0,
+      130.0,
+      155.0
+     ]
+    }
+   },
+   "sha256": "ace391f4be777e5a719e1ea9476cf1ffa5b83911e559e9ce4320f95d0cc76942",
+   "original_sha256": "4cbb5d6676c64bc102305cf0a60eb86451a3898706da236dc601daac4c429e78"
+  },
+  {
+   "id": "test-248",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:lucian:Characters/Lucian/Spells/LucianRAbility/LucianR:keyTooltip",
+   "ability": [
+    "lucian",
+    "Characters/Lucian/Spells/LucianRAbility"
+   ],
+   "change": {
+    "calc": "DamagePerBullet",
+    "dropped_part": 2,
+    "anchor": {
+     "type": "calculation",
+     "spell": "LucianR",
+     "name": "TotalDamage",
+     "values": [
+      0.15000000596046448,
+      0.15000000596046448,
+      0.15000000596046448
+     ]
+    }
+   },
+   "sha256": "231ce0599621ac8da19f69e4e73cc6c0a1aabc1867897b165b800563f72b6808",
+   "original_sha256": "3dd09ba31cde60077bdab62e2698e104add59e449c87a93744265fe534bbbdab"
+  },
+  {
+   "id": "test-249",
+   "rule": "drop_term",
+   "record_id": "16.19:en_us:morgana:Characters/Morgana/Spells/MorganaRAbility/MorganaR:keyTooltip",
+   "ability": [
+    "morgana",
+    "Characters/Morgana/Spells/MorganaRAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "dropped_part": 0,
+    "anchor": {
+     "type": "level_up",
+     "spell": "MorganaR",
+     "name": "Damage",
+     "values": [
+      200.0,
+      275.0,
+      350.0
+     ]
+    }
+   },
+   "sha256": "cb4e0bce74c4ae845786316343ffd6ffdd1a77761d130884a158eb4178f77a65",
+   "original_sha256": "f011ff92fc1079effcada3f07883bd90452ec77ef2a9a705a71bb355e67886a3"
+  },
+  {
+   "id": "test-250",
+   "rule": "stat_ratio",
+   "record_id": "16.19:en_us:nami:Characters/Nami/Spells/NamiRAbility/NamiR:keyTooltip",
+   "ability": [
+    "nami",
+    "Characters/Nami/Spells/NamiRAbility"
+   ],
+   "change": {
+    "calc": "TotalDamage",
+    "part": [
+     "mFormulaParts",
+     1
+    ],
+    "stat": "AP",
+    "factor": 0.5,
+    "from": 0.6,
+    "to": 0.3,
+    "anchor": {
+     "type": "coefficient",
+     "spell": "NamiR",
+     "name": "mCoefficient",
+     "values": [
+      0.6,
+      0.6,
+      0.6
+     ]
+    }
+   },
+   "sha256": "853b37b99c314b8767286c1d56024af199c023d9628116538237f273abab8be4",
+   "original_sha256": "b0033d1c288ec143859592ed6a68a2cb1733abe073be788c53ed032b3cd2575f"
+  }
+ ]
+}
