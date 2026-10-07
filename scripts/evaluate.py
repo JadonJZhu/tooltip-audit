@@ -32,8 +32,8 @@ each line of data/inputs/realbugs.jsonl, which check_model.py writes as "id" and
 as "planted_id".
 
 The cost of run 1 is worked out from the logged token counts at the pinned provider's prices
-(check_model.PRICES; cached prompt tokens at the cache-read price), as success criterion 3
-says, with OpenRouter's billed cost beside it.
+(check_model.PRICES; cached prompt tokens at the cache-read price), with OpenRouter's billed
+cost beside it.
 
 Every flag is reduced to {record_id, text_field, names}, with the reason and the method's
 wording removed. "names" keeps only the @Placeholder@ tokens the flag names, or else a few

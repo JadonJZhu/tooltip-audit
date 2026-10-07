@@ -9,8 +9,8 @@ Each call sends the fixed instructions (PROMPT, the same bytes on every call) an
 record as compact JSON. The record's "id" is left out, so the model never sees a planted id.
 The model answers in JSON: {"flags": [{"names": ..., "reason": ...}]}.
 
-Settings are fixed in MODELS and request_body(): temperature 0, reasoning off, one pinned
-provider with fallbacks off. --backup uses the backup provider instead.
+Each model's settings (temperature, reasoning, answer cap) are fixed in MODELS, with one pinned
+provider and fallbacks off. --backup uses the backup provider instead.
 
 A call that fails (any error, or output that can't be parsed into flags) is retried up to 3
 times with the same settings. After that the record is written with flags [] and failed true.
@@ -43,21 +43,23 @@ KEY_VAR = "OPEN_ROUTER_API_KEY"
 ENV_FILE = Path(__file__).resolve().parents[3] / ".env"
 RETRIES = 3
 TIMEOUT = 180
-MAX_TOKENS = 4000  # a cap on each answer, so a runaway answer stops and is retried rather than billed at length
 FAIL_SHARE = 0.05  # PLAN.md "Keeping the test honest": more than 5% failed calls reruns the session
 
 MODELS = {
-    "strong": {"model": "deepseek/deepseek-v4-pro-0813", "order": ["nextbit/fp8"], "backup": ["coreweave/fp8"]},
-    "small": {"model": "qwen/qwen3.8-27b", "order": ["deepinfra/bf16"], "backup": ["parasail/fp8"]},
+    "strong": {"model": "deepseek/deepseek-v4-pro-0813", "order": ["coreweave/fp8"], "backup": ["nebius/fp8"],
+               "temperature": 1.0, "reasoning": {"effort": "low"}, "max_tokens": 32000},
+    "small": {"model": "qwen/qwen3.8-27b", "order": ["deepinfra/bf16"], "backup": ["parasail/fp8"],
+              "temperature": 0, "reasoning": {"enabled": True}, "max_tokens": 32000},
 }
 
-# USD per million tokens at each provider (2026-10-06). A cached prompt token is billed at
+# USD per million tokens at each provider (2026-10-06; nebius/fp8 2026-10-07). A cached prompt token is billed at
 # cache_read instead of input.
 PRICES = {
     "nextbit/fp8": {"input": 1.056, "output": 3.168, "cache_read": 0.035},
     "coreweave/fp8": {"input": 1.31, "output": 3.96, "cache_read": 0.044},
     "deepinfra/bf16": {"input": 0.15, "output": 1.875, "cache_read": 0.0375},
     "parasail/fp8": {"input": 0.24, "output": 2.2, "cache_read": 0.05},
+    "nebius/fp8": {"input": 1.32, "output": 3.96, "cache_read": 0.0},
 }
 
 PROMPT_VERSION = "v1"
@@ -123,9 +125,9 @@ def request_body(inp, model_key, backup=False):
     return {
         "model": m["model"],
         "messages": [{"role": "system", "content": PROMPT}, {"role": "user", "content": render(inp)}],
-        "temperature": 0,
-        "max_tokens": MAX_TOKENS,
-        "reasoning": {"enabled": False},
+        "temperature": m["temperature"],
+        "max_tokens": m["max_tokens"],
+        "reasoning": m["reasoning"],
         "provider": {"order": m["backup" if backup else "order"], "allow_fallbacks": False,
                      "require_parameters": True},
         "response_format": {"type": "json_schema", "json_schema": {"name": "flags", "strict": True, "schema": SCHEMA}},

@@ -115,7 +115,7 @@ On a planted set, `--dev-report` prints how many planted errors of each rule a f
 
 ## check_model.py
 
-The model checker (PLAN.md, "The experiment", step 4). It sends each record of an inputs file, a planted set or `data/inputs/realbugs.jsonl` to a language model through OpenRouter, one record per call, and writes one line per call to the `--out` file. A line that holds its input under `input` is read by its own `id`. Each call sends the fixed instructions and then the record as compact JSON without its id, so the model never sees a planted id. Settings are fixed in `MODELS` and the request: temperature 0, reasoning off, at most 4,000 tokens in the answer, one pinned provider with fallbacks off. `--backup` uses the backup provider.
+The model checker (PLAN.md, "The experiment", step 4). It sends each record of an inputs file, a planted set or `data/inputs/realbugs.jsonl` to a language model through OpenRouter, one record per call, and writes one line per call to the `--out` file. A line that holds its input under `input` is read by its own `id`. Each call sends the fixed instructions and then the record as compact JSON without its id, so the model never sees a planted id. Each model's settings are fixed in `MODELS`. The strong model runs at temperature 1.0 with low reasoning effort, and the small model at temperature 0 with reasoning on. Both allow at most 32,000 tokens in the answer and use one pinned provider with fallbacks off. `--backup` uses the backup provider.
 
 ```
 python3 scripts/check_model.py data/planted/dev.jsonl --model strong --run 1 --out runs/dev.strong.1.jsonl
@@ -142,7 +142,7 @@ python3 scripts/evaluate.py report --judged data/eval/judged.test.json --judged 
 
 A flag's common form keeps the record, the text field and what it names: its `@Placeholder@` tokens, or else a few of its quoted words with any HTML tags taken out. A script flag on a typed number keeps the number with up to two whole words of the same sentence on each side, so it reads like a short quote (`"Cooldown by 50%"`).
 
-`report` gives the McNemar tests, recall by rule and by kind with their intervals, precision and flags per 1,000 records, the failed calls on every planted, real-bug and sweep run, and the cost of the strong model's run 1 of the sweep. That cost is worked out from the logged tokens at the pinned provider's prices, with cached prompt tokens at the cache-read price (success criterion 3), and OpenRouter's billed cost is given beside it. Given both a planted set's judgments and the labels, the first report writes `data/eval/spot_check.csv` with 10 catch judgments from the planted set and 10 labels; fill in its `author` column and run report again to score them. Without both, it skips the spot checks and says so.
+`report` gives the McNemar tests, recall by rule and by kind with their intervals, precision and flags per 1,000 records, the failed calls on every planted, real-bug and sweep run, and the cost of the strong model's run 1 of the sweep. That cost is worked out from the logged tokens at the pinned provider's prices, with cached prompt tokens at the cache-read price, and OpenRouter's billed cost is given beside it. Given both a planted set's judgments and the labels, the first report writes `data/eval/spot_check.csv` with 10 catch judgments from the planted set and 10 labels; fill in its `author` column and run report again to score them. Without both, it skips the spot checks and says so.
 
 Judgments are cached in `--cache`, so a stopped run picks up where it left off and an identical pair is judged once. The judge thinks at medium effort with at most 16,000 tokens. `--dry-run` prints the number of calls still to make and the first request, and makes no call.
 
@@ -158,7 +158,7 @@ It writes `data/inputs/realbugs.jsonl`, one line per input: `{"id", "kind": "rea
 
 ## Final session
 
-The order of the final session (PLAN.md, "Keeping the test honest"). `P` is the final-run patch, the latest live patch on the day, newer than 16.19. Model runs and judgments go in `runs/final/`, which is committed.
+The order of the final session (PLAN.md, "Keeping the test honest"). `P` is the final-run patch, 16.19 (Riot's 26.19), chosen 2026-10-07. Model runs and judgments go in `runs/final/`, which is committed.
 
 ```
 python3 scripts/fetch_cdragon.py --patches P

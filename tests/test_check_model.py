@@ -95,16 +95,20 @@ class TestPrompt(unittest.TestCase):
     def test_request_settings(self):
         b = C.request_body(inp(), "strong")
         self.assertEqual(b["model"], "deepseek/deepseek-v4-pro-0813")
-        self.assertEqual(b["temperature"], 0)
-        self.assertEqual(b["max_tokens"], 4000)
-        self.assertEqual(b["reasoning"], {"enabled": False})
-        self.assertEqual(b["provider"], {"order": ["nextbit/fp8"], "allow_fallbacks": False,
+        self.assertEqual(b["temperature"], 1.0)
+        self.assertEqual(b["max_tokens"], 32000)
+        self.assertEqual(b["reasoning"], {"effort": "low"})
+        self.assertEqual(b["provider"], {"order": ["coreweave/fp8"], "allow_fallbacks": False,
                                          "require_parameters": True})
         self.assertEqual(b["usage"], {"include": True})
         self.assertEqual(b["response_format"]["type"], "json_schema")
         self.assertEqual(b["response_format"]["json_schema"]["schema"]["required"], ["flags"])
-        self.assertEqual(C.request_body(inp(), "strong", backup=True)["provider"]["order"], ["coreweave/fp8"])
-        self.assertEqual(C.request_body(inp(), "small")["provider"]["order"], ["deepinfra/bf16"])
+        self.assertEqual(C.request_body(inp(), "strong", backup=True)["provider"]["order"], ["nebius/fp8"])
+        s = C.request_body(inp(), "small")
+        self.assertEqual(s["model"], "qwen/qwen3.8-27b")
+        self.assertEqual((s["temperature"], s["max_tokens"], s["reasoning"]), (0, 32000, {"enabled": True}))
+        self.assertEqual(s["provider"]["order"], ["deepinfra/bf16"])
+        self.assertEqual(C.request_body(inp(), "small", backup=True)["provider"]["order"], ["parasail/fp8"])
 
 
 class TestCall(unittest.TestCase):
@@ -138,7 +142,7 @@ class TestCall(unittest.TestCase):
         self.assertEqual((out["attempts"], out["failed"]), (4, False))
         self.assertEqual((out["prompt_tokens"], out["completion_tokens"], out["cached_tokens"]), (1800, 60, 1200))
         self.assertAlmostEqual(out["cost"], 0.0024)
-        self.assertEqual(out["pinned"], "coreweave/fp8")
+        self.assertEqual(out["pinned"], "nebius/fp8")
 
     def test_gives_up_after_three_retries(self):
         fake = Fake(response(content='{"flags": [{"names": 1}]}'))
