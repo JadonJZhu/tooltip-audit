@@ -269,6 +269,22 @@ class Label(unittest.TestCase):
             sc = E.report(judged, res, d / "spot.csv")["spot_check"]["label"]
             self.assertEqual((sc["k"], sc["n"]), (9, 10))
 
+    def test_cost_counts_every_line_of_a_resumed_run(self):
+        with tempfile.TemporaryDirectory() as d:
+            d = Path(d)
+            line = {"model": "deepseek/deepseek-v4-pro-0813", "pinned": "nextbit/fp8", "flags": [],
+                    "prompt_tokens": 1000, "cached_tokens": 0, "completion_tokens": 0}
+            run = d / "strong1.jsonl"
+            run.write_text("".join(json.dumps({**line, **o}) + "\n" for o in [
+                {"id": "a", "failed": True, "cost": 0.5},
+                {"id": "b", "failed": False, "cost": 0.25},
+                {"id": "a", "failed": False, "cost": 0.5}]))
+            methods = E.parse_methods([f"strong={run}"])
+            s = E.label([{"id": "a"}, {"id": "b"}], methods, E.Cache(d / "c.jsonl"), post=FakeJudge())["methods"]["strong"]
+            self.assertEqual((s["calls_run1"], s["failed_by_run"]), (2, [0]))  # the rest uses the last line per id
+            self.assertAlmostEqual(s["billed_cost_run1"], 1.25)
+            self.assertAlmostEqual(s["cost_run1"], 3 * 1000 * 1.056 / 1e6)
+
     def test_draw_is_seeded(self):
         flags = list(range(500))
         self.assertEqual(E.rng("label-draw:strong").sample(flags, 200), E.rng("label-draw:strong").sample(flags, 200))

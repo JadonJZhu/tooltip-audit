@@ -33,7 +33,8 @@ as "planted_id".
 
 The cost of run 1 is worked out from the logged token counts at the pinned provider's prices
 (check_model.PRICES; cached prompt tokens at the cache-read price), with OpenRouter's billed
-cost beside it.
+cost beside it. Cost counts every line of the run file, so a resumed run includes the billed
+attempts of its earlier lines.
 
 Every flag is reduced to {record_id, text_field, names}, with the reason and the method's
 wording removed. "names" keeps only the @Placeholder@ tokens the flag names, or else a few
@@ -246,8 +247,17 @@ def parse_methods(specs):
         if not sep or not files:
             sys.exit(f"--run takes NAME=file[,file...], got {s!r}")
         runs = [read_jsonl(f) for f in files.split(",")]
-        out[name] = runs if name == SCRIPT else [check_model.last_lines(r) for r in runs]
+        out[name] = runs if name == SCRIPT else [Run(r) for r in runs]
     return out
+
+
+class Run(list):
+    """A model run: the last line of each id, with every line of the file (earlier attempts of a
+    resumed run included) kept in .all for the run's cost."""
+
+    def __init__(self, lines):
+        super().__init__(check_model.last_lines(lines))
+        self.all = lines
 
 
 def flags_on_case(case, lines, method):
@@ -424,9 +434,10 @@ def label(inputs, methods, cache, dry_run=False, post=None):
             s["failed_by_run"] = [sum(1 for ln in r if ln.get("failed")) for r in runs]
             for k in ("prompt_tokens", "completion_tokens", "cached_tokens"):
                 s[f"{k}_run1"] = sum(ln.get(k) or 0 for ln in run1)
-            s["cost_run1"], s["lines_without_tokens_run1"] = cost_at_prices(run1)
-            s["billed_cost_run1"] = sum(ln.get("cost") or 0 for ln in run1)
-            s["lines_without_billed_cost_run1"] = sum(1 for ln in run1 if ln.get("cost") is None)
+            every = getattr(run1, "all", run1)  # cost counts every line, so a resumed run's earlier billed attempts too
+            s["cost_run1"], s["lines_without_tokens_run1"] = cost_at_prices(every)
+            s["billed_cost_run1"] = sum(ln.get("cost") or 0 for ln in every)
+            s["lines_without_billed_cost_run1"] = sum(1 for ln in every if ln.get("cost") is None)
         summary[m] = s
     rng("label-pool").shuffle(pool)
     jobs = [(_key("label", f),

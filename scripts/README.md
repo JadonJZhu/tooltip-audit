@@ -123,7 +123,7 @@ python3 scripts/check_model.py data/inputs/16.19.en_us.jsonl --model small --run
 python3 scripts/check_model.py data/planted/dev.jsonl --model strong --run 1 --out x.jsonl --dry-run
 ```
 
-A call that fails, for any reason or because its answer can't be read as flags, is retried up to 3 times with the same settings, then written with no flags and `failed` true. Running the same command again skips the records whose last line has `failed` false and calls the rest again, adding a new line for each; every reader takes the last line of each id. At the end it prints how many records failed, and warns when that is more than 5% (PLAN.md says to rerun on the backup providers).
+A call that fails, for any reason or because its answer can't be read as flags, is retried up to 3 times with the same settings, then written with no flags and `failed` true. Running the same command again skips the records whose last line has `failed` false and calls the rest again, adding a new line for each; every reader takes the last line of each id. An account error from OpenRouter (HTTP 401, 402 or 403: a bad key, no credit or a key limit) is not a model failure, so it is not retried. The record it stopped writes no line, unless an earlier attempt of it was billed: then it is written with `failed` true, so its cost stays in the file. The run stops, lets the calls already under way finish, and exits with an error naming the code; fix the account and run the same command again to pick up where it stopped. At the end it prints how many records failed, and warns when that is more than 5% (PLAN.md says to rerun on the backup providers).
 
 Each line holds the id, the model, the provider asked for (`pinned`) and the one that served the call, the prompt version, the run number, the time (UTC), the prompt, completion and cached tokens and OpenRouter's cost (each added up over every attempt that returned them), the flags, `failed`, the number of attempts and, for a failed call, the last error. `PRICES` gives each provider's price per million tokens, which evaluate.py uses for the cost of run 1. The key is read from `OPEN_ROUTER_API_KEY`, or from the `.env` file of the parent folder.
 
@@ -142,7 +142,7 @@ python3 scripts/evaluate.py report --judged data/eval/judged.test.json --judged 
 
 A flag's common form keeps the record, the text field and what it names: its `@Placeholder@` tokens, or else a few of its quoted words with any HTML tags taken out. A script flag on a typed number keeps the number with up to two whole words of the same sentence on each side, so it reads like a short quote (`"Cooldown by 50%"`).
 
-`report` gives the McNemar tests, recall by rule and by kind with their intervals, precision and flags per 1,000 records, the failed calls on every planted, real-bug and sweep run, and the cost of the strong model's run 1 of the sweep. That cost is worked out from the logged tokens at the pinned provider's prices, with cached prompt tokens at the cache-read price, and OpenRouter's billed cost is given beside it. Given both a planted set's judgments and the labels, the first report writes `data/eval/spot_check.csv` with 10 catch judgments from the planted set and 10 labels; fill in its `author` column and run report again to score them. Without both, it skips the spot checks and says so.
+`report` gives the McNemar tests, recall by rule and by kind with their intervals, precision and flags per 1,000 records, the failed calls on every planted, real-bug and sweep run, and the cost of the strong model's run 1 of the sweep. That cost is worked out from the logged tokens at the pinned provider's prices, with cached prompt tokens at the cache-read price, and OpenRouter's billed cost is given beside it. Cost counts every line of the run file, so a resumed run includes what its earlier attempts were billed. Given both a planted set's judgments and the labels, the first report writes `data/eval/spot_check.csv` with 10 catch judgments from the planted set and 10 labels; fill in its `author` column and run report again to score them. Without both, it skips the spot checks and says so.
 
 Judgments are cached in `--cache`, so a stopped run picks up where it left off and an identical pair is judged once. The judge thinks at medium effort with at most 16,000 tokens. `--dry-run` prints the number of calls still to make and the first request, and makes no call.
 
@@ -179,7 +179,7 @@ python3 scripts/evaluate.py label data/inputs/P.en_us.jsonl --run strong=... --r
 python3 scripts/evaluate.py report --judged runs/final/judged.test.json --judged runs/final/judged.real.json --labels runs/final/labels.json --out runs/final/report.json
 ```
 
-If more than 5% of a run's calls still fail, the whole session is rerun with `--backup` into a new folder, and the first session's files are kept and not scored. Sweep run 1 is not resumed, since its cost would then leave out the failed first attempts.
+If more than 5% of a run's calls still fail, the whole session is rerun with `--backup` into a new folder, and the first session's files are kept and not scored. Any run can be resumed by running its command again.
 
 ## mine_patch_notes.py and patches.py
 

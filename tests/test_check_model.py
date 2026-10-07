@@ -211,6 +211,36 @@ class TestMain(unittest.TestCase):
         self.assertIn("failed: 2 (100.0%)", printed)
         self.assertIn("WARNING", printed)
 
+    def test_account_error_stops_without_retry_or_line(self):
+        self.out.parent.mkdir()
+        self.out.write_text(json.dumps({"id": "r0", "failed": True, "flags": []}) + "\n")
+        fake = Fake(urllib.error.HTTPError(C.URL, 402, "payment required", {}, None))
+        buf = io.StringIO()
+        with patched(fake), contextlib.redirect_stdout(buf):
+            code = C.main([str(self.src), "--model", "strong", "--run", "1", "--out", str(self.out),
+                           "--workers", "1"])
+        self.assertEqual(code, 1)
+        self.assertEqual(len(fake.bodies), 1)  # no retry, and no new call after the stop
+        self.assertEqual(self.lines(), [{"id": "r0", "failed": True, "flags": []}])  # no line written
+        self.assertIn("HTTP 402", buf.getvalue())
+        self.assertIn("rerun the same command", buf.getvalue())
+
+    def test_account_error_after_billed_attempt_writes_failed_line(self):
+        fake = Fake(response(content="not json"), urllib.error.HTTPError(C.URL, 402, "payment required", {}, None))
+        buf = io.StringIO()
+        with patched(fake), contextlib.redirect_stdout(buf):
+            code = C.main([str(self.src), "--model", "strong", "--run", "1", "--out", str(self.out),
+                           "--limit", "1"])
+        self.assertEqual(code, 1)
+        self.assertEqual(len(fake.bodies), 2)  # the billed attempt, then the 402, not retried
+        (o,) = self.lines()
+        self.assertEqual((o["id"], o["failed"], o["flags"], o["attempts"], o["error"]), ("r0", True, [], 2, "HTTP 402"))
+        self.assertEqual((o["prompt_tokens"], o["cost"]), (900, 0.0012))
+        fake = Fake(response([]))
+        self.run_main(fake, "--limit", "1")  # rerunning calls r0 again, since its last line is failed
+        self.assertEqual(len(fake.bodies), 1)
+        self.assertEqual([(o["id"], o["failed"]) for o in self.lines()], [("r0", True), ("r0", False)])
+
     def test_dry_run_makes_no_call(self):
         fake = Fake(AssertionError("no call allowed"))
         printed = self.run_main(fake, "--dry-run")

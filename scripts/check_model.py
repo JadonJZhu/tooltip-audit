@@ -14,6 +14,11 @@ provider and fallbacks off. --backup uses the backup provider instead.
 
 A call that fails (any error, or output that can't be parsed into flags) is retried up to 3
 times with the same settings. After that the record is written with flags [] and failed true.
+An account error (HTTP 401, 402 or 403: bad key, no credit, key limit) is not a model failure:
+it is not retried and stops the run (calls already in flight finish and are written; no new one
+starts), exiting non-zero. The record it stopped writes no line, unless an earlier attempt of it
+was billed: then it is written failed, so its cost stays in the file. Fix the account and rerun
+the same command.
 Running the same command again skips the ids whose last line in the --out file has failed
 false and calls the rest again, appending a new line; readers take the last line of each id.
 
@@ -43,6 +48,7 @@ KEY_VAR = "OPEN_ROUTER_API_KEY"
 ENV_FILE = Path(__file__).resolve().parents[3] / ".env"
 RETRIES = 3
 TIMEOUT = 180
+ACCOUNT_ERRORS = (401, 402, 403)  # bad key, no credit, key limit
 FAIL_SHARE = 0.05  # PLAN.md "Keeping the test honest": more than 5% failed calls reruns the session
 
 MODELS = {
@@ -170,6 +176,16 @@ def parse_flags(resp):
     return [{"names": f["names"], "reason": f["reason"]} for f in flags]
 
 
+class AccountError(Exception):
+    """OpenRouter refused the call for the account, not the model; carries the HTTP code, and the
+    record's failed line when an earlier attempt of it was billed (else None)."""
+
+    def __init__(self, code, line=None):
+        super().__init__(f"HTTP {code}")
+        self.code = code
+        self.line = line
+
+
 USAGE = ("prompt_tokens", "completion_tokens", "cached_tokens", "cost")
 
 
@@ -181,7 +197,8 @@ def usage_of(resp):
 
 
 def check_record(rid, inp, model_key, run, key, backup=False):
-    """Call the model for one record, with retries; return its log line."""
+    """Call the model for one record, with retries; return its log line. Raises AccountError on an
+    account error, without retrying, carrying the failed line if an earlier attempt was billed."""
     body = request_body(inp, model_key, backup)
     resp, flags, error, attempts = None, None, None, 0
     total = dict.fromkeys(USAGE)
@@ -197,12 +214,19 @@ def check_record(rid, inp, model_key, run, key, backup=False):
             break
         except urllib.error.HTTPError as e:
             error = f"HTTP {e.code}"
+            if e.code in ACCOUNT_ERRORS:
+                billed = any(v is not None for v in total.values())
+                raise AccountError(e.code, log_line(rid, model_key, run, backup, {}, total, None, attempts, error)
+                                   if billed else None) from None
         except Exception as e:  # noqa: BLE001  (any failure is retried the same way)
             error = f"{type(e).__name__}: {str(e)[:200]}"
         if attempts <= RETRIES:
             time.sleep(2 * attempts)
-    if not isinstance(resp, dict):
-        resp = {}
+    return log_line(rid, model_key, run, backup, resp if isinstance(resp, dict) else {}, total, flags, attempts, error)
+
+
+def log_line(rid, model_key, run, backup, resp, total, flags, attempts, error):
+    """One record's log line; failed when flags is None."""
     m = MODELS[model_key]
     out = {
         "id": rid,
@@ -265,9 +289,28 @@ def main(argv=None):
     with open(a.out, "a", encoding="utf-8") as fh, \
             concurrent.futures.ThreadPoolExecutor(max_workers=a.workers) as pool:
         futures = [pool.submit(check_record, rid, inp, a.model, a.run, key, a.backup) for rid, inp in todo]
+        account_error = None
         for fut in concurrent.futures.as_completed(futures):
-            fh.write(json.dumps(fut.result(), ensure_ascii=False) + "\n")
+            if fut.cancelled():
+                continue
+            try:
+                line = fut.result()
+            except AccountError as e:
+                if e.line is not None:  # an earlier attempt was billed: keep its cost in the file
+                    fh.write(json.dumps(e.line, ensure_ascii=False) + "\n")
+                    fh.flush()
+                if account_error is None:
+                    account_error = e
+                    for f in futures:  # start no new call; the ones in flight finish and are written
+                        f.cancel()
+                continue
+            fh.write(json.dumps(line, ensure_ascii=False) + "\n")
             fh.flush()
+    if account_error is not None:
+        print(f"STOPPED: OpenRouter answered HTTP {account_error.code}, an account error (bad key, no credit "
+              f"or key limit), not a model failure. The records it stopped were written failed (if already billed) or not at all. "
+              f"Fix the account, then rerun the same command to resume.")
+        return 1
 
     lines = last_lines(done_lines(a.out))
     failed = sum(1 for o in lines if o["failed"])
