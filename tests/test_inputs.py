@@ -216,11 +216,27 @@ class Spells(unittest.TestCase):
         own = line(refers_to=[key(AHRI_P)])
         inp = I.build_input(record(), {**lines(), own["key"]: own})
         self.assertEqual(inp["spell"]["level_up"], [["Damage", "BaseDamage", "40/65/90"]])
+        # The missile's effect amount and coefficient are read by nothing in the input, so left out.
         self.assertEqual(inp["ability"], [{"spell": "AhriQMissile", "slot": "Q-form",
-                                           "effects": {"Effect1Amount": [50, 80, 110]},
-                                           "stats": {"CastRange": 1000}, "coefficients": {"mCoefficient": 0.4}}])
+                                           "stats": {"CastRange": 1000}}])
         self.assertEqual(inp["referenced"], [{"spell": "AhriPassive", "slot": "P", "ranks": [1],
                                               "rank_source": "none (one rank)", "data_values": {"Heal": 9}}])
+
+    def test_only_read_effects_and_coefficients_kept(self):
+        own = line(effect_amounts={"Effect1Amount": [1, 2, 3], "Effect2Amount": [4, 5, 6], "Effect3Amount": [7, 8, 9]},
+                   coefficients={"mCoefficient": 0.5, "mCoefficient2": 0.2})
+        own["calculations"]["OtherCalc"]["mFormulaParts"] = [{"mEffectIndex": 2, "__type": "EffectValueCalculationPart",
+                                                              "effect": "Effect2Amount"}]
+        own["level_up"]["rows"].append({"type": "Effect3Amount", "reads": "Effect3Amount", "label": "X",
+                                        "value": {"display": ["7", "8", "9"]}})
+        rec = record(text="@Effect1Amount@ @CharAbilityPower2@",
+                     phs=[placeholder("Effect1Amount", kind="effect_amount", display=["1", "2", "3"]),
+                          placeholder("CharAbilityPower2", kind="legacy_stat_token", display=["20% AP"] * 3)])
+        inp = I.build_input(rec, {**lines(), own["key"]: own})
+        self.assertEqual(set(inp["spell"]["effects"]), {"Effect1Amount", "Effect2Amount", "Effect3Amount"})
+        self.assertEqual(inp["spell"]["coefficients"], {"mCoefficient2": 0.2})
+        bare = line(effect_amounts={"Effect1Amount": [1, 2, 3]})  # read by nothing: the dict goes
+        self.assertNotIn("effects", I.build_input(record(), {**lines(), bare["key"]: bare})["spell"])
 
     def test_level_up_shows_value_times_multiplier(self):
         own = line()
@@ -270,8 +286,12 @@ class ModifiedCopies(unittest.TestCase):
 class ReviewFixes(unittest.TestCase):
     def test_input_shares_no_object_with_its_sources(self):
         by = lines()
+        phs = [placeholder("TotalDamage", display=["1", "2", "3"]),
+               placeholder("Spell.AhriQMissile:Effect1Amount", kind="effect_amount", owner_spell="AhriQMissile",
+                           display=["50", "80", "110"]),
+               placeholder("CharAbilityPower", kind="legacy_stat_token", display=["50% AP"] * 3)]
         rec = record(varies_by_rank=["a"], typed_numbers=[{"value": 3, "text": "3", "start": 0, "end": 1,
-                                                            "context": "[3] fox-fires"}])
+                                                            "context": "[3] fox-fires"}], phs=phs)
         inp = I.build_input(rec, by)
         by[key(AHRI_Q)]["data_values"]["BaseDamage"][0] = 999
         by[key(AHRI_QM)]["effect_amounts"]["Effect1Amount"][0] = 999

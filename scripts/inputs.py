@@ -51,6 +51,10 @@ Each input holds (keys left out when empty):
                       data is the same in every language); english_missing is set instead
                       when there is none
 
+An effect amount (EffectNAmount) or coefficient (mCoefficient, mCoefficient2) is left out of a
+spell when nothing in the input reads it: no placeholder, calculation or level-up row of that
+spell names it.
+
 A list of per-rank values that are all the same is written once. A value that differs by rank
 is always written in full. A calculation keeps every part and number of the game's own
 formula, with the type names shortened ('NamedDataValueCalculationPart' becomes {"dv": name},
@@ -70,12 +74,13 @@ Examples (run from the project root):
 import argparse
 import copy
 import json
+import re
 import statistics
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from resolve_tooltips import CALC_REF_FIELDS, TOKEN_RE, fnv1a  # noqa: E402
+from resolve_tooltips import CALC_REF_FIELDS, LEGACY_STAT_RE, TOKEN_RE, fnv1a  # noqa: E402
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_RESOLVED = PROJECT_ROOT / "data" / "resolved"
@@ -275,20 +280,54 @@ def level_up(line):
     return rows
 
 
-def spell_part(line, ranks=None, skip_calcs=(), with_level_up=True):
+def read_field(name):
+    """The effect amount or coefficient field a placeholder or level-up name reads, or None."""
+    m = re.search(r"effect(\d+)amount", name or "", re.I)
+    if m:
+        return f"Effect{int(m.group(1))}Amount"
+    m = LEGACY_STAT_RE.match(name or "")
+    if m:
+        return "mCoefficient2" if m.group(2) else "mCoefficient"
+    return None
+
+
+def fields_read(line, names=()):
+    """The effect amounts and coefficients of a spell line that its calculations, its level-up
+    rows or the given placeholder names read."""
+    found = {read_field(n) for n in names}
+
+    def walk(o):
+        if isinstance(o, list):
+            for x in o:
+                walk(x)
+        elif isinstance(o, dict):
+            if isinstance(o.get("effect"), str):
+                found.add(read_field(o["effect"]))
+            for v in o.values():
+                walk(v)
+
+    walk(line.get("calculations"))
+    for row in ((line.get("level_up") or {}).get("rows") or []):
+        found.add(read_field(row.get("reads")))
+    return found
+
+
+def spell_part(line, ranks=None, skip_calcs=(), with_level_up=True, names=()):
     """A spell line in the short form. ranks are written only when they differ from the
-    record's."""
+    record's. names are the placeholder names of the input that read this spell."""
     out = {"spell": line.get("script_name") or line.get("spell_path"), "slot": line.get("slot")}
     if ranks is not None and line.get("ranks") != ranks:
         out["ranks"] = line.get("ranks")
         if line.get("rank_source"):
             out["rank_source"] = line["rank_source"]
+    read = fields_read(line, names)
     for src, dst in (("data_values", "data_values"), ("effect_amounts", "effects"), ("spell_stats", "stats")):
-        vals = {k: once(v) for k, v in (line.get(src) or {}).items()}
+        vals = {k: once(v) for k, v in (line.get(src) or {}).items() if src != "effect_amounts" or k in read}
         if vals:
             out[dst] = vals
-    if line.get("coefficients"):
-        out["coefficients"] = dict(line["coefficients"])
+    coefs = {k: v for k, v in (line.get("coefficients") or {}).items() if k in read}
+    if coefs:
+        out["coefficients"] = coefs
     calcs = {k: calculation(c) for k, c in (line.get("calculations") or {}).items() if k not in skip_calcs}
     if calcs:
         out["calculations"] = calcs
@@ -338,6 +377,7 @@ def build_input(rec, lines, english=None):
     ranks = rec.get("ranks")
     entries = {}
     used = {}  # spell key -> calculation names a placeholder shows
+    names = {}  # spell key -> placeholder names that read it
     for ph in rec.get("placeholders") or []:
         tok = ph.get("token")
         if tok in entries:
@@ -345,6 +385,7 @@ def build_input(rec, lines, english=None):
         line_key, line = own_key, own
         if ph.get("owner_spell"):
             line_key, line = owner_line(rec, ph["owner_spell"], lines)
+        names.setdefault(line_key, set()).add(ph.get("name"))
         e = placeholder_entry(ph, line)
         if "_calc" in e:
             used.setdefault(line_key, set()).add(e.pop("_calc"))
@@ -365,7 +406,7 @@ def build_input(rec, lines, english=None):
         out["rank_source"] = rec["rank_source"]
     if rec.get("extended_text_hidden_in_game"):
         out["extended_text_hidden_in_game"] = True
-    out["spell"] = spell_part(own, None, used.get(own_key, ()))
+    out["spell"] = spell_part(own, None, used.get(own_key, ()), names=names.get(own_key, ()))
     if own.get("ranks") != ranks:
         out["spell"]["ranks"] = own.get("ranks")
         out["spell"]["rank_source"] = own.get("rank_source")
@@ -380,7 +421,7 @@ def build_input(rec, lines, english=None):
         if ln is None:
             missing.append(k)
             continue
-        s = spell_part(ln, ranks, used.get(k, ()))
+        s = spell_part(ln, ranks, used.get(k, ()), names=names.get(k, ()))
         g = ln.get("group") or {}
         if g.get("joined_by") and g.get("joined_by") != "AbilityObject":
             s["joined_by"] = g["joined_by"]
@@ -398,7 +439,7 @@ def build_input(rec, lines, english=None):
         if ln is None:
             missing.append(k)
             continue
-        referenced.append(spell_part(ln, ranks, used.get(k, ())))
+        referenced.append(spell_part(ln, ranks, used.get(k, ()), names=names.get(k, ())))
     if referenced:
         out["referenced"] = referenced
     if missing:

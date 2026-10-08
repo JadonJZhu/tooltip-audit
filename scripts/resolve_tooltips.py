@@ -94,7 +94,8 @@ as 0.
 Ranks. The number of ranks comes from the spell's LevelUp list, or its ability's root spell.
 A spell with neither gets one rank. If its data still changes between ranks 1 and 5 (Samira's
 E buff, for example), its rank_source says so, because the single value shown may not be the
-one the tooltip uses.
+one the tooltip uses. A @spell.X:Name@ token for another spell X shows X's values over X's
+own ranks, as the game indexes them by X's rank.
 
 Stat codes. mStat numbers changed several times: before 11.11 the codes from 4 up sat one
 lower; up to 10.20 health and current health sat one lower again; codes from 11 or 12 up
@@ -1276,6 +1277,9 @@ def resolve_placeholder(tok_text, champ, spell, ranks, stat_names):
             out.update(kind="reference", status="unresolved",
                        reason="referenced spell not in champion file", detail=tok["owner"])
             return out
+        if target is not spell:
+            # The game reads another spell's value at that spell's own rank.
+            ranks = rank_info(champ, target.path, target)[0]
 
     ctx = Context(champ, target, stat_names)
     factor = tok["factor"]

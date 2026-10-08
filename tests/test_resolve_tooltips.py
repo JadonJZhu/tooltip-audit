@@ -195,6 +195,17 @@ class Ranks(unittest.TestCase):
         _, ch, s = context(spell(data_values={"Duration": [3] * 7}))
         self.assertEqual(r.rank_info(ch, s.path, s)[1], "none (one rank)")
 
+    def test_other_spell_token_uses_that_spells_ranks(self):
+        # Anivia Q's @Spell.GlacialStorm:SlowAmount@ shows R's 3 ranks, not Q's 5.
+        own = named_spell("OwnQ", data_values={"SlowAmount": [1] * 7}, level_count=5)
+        ult = named_spell("OtherR", data_values={"SlowAmount": [0, 20, 30, 40, 50, 60, 70]}, level_count=3)
+        ch = r.Champion("test", {"Characters/Test/Spells/OwnQ": own, "Characters/Test/Spells/OtherR": ult})
+        q = ch.by_script["ownq"]
+        res = r.resolve_placeholder("Spell.OtherR:SlowAmount", ch, q, [1, 2, 3, 4, 5], r.STATS_B)
+        self.assertEqual(res["display"], ["20", "30", "40"])
+        res = r.resolve_placeholder("Spell.OwnQ:SlowAmount", ch, q, [1, 2, 3, 4, 5], r.STATS_B)
+        self.assertEqual(len(res["display"]), 5)
+
 
 class StringTables(unittest.TestCase):
     def test_fontconfig_version_2_with_font_config(self):

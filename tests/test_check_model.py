@@ -92,6 +92,10 @@ class TestPrompt(unittest.TestCase):
         self.assertEqual(a["messages"][1]["role"], "user")
         self.assertLess(len(C.PROMPT.split()), 400)
 
+    def test_unresolved_placeholders_not_flagged(self):
+        self.assertEqual(C.PROMPT_VERSION, "v2")
+        self.assertIn("A placeholder still shown as @Name@ in filled is one our tool could not work out", C.PROMPT)
+
     def test_request_settings(self):
         b = C.request_body(inp(), "strong")
         self.assertEqual(b["model"], "deepseek/deepseek-v4-pro-0813")

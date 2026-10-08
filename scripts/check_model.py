@@ -68,7 +68,7 @@ PRICES = {
     "nebius/fp8": {"input": 1.32, "output": 3.96, "cache_read": 0.0},
 }
 
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 PROMPT = """You check one League of Legends ability tooltip text against the game data behind it.
 
 The user message is one JSON record:
@@ -85,7 +85,7 @@ List every place where what the text shows disagrees with the data. That can be:
 - a number typed into the text that the data does not support;
 - a word that contradicts the data, such as the wrong damage type, stat or unit, or a translation that says something different from the English.
 
-Report only disagreements you can point to in the record. Do not report style, formatting, missing explanations, or anything the record gives you no way to check. If nothing disagrees, return an empty list.
+Report only disagreements you can point to in the record. Do not report style, formatting, missing explanations, or anything the record gives you no way to check. A placeholder still shown as @Name@ in filled is one our tool could not work out, not a game bug, so do not flag it. If nothing disagrees, return an empty list.
 
 For each flag, "names" is the placeholder as @Name@, exactly as written in text, or a short quote of the words the flag is about. "reason" is one sentence saying what the text shows and what the data says instead.
 
