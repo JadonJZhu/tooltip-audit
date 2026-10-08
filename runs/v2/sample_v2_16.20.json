@@ -1,0 +1,402 @@
+[
+ {
+  "n": 1,
+  "champion": "Kindred",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "10%",
+  "reason": "The tooltip types 10% as the Health threshold, but no data value or calculation in the record supports this number.",
+  "filled": "Kindred blesses the ground for 4 seconds, allowing no unit, ally, enemy, or neutral to die while inside. Upon reaching 10% Health, units can't be damaged or healed while still inside the zone.<br><br>When the blessing ends, all units inside heal for <healing>225/300/375 Health</healing>.",
+  "record_id": "16.20:en_us:kindred:Characters/Kindred/Spells/KindredRAbility/KindredR:keyTooltip"
+ },
+ {
+  "n": 2,
+  "champion": "Aatrox",
+  "slot": "Q",
+  "text_field": "keyTooltipExtendedBelowLine",
+  "names": "@QMinionDamage@",
+  "reason": "The text shows minion damage as 55% to 70% by level, but the formula's breakpoints at levels 21 and 26 each add another 0.05, reaching up to 80%.",
+  "filled": "<rules>Deals 55% to 70% (by level) damage to minions.<br><status>Knock Up</status> duration against monsters is doubled and it deals 25 bonus damage.</rules>",
+  "record_id": "16.20:en_us:aatrox:Characters/Aatrox/Spells/AatroxQAbility/AatroxQ:keyTooltipExtendedBelowLine"
+ },
+ {
+  "n": 3,
+  "champion": "Rammus",
+  "slot": "P",
+  "text_field": "keyTooltip",
+  "names": "@TotalDamage@",
+  "reason": "The filled tooltip shows a base value of 0, but the spell's data includes BaseDamage 10.",
+  "filled": "Rammus gains <scaleAD>0 (+15% armor +15% MR) Attack Damage</scaleAD>.",
+  "record_id": "16.20:en_us:rammus:Characters/Rammus/Spells/RammusPAbility/RammusP:keyTooltip"
+ },
+ {
+  "n": 4,
+  "champion": "Irelia",
+  "slot": "W",
+  "text_field": "keyTooltip",
+  "names": "@FinalPhysicalDR@",
+  "reason": "The tooltip shows physical damage reduction scaling from 40 to 70 by level, but the spell data has BasePhysicalDR set to 50.",
+  "filled": "<charge>Begin Charging:</charge> Irelia enters a defensive stance for up to 1.5 seconds, becoming unable to act but reducing physical damage taken by 40 to 70 (by level) (+8% AP)% and magic damage taken by 20 to 35 (by level) (+4% AP)%.<br><br><release>Release:</release> Irelia lashes out with her blades, dealing <physicalDamage>10/20/30/40/50 (+40% AD +50% AP) physical damage</physicalDamage> increased up to <physicalDamage>30/60/90/120/150 (+120% AD +150% AP)</physicalDamage> based on charge time.",
+  "record_id": "16.20:en_us:irelia:Characters/Irelia/Spells/IreliaWAbility/IreliaW:keyTooltip"
+ },
+ {
+  "n": 5,
+  "champion": "Elise",
+  "slot": "Q",
+  "text_field": "keyTooltipExtendedBelowLine",
+  "names": "@MonsterDamageCapCalc@",
+  "reason": "The placeholder shows the monster damage cap adding 90% AP, but the spell data and level-up list only give flat MonsterCapDamage values 65/85/105/125/145 with no 0.9 AP coefficient for the cap.",
+  "filled": "<rules><keywordMajor>Human Form</keywordMajor> and <keywordMajor>Spider Form</keywordMajor> percent Health damage is capped at 65/85/105/125/145 (+90% AP) against monsters.</rules>",
+  "record_id": "16.20:en_us:elise:Characters/Elise/Spells/EliseHumanQAbility/EliseHumanQ:keyTooltipExtendedBelowLine"
+ },
+ {
+  "n": 6,
+  "champion": "Jayce",
+  "slot": "R-form",
+  "text_field": "keyTooltip",
+  "names": "<keywordMajor>Mercury Cannon:</keywordMajor>",
+  "reason": "The header says Mercury Cannon, but the record's spell is JayceStanceGtH (Gun to Hammer), which transforms into the Mercury Hammer, so it should say Mercury Hammer instead.",
+  "filled": "<keywordMajor>Mercury Cannon:</keywordMajor> Jayce transforms his weapon into the <keywordMajor>Mercury Hammer</keywordMajor>, becoming melee ranged and gaining new Abilities and <scaleArmor>5 to 26 (by level) (+7.5% bonus AD) Armor</scaleArmor> and <scaleMR>Magic Resist</scaleMR>. Jayce's next Attack deals an additional <magicDamage>25 to 130 (by level) (+30% bonus AD) magic damage</magicDamage>.",
+  "record_id": "16.20:en_us:jayce:Characters/Jayce/Spells/JayceStanceHtGAbility/JayceStanceGtH:keyTooltip"
+ },
+ {
+  "n": 7,
+  "champion": "AurelionSol",
+  "slot": "P",
+  "text_field": "keyTooltip",
+  "names": "@EPassiveScalingExecute@",
+  "reason": "The tooltip shows 0 (+0.026 per stack) without a percent sign, but the ExecuteHealthThreshold calculation multiplies ExecutionGrowthPerBreakpoint by 0.01, so it should be 0.026% max health per stack.",
+  "filled": "Aurelion Sol's damaging Abilities break down enemies into <font color='#3458eb'>Stardust</font>, which improves his Abilities.<li><spellName>{{Spell_AurelionSolQ_Name}}</spellName>: Bursts deal an additional <magicDamage>0% (+0.031% per stack of buff {c9372c6b}) max Health magic damage</magicDamage></li><li><spellName>{{Spell_AurelionSolW_Name}}</spellName>: @f2.1@% increased distance.</li><li><spellName>{{Spell_AurelionSolE_Name}}</spellName>: @f3.1@% increased area and <scaleHealth>0 (+0.026 per stack of buff {c9372c6b})</scaleHealth> bonus execute threshold.</li><li><spellName>{{Spell_AurelionSolR1_Name}} and {{Spell_AurelionSolR2_Name}}</spellName>: @f4.1@% increased area.</li><br><rules>Aurelion Sol has acquired <font color='#3458eb'>Stardust</font>: <font color='#3458eb'>@f1@</font></rules>",
+  "record_id": "16.20:en_us:aurelionsol:Characters/AurelionSol/Spells/AurelionSolPassiveAbility/AurelionSolPassive:keyTooltip"
+ },
+ {
+  "n": 8,
+  "champion": "XinZhao",
+  "slot": "R",
+  "text_field": "keyTooltipExtendedBelowLine",
+  "names": "600",
+  "reason": "The text says damage to jungle monsters and minions is capped at 600, but the spell data includes no such maximum damage cap for that target type.",
+  "filled": "<rules>Deals a max of <physicalDamage>600 damage</physicalDamage> to jungle monsters and minions.</rules>",
+  "record_id": "16.20:en_us:xinzhao:Characters/XinZhao/Spells/XinZhaoRAbility/XinZhaoR:keyTooltipExtendedBelowLine"
+ },
+ {
+  "n": 9,
+  "champion": "Hwei",
+  "slot": "Q-form",
+  "text_field": "keyTooltipExtendedBelowLine",
+  "names": "Maximum 300 bonus magic damage versus monsters",
+  "reason": "The text states a maximum 300 bonus magic damage versus monsters, but HweiQW's BonusDamage calculation has no cap and scales from 120 (+60% AP) to 560 (+105% AP), with level-up Maximum Bonus Damage showing 200/237.5/275/312.5/350.",
+  "filled": "<rules>Deals 50% damage to minions and non-epic monsters.</rules><br><rules>Maximum <magicDamage>300 bonus magic damage</magicDamage> versus monsters.</rules>",
+  "record_id": "16.20:en_us:hwei:Characters/Hwei/Spells/HweiQAbility/HweiQW:keyTooltipExtendedBelowLine"
+ },
+ {
+  "n": 10,
+  "champion": "KogMaw",
+  "slot": "P",
+  "text_field": "keyTooltip",
+  "names": "@TooltipPassiveMS*100@",
+  "reason": "The text shows 50% Move Speed, but Kog'MawIcathianSurprise and Kog'MawIcathianDisplay both have TooltipPassiveMS 0.4, which would be 40%.",
+  "filled": "For 4 seconds after dying, Kog'Maw can continue to move, can move through units, and gains <speed>10% Move Speed</speed>, increasing to <speed>50% Move Speed</speed> over the duration. At the end of the duration, he explodes and deals <trueDamage>140 to 650 (by level) true damage</trueDamage> to nearby enemies.",
+  "record_id": "16.20:en_us:kogmaw:Characters/KogMaw/Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianSurpriseReady:keyTooltip"
+ },
+ {
+  "n": 11,
+  "champion": "Zaahen",
+  "slot": "P",
+  "text_field": "keyTooltipExtended",
+  "names": "@ReviveCooldownCalc@",
+  "reason": "The text shows revive cooldown as 300 to 120 seconds, but the spell data lists Cooldown as 100.",
+  "filled": "Zaahen gains a stack of <keyword>Determination</keyword> when he hits an enemy champion with an Attack or Ability (max 12). He gains <physicalDamage>1.5% to 2.8% (by level) increased Attack Damage</physicalDamage> per stack.<br><br>When filled with <keyword>Determination</keyword>, Zaahen doubles the granted <physicalDamage>Attack Damage</physicalDamage>, and if he would die, he instead enters Stasis for 4 seconds then revives with <healing>30% to 75% (by level) of his max Health</healing>.<br><br>Zaahen's revive has a 300 to 120 (by level) second Cooldown.<br><br><rules>{{Reminder_Stasis}}</rules>",
+  "record_id": "16.20:en_us:zaahen:Characters/Zaahen/Spells/ZaahenPassiveAbility/ZaahenPassive:keyTooltipExtended"
+ },
+ {
+  "n": 12,
+  "champion": "Veigar",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "33%",
+  "reason": "The text states damage is maximized against enemies below 33% Health, but the game data does not include a threshold percentage.",
+  "filled": "Veigar blasts an enemy champion with primal magic to deal between <magicDamage>175 (+65% AP)/250 (+70% AP)/325 (+75% AP) and 350 (+130% AP)/500 (+140% AP)/650 (+150% AP) magic damage</magicDamage>, increasing with the target's missing Health. Damage is maximized against enemies below 33% Health.",
+  "record_id": "16.20:en_us:veigar:Characters/Veigar/Spells/VeigarRAbility/VeigarR:keyTooltip"
+ },
+ {
+  "n": 13,
+  "champion": "Xayah",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "1.5",
+  "reason": "The text says Xayah is Untargetable and Ghosted for 1.5 seconds, but the spell data gives RUntargetable as 1.25.",
+  "filled": "Xayah leaps into the air becoming Untargetable and Ghosted for 1.5 seconds before raining down daggers that deal <physicalDamage>200/300/400 (+100% bonus AD) physical damage</physicalDamage> and leave behind a line of <keywordMajor>Feathers</keywordMajor>.",
+  "record_id": "16.20:en_us:xayah:Characters/Xayah/Spells/XayahRAbility/XayahR:keyTooltip"
+ },
+ {
+  "n": 14,
+  "champion": "Illaoi",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "50% faster",
+  "reason": "The text says Tentacles Slam 50% faster, but the record has no data value supporting a 50% Slam speed increase.",
+  "filled": "Illaoi smashes her idol into the ground, dealing <physicalDamage>150/250/350 (+50% bonus AD) physical damage</physicalDamage> to nearby enemies and spawning a Tentacle for each enemy champion hit.<br><br>For the next 8 seconds, Tentacles are untargetable and <keywordMajor>Slam</keywordMajor> 50% faster, and <spellName>Harsh Lesson</spellName> has a 2 second cooldown.",
+  "record_id": "16.20:en_us:illaoi:Characters/Illaoi/Spells/IllaoiRAbility/IllaoiR:keyTooltip"
+ },
+ {
+  "n": 15,
+  "champion": "Nunu",
+  "slot": "W",
+  "text_field": "keyTooltip",
+  "names": "@MaximumStunDuration@",
+  "reason": "The tooltip shows a maximum knockup duration of 1.25 seconds, but the data includes AdditionalKnockupOverTime of 0.25, so the maximum knockup should be BaseKnockupDuration (0.5) + AdditionalKnockupOverTime (0.25) = 0.75 seconds; the displayed value uses AdditionalStunDurationOverTime (0.75) instead, giving 1.25.",
+  "filled": "Nunu and Willump create a snowball that grows in size and speed as they roll it. They turn slower while rolling it, but can increase turning speed by holding the turn.<br><br>The snowball does between <magicDamage>59.94/74.93/89.91/104.9/119.88 (+49.95% AP)</magicDamage> and <magicDamage>180/225/270/315/360 (+150% AP) magic damage</magicDamage>, and <status>Knocks Up</status> for between 0.5 and 1.25 seconds when it collides with a champion, large monster or wall. These values scale up with distance rolled.<br><br>Nunu and Willump can <recast>Recast</recast> to let the snowball go early.",
+  "record_id": "16.20:en_us:nunu:Characters/Nunu/Spells/NunuWAbility/NunuW:keyTooltip"
+ },
+ {
+  "n": 16,
+  "champion": "Chogath",
+  "slot": "E",
+  "text_field": "keyTooltip",
+  "names": "@MaxHealthPercentCalc@",
+  "reason": "The tooltip shows 2.5%/2.8%/3.2%/3.5%/3.9%, but the spell data and level-up list give PercentHealthDamage as 2.5/2.85/3.2/3.55/3.9.",
+  "filled": "Cho'Gath's next 3 Attacks launch spikes that deal <magicDamage>30/50/70/90/110 (+30% AP) plus 2.5%/2.8%/3.2%/3.5%/3.9% (+0.5% per stack of buff {8682fc00}) of the target's max Health magic damage</magicDamage> and <status>Slow</status> by 30/35/40/45/50%, decaying over 1.5 seconds.",
+  "record_id": "16.20:en_us:chogath:Characters/Chogath/Spells/VorpalSpikesAbility/VorpalSpikes:keyTooltip"
+ },
+ {
+  "n": 17,
+  "champion": "Shyvana",
+  "slot": "P",
+  "text_field": "keyTooltip",
+  "names": "large minions",
+  "reason": "The text lists 'large minions' as a takedown source, but the spell data only includes a stack value for large monsters (Stacks_Per_Large_Monster), not large minions.",
+  "filled": "Takedowns on champions, large minions, and monsters earn Shyvana stacks of <spellName>{{Spell_Shyvana_Passive_Name}} %i:Shyvana%</spellName>, each stack grants Shyvana permanent <scaleArmor>0.3 Armor</scaleArmor> and <scaleMR>0.3 Magic Resist</scaleMR>.<br><br><scaleArmor>Bonus Armor: 0 (+0.3 per stack of buff {bba88b2a})</scaleArmor><br><scaleMR>Bonus Magic Resist: 0 (+0.3 per stack of buff {bba88b2a})</scaleMR>",
+  "record_id": "16.20:en_us:shyvana:Characters/Shyvana/Spells/ShyvanaPassiveAbility/ShyvanaPassive:keyTooltip"
+ },
+ {
+  "n": 18,
+  "champion": "Yone",
+  "slot": "W",
+  "text_field": "keyTooltipExtendedBelowLine",
+  "names": "@MinimumDamageMinions@",
+  "reason": "The tooltip shows 50 to 420 (by level) as the minimum damage against minions, but the placeholder's formula starts at 30 and maxes out at 400 from its by-level breakpoints, so 50 to 420 is not supported.",
+  "filled": "<rules>Shield increased by 100% for the first champion hit and 50% for all subsequent champions.<br>This abilities cooldown and cast time are reduced by Attack Speed.<br>Minimum <scaleLevel>50 to 420 (by level)</scaleLevel> total damage against minions.</rules>",
+  "record_id": "16.20:en_us:yone:Characters/Yone/Spells/YoneWAbility/YoneW:keyTooltipExtendedBelowLine"
+ },
+ {
+  "n": 19,
+  "champion": "RekSai",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "@RBaseDamageCalc@",
+  "reason": "The tooltip shows 150/250/350 (+100% bonus AD), but the ability's RekSaiRWrapper calculation shows 150/300/450 (+100% bonus AD).",
+  "filled": "Rek'Sai targets an enemy damaged by her in the last 5 seconds and then dives underground, becoming Untargetable. Moments later, she leaps unstoppably at her target, dealing <physicalDamage>150/250/350 (+100% bonus AD) plus 15/20/25% max Health physical damage</physicalDamage> and resets the cooldown of <keywordMajor>{{Spell_RekSaiW_Name}}</keywordMajor>.",
+  "record_id": "16.20:en_us:reksai:Characters/RekSai/Spells/RekSaiRAbility/RekSaiR:keyTooltip"
+ },
+ {
+  "n": 20,
+  "champion": "Annie",
+  "slot": "Q",
+  "text_field": "keyTooltip",
+  "names": "50%",
+  "reason": "The tooltip says Cooldown is reduced by 50%, but the spell data contains no cooldown reduction effect or value to support this.",
+  "filled": "Annie hurls a fireball, dealing <magicDamage>80/125/170/215/260 (+80% AP) magic damage</magicDamage>. If the target dies, Annie refunds the Mana cost and reduces the Cooldown by 50%.",
+  "record_id": "16.20:en_us:annie:Characters/Annie/Spells/AnnieQAbility/AnnieQ:keyTooltip"
+ },
+ {
+  "n": 21,
+  "champion": "Nautilus",
+  "slot": "P",
+  "text_field": "keyTooltip",
+  "names": "@TotalDamageTooltip@",
+  "reason": "The placeholder shows (+100% AD) in its formula, but the spell's BonusDamage calculation includes only the base damage by level and has no AD coefficient.",
+  "filled": "Nautilus' first Attack against a target deals <physicalDamage>14 to 116 (by level) (+100% AD) physical damage</physicalDamage> and <status>Roots</status> them for 0.75 to 1.5 (by level) seconds.",
+  "record_id": "16.20:en_us:nautilus:Characters/Nautilus/Spells/NautilusPassiveAbility/NautilusPassive:keyTooltip"
+ },
+ {
+  "n": 22,
+  "champion": "Malzahar",
+  "slot": "R",
+  "text_field": "keyTooltipExtendedBelowLine",
+  "names": "Knocks Down",
+  "reason": "The text says the ability Knocks Down enemies, but the spell data lists SuppressDuration, indicating the effect is a suppression instead.",
+  "filled": "<rules>This Ability <status>Knocks Down</status> enemies.</rules>",
+  "record_id": "16.20:en_us:malzahar:Characters/Malzahar/Spells/MalzaharRAbility/MalzaharR:keyTooltipExtendedBelowLine"
+ },
+ {
+  "n": 23,
+  "champion": "Illaoi",
+  "slot": "Q",
+  "text_field": "keyTooltip",
+  "names": "@spell.IllaoiQ:TentacleDamageTotal@",
+  "reason": "The shown Slam total uses a by-level base of 9 to 180, but the spell's DamageIncreaseTooltip calculation uses 9 to 162; at rank 1 the total would end at 178.2 instead of 198.",
+  "filled": "<passive>Passive:</passive> <keywordMajor>Slam</keywordMajor> damage is increased by <physicalDamage>10/15/20/25/30%</physicalDamage> (currently <physicalDamage>9.9 to 198 (by level) (+121% AD +44% AP)/10.35 to 207 (by level) (+126.5% AD +46% AP)/10.8 to 216 (by level) (+132% AD +48% AP)/11.25 to 225 (by level) (+137.5% AD +50% AP)/11.7 to 234 (by level) (+143% AD +52% AP) physical damage</physicalDamage>).<br><br><active>Active:</active> Illaoi swings her idol, causing a Tentacle to <keywordMajor>Slam</keywordMajor> forward.",
+  "record_id": "16.20:en_us:illaoi:Characters/Illaoi/Spells/IllaoiQAbility/IllaoiQ:keyTooltip"
+ },
+ {
+  "n": 24,
+  "champion": "Illaoi",
+  "slot": "P",
+  "text_field": "keyTooltip",
+  "names": "@spell.IllaoiQ:TentacleDamageTotal@",
+  "reason": "The placeholder's formula uses base damage 9 to 180, but the matching DamageIncreaseTooltip calculation on IllaoiQ uses base damage 9 to 162, overstating the total base damage (e.g. rank 1 max 198 instead of 196.2).",
+  "filled": "Illaoi draws the presence of her god, spawning a Tentacle on nearby terrain if no other Tentacles are nearby (<scaleLevel>18 to 7 (by level)</scaleLevel> second cooldown). Tentacles will not attack on their own, but can be made to <keywordMajor>Slam</keywordMajor> by Illaoi's Abilities.<br><br><keywordMajor>Slam</keywordMajor> deals <physicalDamage>9.9 to 198 (by level) (+121% AD +44% AP)/10.35 to 207 (by level) (+126.5% AD +46% AP)/10.8 to 216 (by level) (+132% AD +48% AP)/11.25 to 225 (by level) (+137.5% AD +50% AP)/11.7 to 234 (by level) (+143% AD +52% AP) physical damage</physicalDamage>. Hitting at least one enemy champion restores <healing>5% missing Health</healing> to Illaoi.",
+  "record_id": "16.20:en_us:illaoi:Characters/Illaoi/Spells/IllaoiPassiveAbility/IllaoiPassive:keyTooltip"
+ },
+ {
+  "n": 25,
+  "champion": "Jayce",
+  "slot": "R-form",
+  "text_field": "keyTooltip",
+  "names": "<scaleMR>Magic Resist</scaleMR>",
+  "reason": "The text shows Magic Resist without its value, but the data defines the shared resist amount used for Armor and Magic Resist, so the same value should also be applied to Magic Resist.",
+  "filled": "<keywordMajor>Mercury Cannon:</keywordMajor> Jayce transforms his weapon into the <keywordMajor>Mercury Hammer</keywordMajor>, becoming melee ranged and gaining new Abilities and <scaleArmor>5 to 26 (by level) (+7.5% bonus AD) Armor</scaleArmor> and <scaleMR>Magic Resist</scaleMR>. Jayce's next Attack deals an additional <magicDamage>25 to 130 (by level) (+30% bonus AD) magic damage</magicDamage>.",
+  "record_id": "16.20:en_us:jayce:Characters/Jayce/Spells/JayceStanceHtGAbility/JayceStanceGtH:keyTooltip"
+ },
+ {
+  "n": 26,
+  "champion": "Qiyana",
+  "slot": "Q",
+  "text_field": "keyTooltip",
+  "names": "extra range",
+  "reason": "The text says the ability gains extra range when enchanted, but the data lists base Q cast range 525 and the enchanted forms' cast range 500, so it is not extra.",
+  "filled": "If Qiyana does not have an <keywordMajor>Enchantment</keywordMajor>, she slashes, dealing <physicalDamage>80/110/140/170/200 (+90% bonus AD) physical damage</physicalDamage> to enemies in a small area. If she does, this Ability gains extra range and an additional effect based on the type of <keywordMajor>Enchantment</keywordMajor>:<li><keywordMajor>Ice Enchantment</keywordMajor>: Briefly <status>Roots</status>, then <status>Slows</status> by 20% for 1 second.<li><keywordMajor>Rock Enchantment</keywordMajor>: Deals an additional <physicalDamage>@TremorDamage@ physical damage</physicalDamage> to units below 50% Health.<li><keywordMajor>Wild Enchantment</keywordMajor>: Leaves a trail that turns Qiyana <keywordStealth>Invisible</keywordStealth> and grants <speed>20% Move Speed</speed>.<br>",
+  "record_id": "16.20:en_us:qiyana:Characters/Qiyana/Spells/QiyanaQAbility/QiyanaQ:keyTooltip"
+ },
+ {
+  "n": 27,
+  "champion": "Ambessa",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "of the damage she dealt",
+  "reason": "The text says she heals for the displayed amount of all damage dealt, but the data has Omnivamp_MinionMod and Omnivamp_MonsterMod set to 0.25, so healing against minions and monsters is only 25% effective.",
+  "filled": "<spellPassive>Passive</spellPassive>: Ambessa gains <armorPen>10/20/30% %i:scaleAPen% Armor Penetration</armorPen> and her Abilities <healing>heal her for 15%/17.5%/20% (+50% per 100% life steal) of the damage she dealt</healing>.<br><br><spellActive>Active</spellActive>: Ambessa becomes <attention>Unstoppable</attention> and blinks to the farthest enemy champion in a line, <status>Suppressing</status> the target for 0.75 seconds and then slamming them into the ground, dealing <physicalDamage>150/250/350 (+80% bonus AD) physical damage</physicalDamage> and <status>Stunning</status> them for 0.4 seconds.",
+  "record_id": "16.20:en_us:ambessa:Characters/Ambessa/Spells/AmbessaRAbility/AmbessaR:keyTooltip"
+ },
+ {
+  "n": 28,
+  "champion": "Evelynn",
+  "slot": "Q",
+  "text_field": "keyTooltip",
+  "names": "next 3 Attacks or Abilities",
+  "reason": "The text says Evelynn's next 3 Attacks or Abilities deal bonus damage, but the record only provides QStackCount=3 for the number of recasts and has no data value for the number of follow-up attacks or abilities.",
+  "filled": "Evelynn strikes with her Lasher, dealing <magicDamage>25/30/35/40/45 (+25% AP) magic damage</magicDamage> to the first enemy hit and causing Evelynn's next 3 Attacks or Abilities on that unit to deal an additional <magicDamage>15/25/35/45/55 (+25% AP) magic damage</magicDamage>. Evelynn can <recast>Recast</recast> this Ability up to 3 times.<br><br><recast>Recast:</recast> Evelynn fires spikes through the nearest enemy, dealing <magicDamage>25/30/35/40/45 (+25% AP) magic damage</magicDamage> to all enemies hit.",
+  "record_id": "16.20:en_us:evelynn:Characters/Evelynn/Spells/EvelynnQAbility/EvelynnQ:keyTooltip"
+ },
+ {
+  "n": 29,
+  "champion": "Blitzcrank",
+  "slot": "E",
+  "text_field": "keyTooltip",
+  "names": "@TotalDamage@",
+  "reason": "The tooltip shows 0 (+200% AD +25% AP), but the spell's calculation has 0 (+175% AD +125% AP).",
+  "filled": "Blitzcrank charges up their fist, causing their next Attack to <status>Knock Up</status> for 1 second(s) and deal <physicalDamage>0 (+200% AD +25% AP) physical damage</physicalDamage>.",
+  "record_id": "16.20:en_us:blitzcrank:Characters/Blitzcrank/Spells/PowerFistAbility/PowerFist:keyTooltip"
+ },
+ {
+  "n": 30,
+  "champion": "Shen",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "60%",
+  "reason": "The text says max Shield at 60% missing Health, but the data value MaxShieldThreshold is 0.4, which corresponds to 40% missing Health.",
+  "filled": "Shen grants an allied champion anywhere on the map between <shield>120/220/320 (+15% bonus health +135% AP)</shield> and <shield>192/352/512 (+24% bonus health +216% AP) Shield</shield> based on their missing Health for 5 seconds (max Shield at 60% missing Health). After channeling for 3 seconds, Shen teleports to his ally's location with his <keywordMajor>Spirit Blade</keywordMajor>.",
+  "record_id": "16.20:en_us:shen:Characters/Shen/Spells/ShenRAbility/ShenR:keyTooltip"
+ },
+ {
+  "n": 31,
+  "champion": "Zyra",
+  "slot": "P",
+  "text_field": "keyTooltipExtended",
+  "names": "@MonsterMod@",
+  "reason": "The tooltip shows monster bonus damage as 50 to 100 by level, but the spell's calculation with Level1Value 50 and InitialBonusPerLevel -1 gives 50 to 33 by level.",
+  "filled": "Zyra spawns <keywordMajor>Seeds</keywordMajor> around herself every 13.6 to 9.1 (by level) seconds that last 30 seconds. She can have 8 <keywordMajor>Seeds</keywordMajor> planted at once. If an enemy champion steps on a <keywordMajor>Seed</keywordMajor>, it dies. Zyra will not spawn <keywordMajor>Seeds</keywordMajor> while hiding in brush.<br><br>These <keywordMajor>Seeds</keywordMajor> are used by her other Abilities to spawn plants that deal <magicDamage>15 to 75 (by level) (+20% AP) magic damage</magicDamage>.<br><br><rules>Zyra's plants deal <magicDamage>50 to 100 (by level) bonus magic damage</magicDamage> to monsters.</rules> ",
+  "record_id": "16.20:en_us:zyra:Characters/Zyra/Spells/ZyraPAbility/ZyraP:keyTooltipExtended"
+ },
+ {
+  "n": 32,
+  "champion": "Udyr",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "@PulseDamage@",
+  "reason": "The tooltip shows this pulse damage scaling from 10 to 40 by level, but the spell's by-level calculation data is 5 to 35, so the base damage range disagrees.",
+  "filled": "<spellActive>Storm Stance:</spellActive> Udyr surrounds himself in a glacial storm for 4 seconds, dealing <magicDamage>20/36/52/68/84/100 (+35% AP) magic damage</magicDamage> per second to nearby enemies and <status>Slowing</status> them by 15/18/21/24/27/30%. Additionally, Udyr's next two Attacks in this stance deal <magicDamage>10 to 40 (by level) (+35% AP) magic damage</magicDamage> to enemies in the storm.<br><br><keywordMajor>Awaken:</keywordMajor> Unleash the storm, causing it to follow Udyr's last Attacked enemy, deal an additional <magicDamage>8% to 14% (by level) (+3.5% per 100 AP) max Health magic damage</magicDamage> over the duration, and <status>Slow</status> by an additional 5%.",
+  "record_id": "16.20:en_us:udyr:Characters/Udyr/Spells/UdyrRAbility/UdyrR:keyTooltip"
+ },
+ {
+  "n": 33,
+  "champion": "Nunu",
+  "slot": "P",
+  "text_field": "keyTooltipExtended",
+  "names": "10",
+  "reason": "The text says the effect can occur once every 10 seconds per target, but the spell data has no 10-second per-target cooldown; the given Cooldown is 20.",
+  "filled": "{{Spell_NunuPassive_Tooltip}}<br><br><rules>The buff range is increased against champions and structures.<br>The duration stacks but the effect can only occur once every 10 seconds per target.<br>The buff attempts to target the champion who will get the most use from it.</rules>",
+  "record_id": "16.20:en_us:nunu:Characters/Nunu/Spells/NunuPassiveAbility/NunuPassive:keyTooltipExtended"
+ },
+ {
+  "n": 34,
+  "champion": "Rengar",
+  "slot": "Q",
+  "text_field": "keyTooltip",
+  "names": "@QTotalDamage@",
+  "reason": "The tooltip shows +105% AD, but the matching QBonusDamage calculation uses BaseADRatio for only +5% AD (20/55/90/125/160 (+5% AD)).",
+  "filled": "Rengar's next 2 Attacks gain <attackSpeed>40% Attack Speed</attackSpeed>. The first Attack deals <physicalDamage>20/55/90/125/160 (+105% AD) physical damage</physicalDamage>.<br><br><keywordMajor>Max Ferocity:</keywordMajor> The first Attack deals <physicalDamage>35 to 240 (by level) (+120% AD) physical damage</physicalDamage> and grants Rengar <attackSpeed>50% to 101% (by level) Attack Speed</attackSpeed> for 5 seconds.",
+  "record_id": "16.20:en_us:rengar:Characters/Rengar/Spells/RengarQAbility/RengarQ:keyTooltip"
+ },
+ {
+  "n": 35,
+  "champion": "Quinn",
+  "slot": "P",
+  "text_field": "keyTooltipExtended",
+  "names": "@BonusMonsterDmg@",
+  "reason": "The tooltip shows 75 flat bonus damage to monsters, but the spell's BonusDamage calculation is 15 to 120 by level plus 40% bonus AD, and no data value supports a flat 75.",
+  "filled": "{{Spell_QuinnPassive_Tooltip}}<br><br><rules>Cooldown is reduced by Critical Strike Chance.<br>Deals 75 bonus damage to Monsters.</rules>",
+  "record_id": "16.20:en_us:quinn:Characters/Quinn/Spells/QuinnPassiveAbility/QuinnPassive:keyTooltipExtended"
+ },
+ {
+  "n": 36,
+  "champion": "Zac",
+  "slot": "P",
+  "text_field": "keyTooltipExtended",
+  "names": "12%",
+  "reason": "The text says each bloblet has 12% of Zac's max Health, but the spell data does not support this; the only max-health percentage is HealPercent, which is 4% to 8% by level.",
+  "filled": "{{Spell_ZacPassiveChunkDrop_Tooltip}}<br><br><rules>Each bloblet has 12% of Zac's max <healing>Health</healing>, and 50% of his <scaleArmor>Armor</scaleArmor> and <scaleMR>Magic Resist</scaleMR>.</rules>",
+  "record_id": "16.20:en_us:zac:Characters/Zac/Spells/ZacPassiveChunkDropAbility/ZacPassiveChunkDrop:keyTooltipExtended"
+ },
+ {
+  "n": 37,
+  "champion": "Ambessa",
+  "slot": "Q",
+  "text_field": "keyTooltip",
+  "names": "Sundering Slam | Max Health Damage",
+  "reason": "The level-up list row for Sundering Slam's max health damage reads Damage_1_Percent (Cunning Sweep) instead of Damage_2_Percent, even though both currently show the same values.",
+  "filled": "<spellActive>Cunning Sweep</spellActive>: Ambessa sweeps her blades forward, dealing <physicalDamage>40/60/80/100/120 (+60% bonus AD) + 4%/4.5%/5%/5.5%/6% (+3% per 100 bonus AD) max Health physical damage</physicalDamage> to enemies at the edge of the strike. All other enemies take 50% damage. Striking an enemy readies a <spellActive>Sundering Slam</spellActive>.<br><br><spellActive>Sundering Slam</spellActive>: Ambessa slams her blades down, dealing <physicalDamage>50/75/100/125/150 (+90% bonus AD) + 4%/4.5%/5%/5.5%/6% (+4% per 100 bonus AD) max Health physical damage</physicalDamage> against the first enemy hit. All other enemies take 50% damage.",
+  "record_id": "16.20:en_us:ambessa:Characters/Ambessa/Spells/AmbessaQAbility/AmbessaQ:keyTooltip"
+ },
+ {
+  "n": 38,
+  "champion": "Aatrox",
+  "slot": "P",
+  "text_field": "keyTooltipExtended",
+  "names": "@MonsterDamageCap@",
+  "reason": "The tooltip shows the monster damage cap as 100 to 320 (by level), but the spell data has no level-scaling monster cap and only defines PStructureCap as a flat 100.",
+  "filled": "{{Passive_AatroxPassive_Tooltip}}<br><br><rules>Deals a max of 100 to 320 (by level) against monsters. <br>Multi-hits with Abilities only reduce the cooldown once.</rules>",
+  "record_id": "16.20:en_us:aatrox:Characters/Aatrox/Spells/AatroxPassiveAbility/AatroxPassive:keyTooltipExtended"
+ },
+ {
+  "n": 39,
+  "champion": "KSante",
+  "slot": "Q",
+  "text_field": "keyTooltip",
+  "names": "@StunDuration@",
+  "reason": "The text shows the shockwave stuns for 1 second, but the referenced Q3 spell has StunDuration 0.8.",
+  "filled": "K'Sante slams his weapon, dealing <physicalDamage>70/100/130/160/190 (+40% bonus armor +40% bonus MR) physical damage</physicalDamage> and <status>Slowing</status> enemies by 80% for 0.5s. If he hits, he gains a stack of Ntofo Strikes for 6 seconds. At 2 stacks, he instead fires a shockwave that <status>Stuns</status> and <status>Pulls</status> enemies for 1 second.<br><br><keywordMajor>All Out</keywordMajor>: Cooldown is reduced by 33%.",
+  "record_id": "16.20:en_us:ksante:Characters/KSante/Spells/KSanteQAbility/KSanteQ:keyTooltip"
+ },
+ {
+  "n": 40,
+  "champion": "Azir",
+  "slot": "P",
+  "text_field": "keyTooltipExtended",
+  "names": "100",
+  "reason": "The text says the Sun Disk loses 100 Armor and Magic Resist if you are dead or too far away, but the provided spell data contains no such 100 value; its only resist calculation is BonusResists 30 to 90 by level.",
+  "filled": "{{Spell_AzirPassive_Tooltip}}<br><br><rules>You may not target enemy Nexus and Inhibitor Turrets with this Ability.<br><keywordMajor>Sun Disk</keywordMajor> loses 100 <scaleArmor>Armor</scaleArmor> and <scaleMR>Magic Resist</scaleMR> if you are dead or too far away.</rules>",
+  "record_id": "16.20:en_us:azir:Characters/Azir/Spells/AzirPassiveAbility/AzirPassive:keyTooltipExtended"
+ }
+]

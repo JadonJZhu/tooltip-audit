@@ -1,0 +1,402 @@
+[
+ {
+  "n": 1,
+  "champion": "Jinx",
+  "slot": "E",
+  "text_field": "keyTooltip",
+  "names": "@TotalDamage@",
+  "reason": "The tooltip shows 90/140/190/240/290 (+100% AP) magic damage, but JinxEMine has Effect2Amount values 80/130/180/230/280 and a 0.6 AP coefficient (60% AP).",
+  "filled": "Jinx tosses out 3 chompers that last for 5 seconds. They explode on contact with enemy champions, <status>Rooting</status> them for 1.5 seconds and dealing <magicDamage>90/140/190/240/290 (+100% AP) magic damage</magicDamage> to nearby enemies.",
+  "record_id": "16.19:en_us:jinx:Characters/Jinx/Spells/JinxEAbility/JinxE:keyTooltip"
+ },
+ {
+  "n": 2,
+  "champion": "Aphelios",
+  "slot": "R",
+  "text_field": "keyTooltipExtendedBelowLine",
+  "names": "@CritDamageModCalc@",
+  "reason": "The tooltip shows this placeholder as the critical strike damage modifier, but its formula combines CritDamageMod 0.3 with a base 1 and crit chance/crit damage multipliers, so it does not display the spell data's CritDamageMod value of 0.3.",
+  "filled": "<rules>The Attacks apply on-hits. Critical strikes deal @CritDamageModCalc@ of normal damage instead.</rules>",
+  "record_id": "16.19:en_us:aphelios:Characters/Aphelios/Spells/ApheliosRAbility/ApheliosR:keyTooltipExtendedBelowLine"
+ },
+ {
+  "n": 3,
+  "champion": "Nautilus",
+  "slot": "P",
+  "text_field": "keyTooltip",
+  "names": "@TotalDamageTooltip@",
+  "reason": "The tooltip shows 14 to 116 (by level), but the ByCharLevelFormula values list starts at 8, so the minimum base damage should be 8 rather than 14.",
+  "filled": "Nautilus' first Attack against a target deals <physicalDamage>14 to 116 (by level) (+100% AD) physical damage</physicalDamage> and <status>Roots</status> them for 0.75 to 1.5 (by level) seconds.",
+  "record_id": "16.19:en_us:nautilus:Characters/Nautilus/Spells/NautilusPassiveAbility/NautilusPassive:keyTooltip"
+ },
+ {
+  "n": 4,
+  "champion": "Heimerdinger",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "@WUltDamage@",
+  "reason": "The tooltip shows 135/180/225 per wave, but HeimerdingerWUlt's Effect1Amount is 60/90/120.",
+  "filled": "Heimerdinger upgrades his next non-ultimate Ability.<br><br><spellName>H-28Q Apex Turret:</spellName> Place an upgraded <keywordMajor>Turret</keywordMajor> for 8 seconds that doesn't count towards Heimerdinger's max turrets, deals <magicDamage>80/100/120 (+35% AP) magic damage</magicDamage> per shot and <magicDamage>100/140/180 (+70% AP) magic damage</magicDamage> per charged shot. Its attacks deal damage in an area, <status>Slow</status> by 25% for 2 seconds, and it is immune to crowd control.<br><br><spellName>Hextech Rocket Swarm:</spellName> Fires 4 waves of rockets that each deal <magicDamage>135/180/225 (+45% AP) magic damage</magicDamage>. Champions and jungle monsters hit by additional rockets take reduced damage, and minions take increased damage. Max Damage: <magicDamage>503/697.5/892 (+183% AP) magic damage</magicDamage>. <br><br><spellName>CH-3X Lightning Grenade:</spellName> Throws a bouncing grenade that discharges three times, dealing <magicDamage>100/200/300 (+60% AP) magic damage</magicDamage>. The <status>Stun</status> and <status>Slow</status> areas are larger.<br><br><recast>Recast:</recast> Cancel this Ability.",
+  "record_id": "16.19:en_us:heimerdinger:Characters/Heimerdinger/Spells/HeimerdingerRAbility/HeimerdingerR:keyTooltip"
+ },
+ {
+  "n": 5,
+  "champion": "Diana",
+  "slot": "P",
+  "text_field": "keyTooltip",
+  "names": "@EmpoweredAS@",
+  "reason": "The text shows 45% to 105% (by level), but applying the formula's ×3 multiplier to the data value AttackSpeedValue of 0.3 gives 90%, not 45% to 105%.",
+  "filled": "Diana gains <attackSpeed>15% to 35% (by level) Attack Speed</attackSpeed>, increased to <attackSpeed>45% to 105% (by level)</attackSpeed> for 5 seconds after using an Ability.<br><br>Every third Attack cleaves nearby enemies for an additional <magicDamage>20 to 220 (by level) (+50% AP) magic damage</magicDamage>. ",
+  "record_id": "16.19:en_us:diana:Characters/Diana/Spells/DianaPassiveAbility/DianaPassive:keyTooltip"
+ },
+ {
+  "n": 6,
+  "champion": "Jayce",
+  "slot": "ability-child",
+  "text_field": "keyTooltip",
+  "names": "@spell.JayceShockBlast:EmpoweredDamage@",
+  "reason": "It shows 112/169.4/226.8/284.2/341.6/399 (+182% bonus AD), but using the gameplay base damage 80/135/190/245/300/0 and 120% bonus AD with the 1.4 multiplier gives 112/189/266/343/420/0 (+168% bonus AD).",
+  "filled": "<keywordMajor>Mercury Cannon</keywordMajor>: Jayce fires an orb of electricity, dealing <physicalDamage>80/121/162/203/244/285 (+130% bonus AD) physical damage</physicalDamage> to the first enemy hit and all surrounding enemies. Firing this orb through <spellName>{{Spell_JayceAccelerationGate_Name}}</spellName> increases the range, speed and raises the damage to <physicalDamage>112/169.4/226.8/284.2/341.6/399 (+182% bonus AD)</physicalDamage>.",
+  "record_id": "16.19:en_us:jayce:Characters/Jayce/Spells/JayceShockBlastAbility/JayceShockBlast:keyTooltip"
+ },
+ {
+  "n": 7,
+  "champion": "Blitzcrank",
+  "slot": "E",
+  "text_field": "keyTooltip",
+  "names": "@TotalDamage@",
+  "reason": "The tooltip shows the bonus damage as 200% AD +25% AP, but the spell's calculation {a9d6b924} gives 175% AD +125% AP.",
+  "filled": "Blitzcrank charges up their fist, causing their next Attack to <status>Knock Up</status> for 1 second(s) and deal <physicalDamage>0 (+200% AD +25% AP) physical damage</physicalDamage>.",
+  "record_id": "16.19:en_us:blitzcrank:Characters/Blitzcrank/Spells/PowerFistAbility/PowerFist:keyTooltip"
+ },
+ {
+  "n": 8,
+  "champion": "Veigar",
+  "slot": "E",
+  "text_field": "keyTooltip",
+  "names": "cage lasts for 3 seconds",
+  "reason": "The text states the cage lasts for 3 seconds, but the spell data provides no cage duration value (only StunDuration and CageDelay), so the typed number 3 is unsupported.",
+  "filled": "Veigar twists the edges of space, creating a cage that <status>Stuns</status> enemies that pass through for 1.5/1.75/2/2.25/2.5 seconds. The cage lasts for 3 seconds.",
+  "record_id": "16.19:en_us:veigar:Characters/Veigar/Spells/VeigarEventHorizonAbility/VeigarEventHorizon:keyTooltip"
+ },
+ {
+  "n": 9,
+  "champion": "Gangplank",
+  "slot": "E",
+  "text_field": "keyTooltip",
+  "names": "@BonusDamageToChampions@",
+  "reason": "The tooltip shows 75/95/115/135/155 bonus damage to champions, but GangplankESpellPassive's matching 'Bonus Damage Against Champions' level-up value is 80/105/130/155/180.",
+  "filled": "Gangplank places a powder keg that can be attacked by Gangplank and enemy champions for 25 seconds. When an enemy destroys it, the keg is defused. When Gangplank destroys it, it explodes, <status>Slowing</status> by 40/50/60/70/80% for 2 seconds and dealing the <physicalDamage>Attack's damage</physicalDamage>, ignoring 40% Armor. Champions take an additional <physicalDamage>75/95/115/135/155 physical damage</physicalDamage>.<br><br>Keg health decays every 2 to 0.5 (by level) seconds. Keg explosions detonate other kegs with overlapping blast zones, but don't deal damage to the same target more than once. Keg explosions triggered by <spellName>{{Spell_GangplankQWrapper_Name}}</spellName> will grant the bonus gold for targets killed.",
+  "record_id": "16.19:en_us:gangplank:Characters/Gangplank/Spells/GangplankEAbility/GangplankE:keyTooltip"
+ },
+ {
+  "n": 10,
+  "champion": "Karthus",
+  "slot": "E",
+  "text_field": "keyTooltip",
+  "names": "@ManaRestoreOnKill@",
+  "reason": "The tooltip shows 10/20/30/40/50 Mana, but KarthusDefile2 and KarthusDefileSoundDummy2 list Effect2Amount as 20/27/34/41/48 for the matching mana restore value.",
+  "filled": "<spellPassive>Passive: </spellPassive>When Karthus kills a unit, he restores <scaleMana>10/20/30/40/50 Mana</scaleMana>.<br><br><toggle>Toggle: </toggle>Karthus creates a necrotic aura, dealing <magicDamage>30/50/70/90/110 (+20% AP) magic damage</magicDamage> per second to nearby enemies.",
+  "record_id": "16.19:en_us:karthus:Characters/Karthus/Spells/KarthusDefileAbility/KarthusDefile:keyTooltip"
+ },
+ {
+  "n": 11,
+  "champion": "XinZhao",
+  "slot": "W",
+  "text_field": "keyTooltipExtendedBelowLine",
+  "names": "33%",
+  "reason": "The tooltip states Lifesteal is applied at 33% effectiveness, but the spell data contains no 0.33 lifesteal effectiveness value, only CritChanceAmp 0.333.",
+  "filled": "<rules>The thrust's damage is increased by up to 33.3% based on Xin Zhao's Critical Strike Chance.<br>Deals 50 to 100 (by level)% damage to minions.<br>Applies Lifesteal at 33% effectiveness on both attacks.</rules>",
+  "record_id": "16.19:en_us:xinzhao:Characters/XinZhao/Spells/XinZhaoWAbility/XinZhaoW:keyTooltipExtendedBelowLine"
+ },
+ {
+  "n": 12,
+  "champion": "Talon",
+  "slot": "W",
+  "text_field": "keyTooltip",
+  "names": "@TotalReturnDamage@",
+  "reason": "The filled return damage is 60/90/120/150/180 (+90% bonus AD), but TalonWMissileTwo has Effect1Amount 90/130/170/215/260 and coefficient 0.6.",
+  "filled": "Talon tosses a volley of blades, dealing <physicalDamage>50/60/70/80/90 (+40% bonus AD) physical damage</physicalDamage>. The blades then return to him, dealing <physicalDamage>60/90/120/150/180 (+90% bonus AD) physical damage</physicalDamage> and <status>Slowing</status> by 40/45/50/55/60% for 1 second.",
+  "record_id": "16.19:en_us:talon:Characters/Talon/Spells/TalonWAbility/TalonW:keyTooltip"
+ },
+ {
+  "n": 13,
+  "champion": "Urgot",
+  "slot": "W",
+  "text_field": "keyTooltip",
+  "names": "@DamagePerShot@",
+  "reason": "The tooltip shows 23.5% and 30.5% AD at ranks 2 and 4, but the level-up list for Attack Damage Per Shot shows 0.23 and 0.31.",
+  "filled": "<spellPassive>Passive:</spellPassive> Urgot's other Abilities mark the last champion hit for 5 seconds.<br><br><spellActive>Active:</spellActive> Urgot begins firing his chain gun at the closest enemy, prioritizing marked enemies. He Attacks them 3 times a second dealing <physicalDamage>12 (+20% AD)/12 (+23.5% AD)/12 (+27% AD)/12 (+30.5% AD)/12 (+34% AD) physical damage</physicalDamage> per shot. Urgot can move while firing and has 40% <status>Slow</status> resistance, but loses <speed>125 Move Speed</speed>.<br><br>At max rank, this Ability lasts indefinitely and can be <toggle>Toggled</toggle> on and off.",
+  "record_id": "16.19:en_us:urgot:Characters/Urgot/Spells/UrgotWAbility/UrgotW:keyTooltip"
+ },
+ {
+  "n": 14,
+  "champion": "Gnar",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "@Damage@ and @WallDamage@",
+  "reason": "The tooltip shows 100% AP and 150% AP ratios, but the spell's coefficients only include mCoefficient of 0.2, so the AP ratio is unsupported.",
+  "filled": "<keywordMajor>Mini Gnar Passive:</keywordMajor> Increase <spellName>Hyper's</spellName> <speed>Move Speed</speed>.<br><br><keywordMajor>Mega Gnar:</keywordMajor> Gnar tosses nearby enemies, dealing <physicalDamage>200/300/400 (+100% AP +50% bonus AD) physical damage</physicalDamage>, <status>Knocking Back</status>, and <status>Slowing</status> them by 45% for 1.25/1.5/1.75 seconds. Enemies that hit a wall instead take <physicalDamage>300/450/600 (+150% AP +75% bonus AD) physical damage</physicalDamage> and are <status>Stunned</status>.",
+  "record_id": "16.19:en_us:gnar:Characters/Gnar/Spells/GnarRAbility/GnarR:keyTooltip"
+ },
+ {
+  "n": 15,
+  "champion": "Lucian",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "@DamagePerBullet@",
+  "reason": "The tooltip shows +15% AP, but LucianRMissile's mCoefficient is 0.1, which is 10% AP.",
+  "filled": "Lucian rapidly fires <keywordMajor>@TotalNumShots@</keywordMajor> shots in a direction for 3 seconds or until he <recast>Recasts</recast>. Each shot deals <physicalDamage>15/30/45 (+25% AD +15% AP) physical damage</physicalDamage> to the first enemy hit.<br><br>While firing, Lucian may use <spellName>Relentless Pursuit</spellName>.<br><br>Total Damage: <physicalDamage>@TotalDamage@ physical damage</physicalDamage><br>",
+  "record_id": "16.19:en_us:lucian:Characters/Lucian/Spells/LucianRAbility/LucianR:keyTooltip"
+ },
+ {
+  "n": 16,
+  "champion": "Braum",
+  "slot": "Q",
+  "text_field": "keyTooltip",
+  "names": "@TotalDamage@",
+  "reason": "The tooltip shows a 2.5% max health ratio, but the spell's Effect4Amount is 0.02 (2%), conflicting with the 0.025 ratio shown elsewhere in the data.",
+  "filled": "Braum propels freezing ice from his shield, dealing <magicDamage>75/120/165/210/255 (+2.5% max health) magic damage</magicDamage> to the first enemy hit and <status>Slowing</status> them by 70% decaying over 2 seconds.<br><br>Applies a stack of <keywordMajor>Concussive Blows</keywordMajor>. ",
+  "record_id": "16.19:en_us:braum:Characters/Braum/Spells/BraumQAbility/BraumQ:keyTooltip"
+ },
+ {
+  "n": 17,
+  "champion": "Renata",
+  "slot": "W",
+  "text_field": "keyTooltip",
+  "names": "3 seconds",
+  "reason": "The tooltip says the health decays over 3 seconds, but the data gives TicksBeforeDeath 10 with TicksPerSecond 4, so the decay lasts 2.5 seconds.",
+  "filled": "Renata infuses an ally champion, granting <attackSpeed>10%/15%/20%/25%/30% (+1% per 100 AP) Attack Speed</attackSpeed> and <speed>10%/12.5%/15%/17.5%/20% (+1% per 100 AP) Move Speed</speed> towards enemies, increasing to <attackSpeed>20%/30%/40%/50%/60% (+2% per 100 AP) Attack Speed</attackSpeed> and <speed>20%/25%/30%/35%/40% (+2% per 100 AP) Move Speed</speed> over 5 seconds. Takedowns refresh the duration of the buff.<br><br>If the ally would die, they instead return to full Health, which then decays over 3 seconds.<br><br>If they get a Takedown while decaying, they will be set to <healing>20% max Health</healing> and stop decaying.<br><br><rules>The Champion's death can be delayed by healing or similar effects while in the decaying state, but cannot be prevented unless the Champion gets a Takedown. Champions can only delay their death once.</rules>",
+  "record_id": "16.19:en_us:renata:Characters/Renata/Spells/RenataWAbility/RenataW:keyTooltip"
+ },
+ {
+  "n": 18,
+  "champion": "Vladimir",
+  "slot": "Q",
+  "text_field": "keyTooltipExtendedBelowLine",
+  "names": "30%",
+  "reason": "The text says empowered healing is reduced to 30% against minions, but the spell data has MinionHealPercent and Effect9Amount set to 35.",
+  "filled": "<rules>Empowered healing reduced to 30% against minions.</rules>",
+  "record_id": "16.19:en_us:vladimir:Characters/Vladimir/Spells/VladimirQAbility/VladimirQ:keyTooltipExtendedBelowLine"
+ },
+ {
+  "n": 19,
+  "champion": "Ornn",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "The elemental also deals @RDamageCalc@ magic damage",
+  "reason": "The second @RDamageCalc@ shows 125/175/225 (+20% AP), but the empowered elemental damage in referenced OrnnRWave2 has base damage 80/125/170 and a 0.7 AP coefficient.",
+  "filled": "Ornn summons a massive lava elemental, which stampedes towards him, dealing <magicDamage>125/175/225 (+20% AP) magic damage</magicDamage>, applying <keywordMajor>Brittle</keywordMajor> to, and <status>Slowing</status> enemies hit by 40/50/60% for 3 seconds.<br><br>Ornn can <recast>Recast</recast> to dash with a headbutt. If he dashes into the elemental, he redirects and empowers it, causing it to <status>Knock Up</status> the first champion for 1 second and subsequent champions for 0.5 seconds. The elemental also deals <magicDamage>125/175/225 (+20% AP) magic damage</magicDamage> and reapplies <keywordMajor>Brittle</keywordMajor>.",
+  "record_id": "16.19:en_us:ornn:Characters/Ornn/Spells/OrnnRAbility/OrnnR:keyTooltip"
+ },
+ {
+  "n": 20,
+  "champion": "Ahri",
+  "slot": "W",
+  "text_field": "keyTooltip",
+  "names": "@MultiFireDamage@",
+  "reason": "The tooltip shows 16/24/32/40/48 (+16% AP), but applying RepeatDamageMod 0.4 to AhriWMissile's 90/140/190/240/290 and 0.7 AP gives 36/56/76/96/116 (+28% AP).",
+  "filled": "Ahri releases 3 fox-fires that seek nearby enemies and deal <magicDamage>40/60/80/100/120 (+40% AP) magic damage</magicDamage>, reduced to <magicDamage>16/24/32/40/48 (+16% AP) damage</magicDamage> beyond the first. She also gains <speed>40% Move Speed</speed> decaying over 2 seconds.",
+  "record_id": "16.19:en_us:ahri:Characters/Ahri/Spells/AhriWAbility/AhriW:keyTooltip"
+ },
+ {
+  "n": 21,
+  "champion": "Lillia",
+  "slot": "P",
+  "text_field": "keyTooltip",
+  "names": "@DotPercentTooltip@",
+  "reason": "The text shows 5% (+1.25% per 100 AP) max Health damage, but LilliaPDoT's DotPercentTotal calculation only uses DotDamagePercent=0.05 for 5% and has no AP coefficient.",
+  "filled": "Lillia's Abilities apply <keywordMajor>Dream Dust</keywordMajor>, dealing <magicDamage>5% (+1.25% per 100 AP) max Health magic damage</magicDamage> over 3 seconds. Lillia restores <healing>39 (+15% AP) Health</healing> over the duration against large jungle monsters, and restores <healing>6 to 90 (by level) (+30% AP) Health</healing> against champions.",
+  "record_id": "16.19:en_us:lillia:Characters/Lillia/Spells/LilliaPAbility/LilliaP:keyTooltip"
+ },
+ {
+  "n": 22,
+  "champion": "LeeSin",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "@Damage@",
+  "reason": "The @Damage@ placeholder shows a 200% bonus AD ratio, but the spell's coefficient data lists mCoefficient2 as 0.5 instead of 2.0.",
+  "filled": "Lee Sin performs a powerful roundhouse kick <status>Knocking Back</status> an enemy champion and dealing <physicalDamage>175/400/625 (+200% bonus AD) physical damage</physicalDamage>.<br><br>Enemies the target collides with are briefly <status>Knocked Up</status> and take <physicalDamage>175/400/625 (+200% bonus AD) plus 12/15/18% of the kicked enemy's bonus Health as physical damage</physicalDamage>.",
+  "record_id": "16.19:en_us:leesin:Characters/LeeSin/Spells/LeeSinRAbility/LeeSinR:keyTooltip"
+ },
+ {
+  "n": 23,
+  "champion": "Gragas",
+  "slot": "W",
+  "text_field": "keyTooltip",
+  "names": "@MaxHPPercentDamage@",
+  "reason": "Text shows 7% max Health, but the referenced GragasWAttack gameplay effect amount is 8/11/14/17/20.",
+  "filled": "Gragas samples his brew, reducing incoming damage by 10%/14%/18%/22%/26% (+4% per 100 AP) for 2.5 seconds and empowering his next Attack to deal an additional <magicDamage>20/50/80/110/140 (+70% AP)</magicDamage> plus <magicDamage>7% max Health magic damage</magicDamage> to the target and surrounding enemies.",
+  "record_id": "16.19:en_us:gragas:Characters/Gragas/Spells/GragasWAbility/GragasW:keyTooltip"
+ },
+ {
+  "n": 24,
+  "champion": "Heimerdinger",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "@QUltDamage@",
+  "reason": "The tooltip uses a 35% AP ratio for the Apex Turret cannon, but the spell data has no 0.35 AP coefficient (its coefficients are 0.7 and 0.3).",
+  "filled": "Heimerdinger upgrades his next non-ultimate Ability.<br><br><spellName>H-28Q Apex Turret:</spellName> Place an upgraded <keywordMajor>Turret</keywordMajor> for 8 seconds that doesn't count towards Heimerdinger's max turrets, deals <magicDamage>80/100/120 (+35% AP) magic damage</magicDamage> per shot and <magicDamage>100/140/180 (+70% AP) magic damage</magicDamage> per charged shot. Its attacks deal damage in an area, <status>Slow</status> by 25% for 2 seconds, and it is immune to crowd control.<br><br><spellName>Hextech Rocket Swarm:</spellName> Fires 4 waves of rockets that each deal <magicDamage>135/180/225 (+45% AP) magic damage</magicDamage>. Champions and jungle monsters hit by additional rockets take reduced damage, and minions take increased damage. Max Damage: <magicDamage>503/697.5/892 (+183% AP) magic damage</magicDamage>. <br><br><spellName>CH-3X Lightning Grenade:</spellName> Throws a bouncing grenade that discharges three times, dealing <magicDamage>100/200/300 (+60% AP) magic damage</magicDamage>. The <status>Stun</status> and <status>Slow</status> areas are larger.<br><br><recast>Recast:</recast> Cancel this Ability.",
+  "record_id": "16.19:en_us:heimerdinger:Characters/Heimerdinger/Spells/HeimerdingerRAbility/HeimerdingerR:keyTooltip"
+ },
+ {
+  "n": 25,
+  "champion": "Kalista",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "up to 4 seconds",
+  "reason": "The text says the Oathsworn is drawn for up to 4 seconds, but neither KalistaRx nor the referenced R-form spells contain a 4-second draw/stasis duration (KalistaRx only has KnockupDuration 1/1.5/2).",
+  "filled": "Kalista puts her <keywordMajor>Oathsworn</keywordMajor> into Stasis and draws them to herself for up to 4 seconds. The <keywordMajor>Oathsworn</keywordMajor> can click to launch themselves, stopping at the first champion hit and <status>Knocking Back</status> all nearby enemies. If the <keywordMajor>Oathsworn</keywordMajor> hits a champion, they are placed at their maximum attack range from it.",
+  "record_id": "16.19:en_us:kalista:Characters/Kalista/Spells/KalistaRxAbility/KalistaRx:keyTooltip"
+ },
+ {
+  "n": 26,
+  "champion": "Nidalee",
+  "slot": "other",
+  "text_field": "keyTooltip",
+  "names": "@spell.AspectOfTheCougar:TotalPounceDamage@",
+  "reason": "Text shows 55 base damage at rank 1, but Pounce's own Effect1Amount at rank 1 is 60.",
+  "filled": "<keywordMajor>Cougar Form:</keywordMajor> Nidalee pounces, dealing <magicDamage>55 (+50% bonus AD +30% AP) magic damage</magicDamage> to enemies surrounding where she lands. Killing a unit in <keywordMajor>Cougar Form</keywordMajor> reduces this Ability's Cooldown to 3 seconds.<br><br>Pouncing at a <keywordMajor>Hunted</keywordMajor> enemy can be done from a greater distance and reduces this Ability's Cooldown to 3 seconds.",
+  "record_id": "16.19:en_us:nidalee:Characters/Nidalee/Spells/Pounce:keyTooltip"
+ },
+ {
+  "n": 27,
+  "champion": "Aphelios",
+  "slot": "P",
+  "text_field": "keyTooltipExtended",
+  "names": "@ArPenBonusMax@",
+  "reason": "The text shows 27, but the referenced E level-up list has only 5 ranks, so the lethality maximum should be 5 × 4.5 = 22.5.",
+  "filled": "Aphelios wields 5 Lunari Weapons made by his sister Alune. He has access to two at a time: one main-hand and one off-hand. Each weapon has a unique Attack and Ability [@spell.ApheliosCalibrumQ:Hotkey@]. Attacks and Abilities consume a weapon's ammo. When out of ammo, Aphelios discards the weapon and Alune summons the next one. <br><br>Aphelios unlocks his weapon's Ability [@spell.ApheliosCalibrumQ:Hotkey@] at level 2 and his Ultimate at level 6. Instead of powering up his Abilities, Aphelios' rank-ups grant him permanent stats:<li>{{ Spell_ApheliosP_Buff_AD }} [@spell.ApheliosCalibrumQ:Hotkey@]: <physicalDamage>0 (+4 per stack of buff {eb906dca}) / 24</physicalDamage></li><li>{{ Spell_ApheliosP_Buff_AS }} [@spell.ApheliosW:Hotkey@]: <attackSpeed>0% (+9% per stack of buff {f6907f1b}) / 54%</attackSpeed></li><li>{{ Spell_ApheliosP_Buff_AP }} [@spell.ApheliosE:Hotkey@]: <scaleLethality>0 (+4.5 per stack of buff {f79080ae}) / 27</scaleLethality></li><br><br><passive>Lunari Weapon Order:</passive><li>{{ Spell_ApheliosP_GunShortDesc_@f1@ }}</li><li>{{ Spell_ApheliosP_GunShortDesc_@f2@ }}</li><font color='#424242'><li>{{ Spell_ApheliosP_GunShortDesc_@f3@ }}</li><li>{{ Spell_ApheliosP_GunShortDesc_@f4@ }}</li><li>{{ Spell_ApheliosP_GunShortDesc_@f5@ }}</li></font>",
+  "record_id": "16.19:en_us:aphelios:Characters/Aphelios/Spells/ApheliosPAbility/ApheliosP:keyTooltipExtended"
+ },
+ {
+  "n": 28,
+  "champion": "Fizz",
+  "slot": "E",
+  "text_field": "keyTooltip",
+  "names": "@EDamage@",
+  "reason": "The placeholder shows a 0.95 AP ratio, but the ability's spell coefficients in the record are all 0.75 AP.",
+  "filled": "Fizz hops onto his trident, becoming Untargetable for 0.75 seconds, after which he deals <magicDamage>80/130/180/230/280 (+95% AP) magic damage</magicDamage> to nearby enemies and <status>Slows</status> them by 40/45/50/55/60% for 2 seconds. <br><br>Fizz can <recast>Recast</recast> this Ability while Untargetable to dash again, which ends the effect early, deals damage in a smaller area, and doesn't <status>Slow</status>.",
+  "record_id": "16.19:en_us:fizz:Characters/Fizz/Spells/FizzEAbility/FizzE:keyTooltip"
+ },
+ {
+  "n": 29,
+  "champion": "Blitzcrank",
+  "slot": "Q",
+  "text_field": "keyTooltip",
+  "names": "@TotalDamage@",
+  "reason": "The tooltip shows 110/160/210/260/310 base magic damage, but the spell's Effect1Amount data lists 90/140/190/240/290.",
+  "filled": "Blitzcrank fires their right hand, <status>Pulling</status> the first enemy hit towards them and dealing <magicDamage>110/160/210/260/310 (+120% AP) magic damage</magicDamage>.",
+  "record_id": "16.19:en_us:blitzcrank:Characters/Blitzcrank/Spells/RocketGrabAbility/RocketGrab:keyTooltip"
+ },
+ {
+  "n": 30,
+  "champion": "Sivir",
+  "slot": "P",
+  "text_field": "keyTooltip",
+  "names": "@FlatMS@",
+  "reason": "The text shows '55 to 75 (by level)' but the data formula has six breakpoints each adding +5 on top of the base 55, yielding a maximum of 85 (55 + 6*5).",
+  "filled": "Sivir's Attacks and Abilities grant her a burst of <speed>55 to 75 (by level) Decaying Move Speed</speed> for 1.5 seconds when they damage enemy champions.<br>",
+  "record_id": "16.19:en_us:sivir:Characters/Sivir/Spells/SivirPassiveAbility/SivirPassive:keyTooltip"
+ },
+ {
+  "n": 31,
+  "champion": "Zaahen",
+  "slot": "P",
+  "text_field": "keyTooltip",
+  "names": "@PercentBonusADCalc@",
+  "reason": "The tooltip shows 1.5% to 2.8% bonus Attack Damage per stack, but the spell data value PercentBonusAD is 0.025 (2.5%).",
+  "filled": "Zaahen gains a stack of <keyword>Determination</keyword> when he hits an enemy champion with an Attack or Ability (max 12). He gains <physicalDamage>1.5% to 2.8% (by level) increased Attack Damage</physicalDamage> per stack.<br><br>When filled with <keyword>Determination</keyword>, Zaahen doubles the granted <physicalDamage>Attack Damage</physicalDamage>, and if he would die, he instead enters Stasis for 4 seconds then revives with <healing>30% to 75% (by level) of his max Health</healing>.<br><br>Zaahen's revive has a 300 to 120 (by level) second Cooldown.<br>",
+  "record_id": "16.19:en_us:zaahen:Characters/Zaahen/Spells/ZaahenPassiveAbility/ZaahenPassive:keyTooltip"
+ },
+ {
+  "n": 32,
+  "champion": "Zoe",
+  "slot": "E",
+  "text_field": "keyTooltip",
+  "names": "2 seconds",
+  "reason": "The text says the Magic Resist reduction lasts 2 seconds, but the spell data gives SleepDuration 2.25.",
+  "filled": "Zoe dropkicks a bubble that deals <magicDamage>70/110/150/190/230 (+45% AP) magic damage</magicDamage>, lingering as a trap if it hits nothing. The bubble's range is extended when flying over terrain.<br><br>If either the bubble or trap hits an enemy champion she refreshes 16/19.5/23/26.5/30% of her cooldown.<br><br>After a delay, the victim falls <status>Asleep</status> and have their <scaleMR>Magic Resist</scaleMR> reduced by 30% for 2 seconds. Attacks and Ability hits wake them up but deal double damage, up to <trueDamage>70/110/150/190/230 (+45% AP) true damage</trueDamage>.<br><br>",
+  "record_id": "16.19:en_us:zoe:Characters/Zoe/Spells/ZoeEAbility/ZoeE:keyTooltip"
+ },
+ {
+  "n": 33,
+  "champion": "Kalista",
+  "slot": "W",
+  "text_field": "keyTooltip",
+  "names": "non-champions",
+  "reason": "The text says the damage cap applies to non-champions, but the data value MaximumMonsterDamage and its level-up label 'Monster Damage Cap' say it applies only to monsters.",
+  "filled": "<spellPassive>Passive:</spellPassive> When Kalista and her <keywordMajor>Oathsworn</keywordMajor> both Attack the same target, she deals <magicDamage>10/12/14/16/18% max Health magic damage</magicDamage>. This effect has a 10 second Cooldown per target and a cap of 100/125/150/175/200 to non-champions.<br><br><spellPassive>Active: </spellPassive>Kalista sends a ghost to patrol an area for three laps. Champions spotted are revealed for 4 seconds. This ability has 2 charges (90/80/70/60/50 second refresh).",
+  "record_id": "16.19:en_us:kalista:Characters/Kalista/Spells/KalistaWAbility/KalistaW:keyTooltip"
+ },
+ {
+  "n": 34,
+  "champion": "Syndra",
+  "slot": "Q",
+  "text_field": "keyTooltip",
+  "names": "{{Spell_SyndraQ_Damage_0}}",
+  "reason": "The text shows this token instead of a resolved damage value; the spell's TotalDamage calculation gives 90/125/160/195/230 (+70% AP).",
+  "filled": "Syndra conjures a <keywordMajor>Dark Sphere</keywordMajor>, dealing {{Spell_SyndraQ_Damage_0}}. The <keywordMajor>Dark Sphere</keywordMajor> remains for 6 seconds and can be manipulated by Syndra's other Abilities.<br><br><evolve>40 Splinters of Wrath</evolve>: Syndra can store 2 charges of <keywordMajor>Dark Sphere</keywordMajor>.",
+  "record_id": "16.19:en_us:syndra:Characters/Syndra/Spells/SyndraQAbility/SyndraQ:keyTooltip"
+ },
+ {
+  "n": 35,
+  "champion": "Lux",
+  "slot": "E",
+  "text_field": "keyTooltip",
+  "names": "@TotalDamageTT@",
+  "reason": "The tooltip shows 65/115/165/215/265 (+80% AP) for the detonation, but LuxLightstrikeToggle's Effect2Amount is 60/105/150/195/240 and its mCoefficient is 0.6.",
+  "filled": "Lux creates a light zone that <status>Slows</status> by 25/30/35/40/45% and reveals the area. After 5 seconds or on <recast>Recasting</recast> this Ability, it detonates, dealing <magicDamage>65/115/165/215/265 (+80% AP) magic damage</magicDamage> and <status>Slowing</status> for an additional 1 second.",
+  "record_id": "16.19:en_us:lux:Characters/Lux/Spells/LuxLightStrikeKugelAbility/LuxLightStrikeKugel:keyTooltip"
+ },
+ {
+  "n": 36,
+  "champion": "Quinn",
+  "slot": "P",
+  "text_field": "keyTooltipExtended",
+  "names": "@BonusMonsterDmg@",
+  "reason": "The tooltip shows 75 bonus damage to monsters, but QuinnPassive's recorded data has no monster bonus-damage value or 75; its only damage calculation is 15–120 (+40% bonus AD).",
+  "filled": "{{Spell_QuinnPassive_Tooltip}}<br><br><rules>Cooldown is reduced by Critical Strike Chance.<br>Deals 75 bonus damage to Monsters.</rules>",
+  "record_id": "16.19:en_us:quinn:Characters/Quinn/Spells/QuinnPassiveAbility/QuinnPassive:keyTooltipExtended"
+ },
+ {
+  "n": 37,
+  "champion": "Nunu",
+  "slot": "R",
+  "text_field": "keyTooltip",
+  "names": "@MaximumDamage@",
+  "reason": "The tooltip shows +300% AP on Maximum Damage, but NunuR_Recast's mCoefficient is 2.5 (250% AP).",
+  "filled": "Nunu and Willump channel a powerful blizzard for up to 3 seconds. Enemies inside are <status>Slowed</status> by 50%, increasing to 95% over the duration. Nunu and Willump also gain <shield>65 (+30% bonus health +150% AP)/75 (+40% bonus health +150% AP)/85 (+50% bonus health +150% AP) Shield</shield> for the duration before decaying over 3 seconds afterwards.<br><br>When the blizzard ends, it detonates, dealing up to <magicDamage>625/925/1275 (+300% AP) magic damage</magicDamage> based on channel time. Nunu and Willump can <recast>Recast</recast> to end the blizzard early.",
+  "record_id": "16.19:en_us:nunu:Characters/Nunu/Spells/NunuRAbility/NunuR:keyTooltip"
+ },
+ {
+  "n": 38,
+  "champion": "Nidalee",
+  "slot": "other",
+  "text_field": "keyTooltip",
+  "names": "@spell.AspectOfTheCougar:TakedownDamageAmp@",
+  "reason": "The tooltip shows this placeholder as 1%, but Aspect of the Cougar's level-up list shows Takedown Damage Amp as 100/125/150/175.",
+  "filled": "<keywordMajor>Cougar Form:</keywordMajor> Nidalee's next Attack deals <magicDamage>5 (+75% AD +40% AP) plus 1% per 1% missing Health magic damage</magicDamage>.<br><br>If the enemy was <keywordMajor>Hunted</keywordMajor>, deals 30% increased damage.",
+  "record_id": "16.19:en_us:nidalee:Characters/Nidalee/Spells/Takedown:keyTooltip"
+ },
+ {
+  "n": 39,
+  "champion": "Aphelios",
+  "slot": "P",
+  "text_field": "keyTooltipExtended",
+  "names": "@AttackSpeedMax@",
+  "reason": "The text shows 54%, but the referenced W level-up list has only 5 ranks, so the attack speed maximum should be 5 × 9% = 45%.",
+  "filled": "Aphelios wields 5 Lunari Weapons made by his sister Alune. He has access to two at a time: one main-hand and one off-hand. Each weapon has a unique Attack and Ability [@spell.ApheliosCalibrumQ:Hotkey@]. Attacks and Abilities consume a weapon's ammo. When out of ammo, Aphelios discards the weapon and Alune summons the next one. <br><br>Aphelios unlocks his weapon's Ability [@spell.ApheliosCalibrumQ:Hotkey@] at level 2 and his Ultimate at level 6. Instead of powering up his Abilities, Aphelios' rank-ups grant him permanent stats:<li>{{ Spell_ApheliosP_Buff_AD }} [@spell.ApheliosCalibrumQ:Hotkey@]: <physicalDamage>0 (+4 per stack of buff {eb906dca}) / 24</physicalDamage></li><li>{{ Spell_ApheliosP_Buff_AS }} [@spell.ApheliosW:Hotkey@]: <attackSpeed>0% (+9% per stack of buff {f6907f1b}) / 54%</attackSpeed></li><li>{{ Spell_ApheliosP_Buff_AP }} [@spell.ApheliosE:Hotkey@]: <scaleLethality>0 (+4.5 per stack of buff {f79080ae}) / 27</scaleLethality></li><br><br><passive>Lunari Weapon Order:</passive><li>{{ Spell_ApheliosP_GunShortDesc_@f1@ }}</li><li>{{ Spell_ApheliosP_GunShortDesc_@f2@ }}</li><font color='#424242'><li>{{ Spell_ApheliosP_GunShortDesc_@f3@ }}</li><li>{{ Spell_ApheliosP_GunShortDesc_@f4@ }}</li><li>{{ Spell_ApheliosP_GunShortDesc_@f5@ }}</li></font>",
+  "record_id": "16.19:en_us:aphelios:Characters/Aphelios/Spells/ApheliosPAbility/ApheliosP:keyTooltipExtended"
+ },
+ {
+  "n": 40,
+  "champion": "Aatrox",
+  "slot": "Q",
+  "text_field": "keyTooltipExtendedBelowLine",
+  "names": "@QMinionDamage@",
+  "reason": "The placeholder shows 55% to 70% by level, but its formula has additional +5% breakpoints at levels 6, 11, 16, 21, and 26, reaching 80% at the final breakpoint.",
+  "filled": "<rules>Deals 55% to 70% (by level) damage to minions.<br><status>Knock Up</status> duration against monsters is doubled and it deals 25 bonus damage.</rules>",
+  "record_id": "16.19:en_us:aatrox:Characters/Aatrox/Spells/AatroxQAbility/AatroxQ:keyTooltipExtendedBelowLine"
+ }
+]
