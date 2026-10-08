@@ -1,0 +1,937 @@
+{
+ "seed": 20261006,
+ "judge_model": "anthropic/claude-opus-5.5",
+ "judge_effort": "medium",
+ "cases": [
+  {
+   "id": "25.15-yunara-W",
+   "record_id": "15.14:zh_cn:yunara:Characters/Yunara/Spells/YunaraWAbility/YunaraW:keyTooltipExtended",
+   "set": "real",
+   "group": "translation",
+   "methods": {
+    "strong": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      2,
+      2,
+      2
+     ],
+     "caught": true
+    },
+    "small": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      2,
+      3,
+      3
+     ],
+     "caught": true
+    },
+    "baseline": {
+     "runs": [
+      false
+     ],
+     "flags": [
+      0
+     ],
+     "caught": false
+    }
+   }
+  },
+  {
+   "id": "25.S1.2-malzahar-W-r103",
+   "record_id": "15.1:en_us:malzahar:Characters/Malzahar/Spells/MalzaharWAbility/MalzaharW:keyTooltip",
+   "set": "real",
+   "group": "tooltip_calc",
+   "methods": {
+    "strong": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      1,
+      1,
+      1
+     ],
+     "caught": true
+    },
+    "small": {
+     "runs": [
+      false,
+      true,
+      false
+     ],
+     "flags": [
+      0,
+      1,
+      0
+     ],
+     "caught": false
+    },
+    "baseline": {
+     "runs": [
+      false
+     ],
+     "flags": [
+      0
+     ],
+     "caught": false
+    }
+   }
+  },
+  {
+   "id": "14.15-shyvana-E",
+   "record_id": "14.14:en_us:shyvana:Characters/Shyvana/Spells/ShyvanaFireballAbility/ShyvanaFireball:keyTooltip",
+   "set": "real",
+   "group": "tooltip_calc",
+   "methods": {
+    "strong": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      2,
+      3,
+      2
+     ],
+     "caught": true
+    },
+    "small": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      1,
+      2,
+      1
+     ],
+     "caught": true
+    },
+    "baseline": {
+     "runs": [
+      true
+     ],
+     "flags": [
+      1
+     ],
+     "caught": true
+    }
+   }
+  },
+  {
+   "id": "12.9-ekko-Q",
+   "record_id": "12.8:en_us:ekko:Characters/Ekko/Spells/EkkoQAbility/EkkoQ:keyTooltip",
+   "set": "real",
+   "group": "tooltip_calc",
+   "methods": {
+    "strong": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      1,
+      1,
+      1
+     ],
+     "caught": true
+    },
+    "small": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      1,
+      1,
+      2
+     ],
+     "caught": true
+    },
+    "baseline": {
+     "runs": [
+      true
+     ],
+     "flags": [
+      1
+     ],
+     "caught": true
+    }
+   }
+  },
+  {
+   "id": "11.23-yorick-E",
+   "record_id": "11.22:en_us:yorick:Characters/Yorick/Spells/YorickEAbility/YorickE:keyTooltip",
+   "set": "real",
+   "group": "wording",
+   "methods": {
+    "strong": {
+     "runs": [
+      true,
+      false,
+      false
+     ],
+     "flags": [
+      1,
+      0,
+      0
+     ],
+     "caught": false
+    },
+    "small": {
+     "runs": [
+      false,
+      false,
+      true
+     ],
+     "flags": [
+      0,
+      0,
+      1
+     ],
+     "caught": false
+    },
+    "baseline": {
+     "runs": [
+      false
+     ],
+     "flags": [
+      0
+     ],
+     "caught": false
+    }
+   }
+  },
+  {
+   "id": "11.18-lucian-R",
+   "record_id": "11.17:en_us:lucian:Characters/Lucian/Spells/LucianRAbility/LucianR:keyTooltipExtendedBelowLine",
+   "set": "real",
+   "group": "wording",
+   "methods": {
+    "strong": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      1,
+      1,
+      1
+     ],
+     "caught": true
+    },
+    "small": {
+     "runs": [
+      true,
+      false,
+      true
+     ],
+     "flags": [
+      1,
+      0,
+      1
+     ],
+     "caught": true
+    },
+    "baseline": {
+     "runs": [
+      false
+     ],
+     "flags": [
+      0
+     ],
+     "caught": false
+    }
+   }
+  },
+  {
+   "id": "11.17-lillia-W",
+   "record_id": "11.16:en_us:lillia:Characters/Lillia/Spells/LilliaWAbility/LilliaW:keyTooltipExtendedBelowLine",
+   "set": "real",
+   "group": "wording",
+   "methods": {
+    "strong": {
+     "runs": [
+      false,
+      false,
+      false
+     ],
+     "flags": [
+      0,
+      0,
+      0
+     ],
+     "caught": false
+    },
+    "small": {
+     "runs": [
+      false,
+      false,
+      false
+     ],
+     "flags": [
+      0,
+      0,
+      0
+     ],
+     "caught": false
+    },
+    "baseline": {
+     "runs": [
+      false
+     ],
+     "flags": [
+      0
+     ],
+     "caught": false
+    }
+   }
+  },
+  {
+   "id": "11.8-corki-E",
+   "record_id": "11.7:en_us:corki:Characters/Corki/Spells/GGun:keyTooltip",
+   "set": "real",
+   "group": "tooltip_calc",
+   "methods": {
+    "strong": {
+     "runs": [
+      false,
+      false,
+      false
+     ],
+     "flags": [
+      0,
+      0,
+      1
+     ],
+     "caught": false
+    },
+    "small": {
+     "runs": [
+      false,
+      false,
+      false
+     ],
+     "flags": [
+      1,
+      2,
+      2
+     ],
+     "caught": false
+    },
+    "baseline": {
+     "runs": [
+      false
+     ],
+     "flags": [
+      0
+     ],
+     "caught": false
+    }
+   }
+  },
+  {
+   "id": "11.8-orianna-E",
+   "record_id": "11.7:en_us:orianna:Characters/Orianna/Spells/OrianaRedactCommand:keyTooltip",
+   "set": "real",
+   "group": "tooltip_calc",
+   "methods": {
+    "strong": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      2,
+      2,
+      2
+     ],
+     "caught": true
+    },
+    "small": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      2,
+      2,
+      2
+     ],
+     "caught": true
+    },
+    "baseline": {
+     "runs": [
+      false
+     ],
+     "flags": [
+      0
+     ],
+     "caught": false
+    }
+   }
+  },
+  {
+   "id": "10.23-sona-E",
+   "record_id": "10.22:en_us:sona:Characters/Sona/Spells/SonaE:keyTooltip",
+   "set": "real",
+   "group": "tooltip_calc",
+   "methods": {
+    "strong": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      1,
+      1,
+      1
+     ],
+     "caught": true
+    },
+    "small": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      1,
+      1,
+      1
+     ],
+     "caught": true
+    },
+    "baseline": {
+     "runs": [
+      false
+     ],
+     "flags": [
+      0
+     ],
+     "caught": false
+    }
+   }
+  },
+  {
+   "id": "10.21-nami-W",
+   "record_id": "10.20:en_us:nami:Characters/Nami/Spells/NamiW:keyTooltip",
+   "set": "real",
+   "group": "tooltip_calc",
+   "methods": {
+    "strong": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      2,
+      2,
+      1
+     ],
+     "caught": true
+    },
+    "small": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      1,
+      2,
+      1
+     ],
+     "caught": true
+    },
+    "baseline": {
+     "runs": [
+      false
+     ],
+     "flags": [
+      0
+     ],
+     "caught": false
+    }
+   }
+  },
+  {
+   "id": "10.13-sion-W",
+   "record_id": "10.12:en_us:sion:Characters/Sion/Spells/SionWDetonate:keyTooltip",
+   "set": "real",
+   "group": "tooltip_calc",
+   "methods": {
+    "strong": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      2,
+      2,
+      2
+     ],
+     "caught": true
+    },
+    "small": {
+     "runs": [
+      true,
+      true,
+      true
+     ],
+     "flags": [
+      2,
+      2,
+      2
+     ],
+     "caught": true
+    },
+    "baseline": {
+     "runs": [
+      false
+     ],
+     "flags": [
+      0
+     ],
+     "caught": false
+    }
+   }
+  }
+ ],
+ "judgments": [
+  {
+   "key": "092120dd5f99d168403cf2ad16dbb7c78c7b6ba79055b8e6ed252d3a293c7c8e",
+   "check": "catch",
+   "answer": "In yunara W (keyTooltipExtended, zh_cn), the text says: zh_cn: 在@Calc_Slow@秒里持续衰减的@Slow_Duration@减速 (slow and duration swapped). The data says: Calc_Slow 99%, Slow_Duration 1.5 s.",
+   "flag": {
+    "record_id": "15.14:zh_cn:yunara:Characters/Yunara/Spells/YunaraWAbility/YunaraW:keyTooltipExtended",
+    "text_field": "keyTooltipExtended",
+    "names": "@Calc_Slow@"
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 696,
+   "completion_tokens": 9,
+   "cost": 0.002964,
+   "set": "real"
+  },
+  {
+   "key": "125b9d3fb915047a3b4831c03afcf064b652294b9e968a6f25e037f8be9f6f3a",
+   "check": "catch",
+   "answer": "In nami W (keyTooltip, en_us), the text says: Deals @TotalDamageTooltip@ magic damage (70-230 (+150% AP)). The data says: TotalDamageTooltip coefficient 1.5; spell mCoefficient 0.5.",
+   "flag": {
+    "record_id": "10.20:en_us:nami:Characters/Nami/Spells/NamiW:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@BounceScalingTooltip@"
+   },
+   "catch": false,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 665,
+   "completion_tokens": 9,
+   "cost": 0.00284,
+   "set": "real"
+  },
+  {
+   "key": "2abffc4e26ea8f21519503b038db5bace2024750cd43ac61e1b6cad837e2cc9e",
+   "check": "catch",
+   "answer": "In yunara W (keyTooltipExtended, zh_cn), the text says: zh_cn: 在@Calc_Slow@秒里持续衰减的@Slow_Duration@减速 (slow and duration swapped). The data says: Calc_Slow 99%, Slow_Duration 1.5 s.",
+   "flag": {
+    "record_id": "15.14:zh_cn:yunara:Characters/Yunara/Spells/YunaraWAbility/YunaraW:keyTooltipExtended",
+    "text_field": "keyTooltipExtended",
+    "names": "@Spell.YunaraR:Calc_RW_Damage@"
+   },
+   "catch": false,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 709,
+   "completion_tokens": 9,
+   "cost": 0.003016,
+   "set": "real"
+  },
+  {
+   "key": "2b402fd1799dd873abefc3ccfdc02d106aac9b1fc9647e082b8af11eb688cff6",
+   "check": "catch",
+   "answer": "In corki E (keyTooltip, en_us), the text says: @TotalDamage@ physical damage and @DamagePerSecond@ magic damage (120-320 next to 15-40). The data says: damage split 0.5/0.5: physical 15-40 (+20% bonus AD) per second; TotalDamage (tooltip-only) is the 4 s total of both types.",
+   "flag": {
+    "record_id": "11.7:en_us:corki:Characters/Corki/Spells/GGun:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@DamagePerSecond@"
+   },
+   "catch": false,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 695,
+   "completion_tokens": 419,
+   "cost": 0.01116,
+   "set": "real"
+  },
+  {
+   "key": "433faeb68c5e536e76309be95bf14f98c7c8eae17bd6001ae66ad0e87f3bc600",
+   "check": "catch",
+   "answer": "In sion W (keyTooltip, en_us), the text says: Sion gains @Effect5Amount@ maximum Health ... (@Effect6Amount@ for champion kills ...) (3 / 10). The data says: SionWDetonate Effect5 3, Effect6 10; SionW Effect5 4, Effect6 15, which SionW's own 10.12 keyTooltip fills into the same sentence.",
+   "flag": {
+    "record_id": "10.12:en_us:sion:Characters/Sion/Spells/SionWDetonate:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@Effect5Amount@"
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 712,
+   "completion_tokens": 9,
+   "cost": 0.003028,
+   "set": "real"
+  },
+  {
+   "key": "45ec998a5f79f1a2f483214dbb803ba1050fb4f0a08bb261fa0a822587cbf8fe",
+   "check": "catch",
+   "answer": "In corki E (keyTooltip, en_us), the text says: @TotalDamage@ physical damage and @DamagePerSecond@ magic damage (120-320 next to 15-40). The data says: damage split 0.5/0.5: physical 15-40 (+20% bonus AD) per second; TotalDamage (tooltip-only) is the 4 s total of both types.",
+   "flag": {
+    "record_id": "11.7:en_us:corki:Characters/Corki/Spells/GGun:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@TotalDamagePerSecond@"
+   },
+   "catch": false,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 698,
+   "completion_tokens": 219,
+   "cost": 0.007172,
+   "set": "real"
+  },
+  {
+   "key": "4cc7347192ea52cb4921d0a062efcb12157ad4191ee5bc2497bd608b730f5552",
+   "check": "catch",
+   "answer": "In sona E (keyTooltip, en_us), the text says: grants allied champions @TotalMSTT@ Move Speed (20% (+2% per 100 AP)). The data says: TotalMSTT = Effect1 0.20 (+2% per 100 AP); Effect4 10-14% at ranks 1-5, labeled Spell_ListType_MovementSpeed in the LevelUp list.",
+   "flag": {
+    "record_id": "10.22:en_us:sona:Characters/Sona/Spells/SonaE:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@TotalMSTT@"
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 706,
+   "completion_tokens": 9,
+   "cost": 0.003004,
+   "set": "real"
+  },
+  {
+   "key": "5462b09cd3609bc472311031233b40d8aacdc12fe54b4879527cf1daf5ddd6ce",
+   "check": "catch",
+   "answer": "In yunara W (keyTooltipExtended, zh_cn), the text says: zh_cn: 在@Calc_Slow@秒里持续衰减的@Slow_Duration@减速 (slow and duration swapped). The data says: Calc_Slow 99%, Slow_Duration 1.5 s.",
+   "flag": {
+    "record_id": "15.14:zh_cn:yunara:Characters/Yunara/Spells/YunaraWAbility/YunaraW:keyTooltipExtended",
+    "text_field": "keyTooltipExtended",
+    "names": "@Calc_Slow@ @Slow_Duration@"
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 706,
+   "completion_tokens": 9,
+   "cost": 0.003004,
+   "set": "real"
+  },
+  {
+   "key": "54ff83720c3839430bb326029fd4fac32634a8e6931c1fe743b6f1cce3af1f7b",
+   "check": "catch",
+   "answer": "In ekko Q (keyTooltip, en_us), the text says: throws a device dealing @InitialDamage@ magic damage (60-120 (+40% AP)). The data says: InitialDamage (tooltip-only) 0.4 AP; mSpell mCoefficient 0.3.",
+   "flag": {
+    "record_id": "12.8:en_us:ekko:Characters/Ekko/Spells/EkkoQAbility/EkkoQ:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@RecallDamage@"
+   },
+   "catch": false,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 681,
+   "completion_tokens": 9,
+   "cost": 0.002904,
+   "set": "real"
+  },
+  {
+   "key": "6449ad59878abe73cb63e2b471865ae195da0534ab951ce814f3886dc02ef78a",
+   "check": "catch",
+   "answer": "In shyvana E (keyTooltip, en_us), the text says: dealing @DragonDamageTotalCalc@ magic damage over 4 seconds (270-540). The data says: DragonDamageTotalCalc (tooltip-only) = DragonDamagePerSecondCalc x GroundMarkDuration 4.5; the same sentence says 4 seconds.",
+   "flag": {
+    "record_id": "14.14:en_us:shyvana:Characters/Shyvana/Spells/ShyvanaFireballAbility/ShyvanaFireball:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "\"4 seconds\""
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 717,
+   "completion_tokens": 9,
+   "cost": 0.003048,
+   "set": "real"
+  },
+  {
+   "key": "74b63b5d4fde34d1a1060ce89a9e8d74e1698913b5535ef417f1f29eca32f912",
+   "check": "catch",
+   "answer": "In sion W (keyTooltip, en_us), the text says: Sion gains @Effect5Amount@ maximum Health ... (@Effect6Amount@ for champion kills ...) (3 / 10). The data says: SionWDetonate Effect5 3, Effect6 10; SionW Effect5 4, Effect6 15, which SionW's own 10.12 keyTooltip fills into the same sentence.",
+   "flag": {
+    "record_id": "10.12:en_us:sion:Characters/Sion/Spells/SionWDetonate:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@Effect6Amount@"
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 712,
+   "completion_tokens": 109,
+   "cost": 0.005028,
+   "set": "real"
+  },
+  {
+   "key": "7df31f14904c250d9bb34a271a331c85d1fed75f6703d845b34d27b4f57e50c3",
+   "check": "catch",
+   "answer": "In lucian R (keyTooltipExtendedBelowLine, en_us), the text says: Deals @PercentDamageAmpToMinions@% damage to non-champions.. The data says: PercentDamageAmpToMinions = 200; no target filter field.",
+   "flag": {
+    "record_id": "11.17:en_us:lucian:Characters/Lucian/Spells/LucianRAbility/LucianR:keyTooltipExtendedBelowLine",
+    "text_field": "keyTooltipExtendedBelowLine",
+    "names": "\"non-champions\""
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 684,
+   "completion_tokens": 107,
+   "cost": 0.004876,
+   "set": "real"
+  },
+  {
+   "key": "7fac93ff6da5db0ca4973d663d8c24caa1ecdbcdce4f7b9a9621ee763682bc7a",
+   "check": "catch",
+   "answer": "In malzahar W (keyTooltip, en_us), the text says: Voidlings ... deal an additional @VoidlingBonusDamageTooltip@ magic damage each hit (5-64.5 by level). The data says: calc leaves out VoidlingBaseDamage 12-20 by rank; the LevelUp list labels the same values (Effect2Amount) Voidling Bonus Damage.",
+   "flag": {
+    "record_id": "15.1:en_us:malzahar:Characters/Malzahar/Spells/MalzaharWAbility/MalzaharW:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@VoidlingBonusDamageTooltip@"
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 729,
+   "completion_tokens": 9,
+   "cost": 0.003096,
+   "set": "real"
+  },
+  {
+   "key": "8222c13f00d53da4c9ca32944c3c8c59319cf0f063fc8b13942593bcef014694",
+   "check": "catch",
+   "answer": "In nami W (keyTooltip, en_us), the text says: Deals @TotalDamageTooltip@ magic damage (70-230 (+150% AP)). The data says: TotalDamageTooltip coefficient 1.5; spell mCoefficient 0.5.",
+   "flag": {
+    "record_id": "10.20:en_us:nami:Characters/Nami/Spells/NamiW:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@TotalDamageTooltip@"
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 665,
+   "completion_tokens": 9,
+   "cost": 0.00284,
+   "set": "real"
+  },
+  {
+   "key": "8e15d4d0d85f9625947a5bf7bc3fca93a257572f50b6a3c295393b8e5d811201",
+   "check": "catch",
+   "answer": "In shyvana E (keyTooltip, en_us), the text says: dealing @DragonDamageTotalCalc@ magic damage over 4 seconds (270-540). The data says: DragonDamageTotalCalc (tooltip-only) = DragonDamagePerSecondCalc x GroundMarkDuration 4.5; the same sentence says 4 seconds.",
+   "flag": {
+    "record_id": "14.14:en_us:shyvana:Characters/Shyvana/Spells/ShyvanaFireballAbility/ShyvanaFireball:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "\"over 4 seconds\""
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 719,
+   "completion_tokens": 106,
+   "cost": 0.004996,
+   "set": "real"
+  },
+  {
+   "key": "8e81d9d651201561da8ffb4040885f0be8e6ea093166e709a3e648c19fa21b5b",
+   "check": "catch",
+   "answer": "In lucian R (keyTooltipExtendedBelowLine, en_us), the text says: Deals @PercentDamageAmpToMinions@% damage to non-champions.. The data says: PercentDamageAmpToMinions = 200; no target filter field.",
+   "flag": {
+    "record_id": "11.17:en_us:lucian:Characters/Lucian/Spells/LucianRAbility/LucianR:keyTooltipExtendedBelowLine",
+    "text_field": "keyTooltipExtendedBelowLine",
+    "names": "@PercentDamageAmpToMinions@"
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 692,
+   "completion_tokens": 9,
+   "cost": 0.002948,
+   "set": "real"
+  },
+  {
+   "key": "974be33c71f2febe43ed1b2ff615d73c64205015fb674cebae251d7185abae53",
+   "check": "catch",
+   "answer": "In ekko Q (keyTooltip, en_us), the text says: throws a device dealing @InitialDamage@ magic damage (60-120 (+40% AP)). The data says: InitialDamage (tooltip-only) 0.4 AP; mSpell mCoefficient 0.3.",
+   "flag": {
+    "record_id": "12.8:en_us:ekko:Characters/Ekko/Spells/EkkoQAbility/EkkoQ:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@InitialDamage@"
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 681,
+   "completion_tokens": 9,
+   "cost": 0.002904,
+   "set": "real"
+  },
+  {
+   "key": "9779a4ce833af1fcf81e56e5ab6679bd399659d1cf2a23e183b932251cba03bf",
+   "check": "catch",
+   "answer": "In shyvana E (keyTooltip, en_us), the text says: dealing @DragonDamageTotalCalc@ magic damage over 4 seconds (270-540). The data says: DragonDamageTotalCalc (tooltip-only) = DragonDamagePerSecondCalc x GroundMarkDuration 4.5; the same sentence says 4 seconds.",
+   "flag": {
+    "record_id": "14.14:en_us:shyvana:Characters/Shyvana/Spells/ShyvanaFireballAbility/ShyvanaFireball:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@DamageCalc@"
+   },
+   "catch": false,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 717,
+   "completion_tokens": 9,
+   "cost": 0.003048,
+   "set": "real"
+  },
+  {
+   "key": "9e23f8ff6c1a764ae622723d15050ff02b689dba5a2d4a94c6e4ab0d553d6e7e",
+   "check": "catch",
+   "answer": "In yunara W (keyTooltipExtended, zh_cn), the text says: zh_cn: 在@Calc_Slow@秒里持续衰减的@Slow_Duration@减速 (slow and duration swapped). The data says: Calc_Slow 99%, Slow_Duration 1.5 s.",
+   "flag": {
+    "record_id": "15.14:zh_cn:yunara:Characters/Yunara/Spells/YunaraWAbility/YunaraW:keyTooltipExtended",
+    "text_field": "keyTooltipExtended",
+    "names": "@Slow_Duration@"
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 696,
+   "completion_tokens": 9,
+   "cost": 0.002964,
+   "set": "real"
+  },
+  {
+   "key": "b4955f8ed5c0a054b5f5f2888725e4e53a336f8a5510a28b49cf25f1edd6d993",
+   "check": "catch",
+   "answer": "In corki E (keyTooltip, en_us), the text says: @TotalDamage@ physical damage and @DamagePerSecond@ magic damage (120-320 next to 15-40). The data says: damage split 0.5/0.5: physical 15-40 (+20% bonus AD) per second; TotalDamage (tooltip-only) is the 4 s total of both types.",
+   "flag": {
+    "record_id": "11.7:en_us:corki:Characters/Corki/Spells/GGun:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "\"Total Damage Per Second\""
+   },
+   "catch": false,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 697,
+   "completion_tokens": 310,
+   "cost": 0.008988,
+   "set": "real"
+  },
+  {
+   "key": "c301724be4c25dff087aa9a36e057ef16ebcb75d6bb624bc99e075fafc882b11",
+   "check": "catch",
+   "answer": "In shyvana E (keyTooltip, en_us), the text says: dealing @DragonDamageTotalCalc@ magic damage over 4 seconds (270-540). The data says: DragonDamageTotalCalc (tooltip-only) = DragonDamagePerSecondCalc x GroundMarkDuration 4.5; the same sentence says 4 seconds.",
+   "flag": {
+    "record_id": "14.14:en_us:shyvana:Characters/Shyvana/Spells/ShyvanaFireballAbility/ShyvanaFireball:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@DragonExplosionCalc@"
+   },
+   "catch": false,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 721,
+   "completion_tokens": 9,
+   "cost": 0.003064,
+   "set": "real"
+  },
+  {
+   "key": "cb43d19519574f753489db4fd3c5e687c910f79f279d15cafe904c03c1630c9f",
+   "check": "catch",
+   "answer": "In yorick E (keyTooltip, en_us), the text says: deals @Effect7Amount@% current Health magic damage (no minimum shown). The data says: mSpell mCoefficient 0.7 (the spell AP ratio); Effect1 70-210, labeled Spell_ListType_MinimumDamage in the LevelUp list.",
+   "flag": {
+    "record_id": "11.22:en_us:yorick:Characters/Yorick/Spells/YorickEAbility/YorickE:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@Effect7Amount@"
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 696,
+   "completion_tokens": 385,
+   "cost": 0.010484,
+   "set": "real"
+  },
+  {
+   "key": "d7454f7715d0e804d4b07d6052b8f6f43a761a55c3eb42a25d54827cac062ae4",
+   "check": "catch",
+   "answer": "In orianna E (keyTooltip, en_us), the text says: @TotalShieldTooltip@ Shield ... @TotalDamageTooltip@ magic damage (shield 60-180, damage 60-220). The data says: TotalShieldTooltip uses Effect3, TotalDamageTooltip Effect1; LevelUp list labels Effect1 ShieldAmount and Effect3 Damage.",
+   "flag": {
+    "record_id": "11.7:en_us:orianna:Characters/Orianna/Spells/OrianaRedactCommand:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@TotalShieldTooltip@"
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 721,
+   "completion_tokens": 9,
+   "cost": 0.003064,
+   "set": "real"
+  },
+  {
+   "key": "dae0034b413240631cf35b323841896abfb2de740a87d4c848982b5fe32ce19a",
+   "check": "catch",
+   "answer": "In orianna E (keyTooltip, en_us), the text says: @TotalShieldTooltip@ Shield ... @TotalDamageTooltip@ magic damage (shield 60-180, damage 60-220). The data says: TotalShieldTooltip uses Effect3, TotalDamageTooltip Effect1; LevelUp list labels Effect1 ShieldAmount and Effect3 Damage.",
+   "flag": {
+    "record_id": "11.7:en_us:orianna:Characters/Orianna/Spells/OrianaRedactCommand:keyTooltip",
+    "text_field": "keyTooltip",
+    "names": "@TotalDamageTooltip@"
+   },
+   "catch": true,
+   "provider": "Claude Platform on AWS",
+   "prompt_tokens": 721,
+   "completion_tokens": 95,
+   "cost": 0.004784,
+   "set": "real"
+  }
+ ],
+ "failed_calls": {
+  "real": {
+   "strong": {
+    "records_by_run": [
+     22,
+     22,
+     22
+    ],
+    "failed_by_run": [
+     0,
+     0,
+     0
+    ]
+   },
+   "small": {
+    "records_by_run": [
+     22,
+     22,
+     22
+    ],
+    "failed_by_run": [
+     0,
+     0,
+     0
+    ]
+   }
+  }
+ }
+}
